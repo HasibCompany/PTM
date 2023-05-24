@@ -1,0 +1,224 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Version>6.11.0.0</Version>
+    <Company>Hasib</Company>
+    <Product>Hasib.PTM.Web</Product>
+    <Authors>Hasib</Authors>
+    <Copyright>Copyright 2019 (c) Hasib Corporation. All rights reserved.</Copyright>
+    <PackageTags>Hasib.PTM.Web</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="dist\**" />
+    <Compile Remove="src\app\auth\**" />
+    <Compile Remove="src\app\core\**" />
+    <Compile Remove="src\app\features\atd\**" />
+    <Compile Remove="src\app\features\cms\**" />
+    <Compile Remove="src\app\features\ctm\**" />
+    <Compile Remove="src\app\features\evl\**" />
+    <Compile Remove="src\app\features\fam\**" />
+    <Compile Remove="src\app\features\far\**" />
+    <Compile Remove="src\app\features\fap\**" />
+    <Compile Remove="src\app\features\fbd\**" />
+    <Compile Remove="src\app\features\fbp\**" />
+    <Compile Remove="src\app\features\fbr\**" />
+    <Compile Remove="src\app\features\ptm\assetPeriods\**" />
+    <Compile Remove="src\app\features\fpc\**" />
+    <Compile Remove="src\app\features\hfb\**" />
+    <Compile Remove="src\app\features\hrm\**" />
+    <Compile Remove="src\app\features\prl\**" />
+    <Compile Remove="src\app\features\rms\**" />
+    <Compile Remove="src\app\features\sal\**" />
+    <Compile Remove="src\app\features\ssm\**" />
+    <Compile Remove="src\app\features\stm\**" />
+    <Compile Remove="src\app\features\tms\**" />
+    <Compile Remove="src\app\features\vms\**" />
+    <Compile Remove="src\app\features\wim\**" />
+    <Compile Remove="src\app\theme\**" />
+    <Compile Remove="src\app\ui\**" />
+    <Compile Remove="src\app\ui-custom\**" />
+    <Compile Remove="src\app\commonBusiness\**" />
+    <Compile Remove="src\app\start\**" />
+    <Compile Remove="src\app\shared\**" />
+    <Compile Remove="src\assets\**" />
+    <Compile Remove="src\app\app.module.ts" />
+    <Compile Remove="src\app\app.settings.ts" />
+    <Compile Remove="src\app\app-routing.module.ts" />
+    <Compile Remove="src\environments\**" />
+    <Compile Remove="src\favicon.ico" />
+    <Compile Remove="src\index.html" />
+    <Compile Remove="src\unsupported-browser.html" />
+    <Compile Remove="src\main.ts" />
+    <Compile Remove="src\polyfills.ts" />
+    <Compile Remove="src\test.ts" />
+    <Compile Remove="src\tsconfig.app.json" />
+    <Compile Remove="src\tsconfig.spec.json" />
+    <Compile Remove="src\typings.d.ts" />
+    <Compile Remove="wwwroot\**" />
+
+    <Content Remove="dist\**" />
+
+    <Content Remove="src\app\commonBusiness\**" />
+
+    <Content Remove="src\app\features\atd\**" />
+
+    <Content Remove="src\app\features\cms\**" />
+
+    <Content Remove="src\app\features\ctm\**" />
+
+    <Content Remove="src\app\features\evl\**" />
+
+    <Content Remove="src\app\features\fam\**" />
+
+    <Content Remove="src\app\features\far\**" />
+
+    <Content Remove="src\app\features\fap\**" />
+
+    <Content Remove="src\app\features\fbd\**" />
+
+    <Content Remove="src\app\features\fbp\**" />
+
+    <Content Remove="src\app\features\fbr\**" />
+
+    <Content Remove="src\app\features\fpc\**" />
+
+    <Content Remove="src\app\features\hfb\**" />
+
+    <Content Remove="src\app\features\hrm\**" />
+
+    <Content Remove="src\app\features\prl\**" />
+
+    <Content Remove="src\app\features\rms\**" />
+
+    <Content Remove="src\app\features\sal\**" />
+
+    <Content Remove="src\app\features\ssm\**" />
+
+    <Content Remove="src\app\features\stm\**" />
+
+    <Content Remove="src\app\features\tms\**" />
+
+    <Content Remove="src\app\features\vms\**" />
+
+    <Content Remove="src\app\features\wim\**" />
+
+    <Content Remove="src\app\theme\**" />
+
+    <Content Remove="src\app\ui\**" />
+
+    <Content Remove="src\assets\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <EmbeddedResource Remove="src\app\auth\**" />
+    <EmbeddedResource Remove="src\app\core\**" />
+    <EmbeddedResource Remove="src\app\features\atd\**" />
+    <EmbeddedResource Remove="src\app\features\cms\**" />
+    <EmbeddedResource Remove="src\app\features\ctm\**" />
+    <EmbeddedResource Remove="src\app\features\evl\**" />
+    <EmbeddedResource Remove="src\app\features\fam\**" />
+    <EmbeddedResource Remove="src\app\features\far\**" />
+    <EmbeddedResource Remove="src\app\features\fap\**" />
+    <EmbeddedResource Remove="src\app\features\fbd\**" />
+    <EmbeddedResource Remove="src\app\features\fbp\**" />
+    <EmbeddedResource Remove="src\app\features\fbr\**" />
+    <EmbeddedResource Remove="src\app\features\fpc\**" />
+    <EmbeddedResource Remove="src\app\features\hfb\**" />
+    <EmbeddedResource Remove="src\app\features\hrm\**" />
+    <EmbeddedResource Remove="src\app\features\prl\**" />
+    <EmbeddedResource Remove="src\app\features\rms\**" />
+    <EmbeddedResource Remove="src\app\features\sal\**" />
+    <EmbeddedResource Remove="src\app\features\ssm\**" />
+    <EmbeddedResource Remove="src\app\features\stm\**" />
+    <EmbeddedResource Remove="src\app\features\tms\**" />
+    <EmbeddedResource Remove="src\app\features\vms\**" />
+    <EmbeddedResource Remove="src\app\features\wim\**" />
+    <EmbeddedResource Remove="src\app\theme\**" />
+    <EmbeddedResource Remove="src\app\ui\**" />
+    <EmbeddedResource Remove="src\app\ui-custom\**" />
+    <EmbeddedResource Remove="src\app\commonBusiness\**" />
+    <EmbeddedResource Remove="src\app\start\**" />
+    <EmbeddedResource Remove="src\app\shared\**" />
+    <EmbeddedResource Remove="src\assets\**" />
+    <EmbeddedResource Remove="src\app\app.module.ts" />
+    <EmbeddedResource Remove="src\app\app.settings.ts" />
+    <EmbeddedResource Remove="src\app\app-routing.module.ts" />
+    <EmbeddedResource Remove="src\environments\**" />
+    <EmbeddedResource Remove="src\favicon.ico" />
+    <EmbeddedResource Remove="src\index.html" />
+    <EmbeddedResource Remove="src\unsupported-browser.html" />
+    <EmbeddedResource Remove="src\main.ts" />
+    <EmbeddedResource Remove="src\polyfills.ts" />
+    <EmbeddedResource Remove="src\test.ts" />
+    <EmbeddedResource Remove="src\tsconfig.app.json" />
+    <EmbeddedResource Remove="src\tsconfig.spec.json" />
+    <EmbeddedResource Remove="src\typings.d.ts" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="dist\**" />
+    <None Remove="e2e\**" />
+    <None Remove="src\app\auth\**" />
+    <None Remove="src\app\core\**" />
+    <None Remove="src\app\features\atd\**" />
+    <None Remove="src\app\features\cms\**" />
+    <None Remove="src\app\features\ctm\**" />
+    <None Remove="src\app\features\evl\**" />
+    <None Remove="src\app\features\fam\**" />
+    <None Remove="src\app\features\far\**" />
+    <None Remove="src\app\features\fap\**" />
+    <None Remove="src\app\features\fbd\**" />
+    <None Remove="src\app\features\fbp\**" />
+    <None Remove="src\app\features\fbr\**" />
+    <None Remove="src\app\features\fgl\assetPeriods\**" />
+    <None Remove="src\app\features\fpc\**" />
+    <None Remove="src\app\features\hfb\**" />
+    <None Remove="src\app\features\hrm\**" />
+    <None Remove="src\app\features\prl\**" />
+    <None Remove="src\app\features\rms\**" />
+    <None Remove="src\app\features\sal\**" />
+    <None Remove="src\app\features\ssm\**" />
+    <None Remove="src\app\features\stm\**" />
+    <None Remove="src\app\features\tms\**" />
+    <None Remove="src\app\features\vms\**" />
+    <None Remove="src\app\features\wim\**" />
+    <None Remove="src\app\theme\**" />
+    <None Remove="src\app\ui\**" />
+    <None Remove="src\app\ui-custom\**" />
+    <None Remove="src\app\commonBusiness\**" />
+    <None Remove="src\app\start\**" />
+    <None Remove="src\app\shared\**" />
+    <None Remove="src\assets\**" />
+    <None Remove="src\app\app.module.ts" />
+    <None Remove="src\app\app.settings.ts" />
+    <None Remove="src\app\app-routing.module.ts" />
+    <None Remove="src\environments\**" />
+    <None Remove="src\favicon.ico" />
+    <None Remove="src\index.html" />
+    <None Remove="src\unsupported-browser.html" />
+    <None Remove="src\main.ts" />
+    <None Remove="src\polyfills.ts" />
+    <None Remove="src\test.ts" />
+    <None Remove="src\tsconfig.app.json" />
+    <None Remove="src\tsconfig.spec.json" />
+    <None Remove="src\typings.d.ts" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="src\tsconfig.app.json" />
+    <Content Remove="src\tsconfig.spec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

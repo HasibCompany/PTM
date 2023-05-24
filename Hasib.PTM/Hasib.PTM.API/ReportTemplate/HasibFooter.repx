@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="22.2.4.0" Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v22.2, Version=22.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="HasibFooter" Margins="25, 25, 0, 18.75" PaperKind="A4" PageWidth="827" PageHeight="1169" Version="22.2" BorderColor="Transparent">
+  <Extensions>
+    <Item1 Ref="1" Key="VSReportExtInfo" Value=".repx" />
+  </Extensions>
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="TopMargin" HeightF="0" LockedInUserDesigner="true" BackColor="Transparent">
+      <StylePriority Ref="3" UseBackColor="false" />
+    </Item1>
+    <Item2 Ref="4" ControlType="DetailBand" Name="Detail" KeepTogetherWithDetailReports="true" HeightF="80" KeepTogether="true" LockedInUserDesigner="true" BackColor="Transparent">
+      <Controls>
+        <Item1 Ref="5" ControlType="XRLine" Name="line1" LineWidth="2" AnchorHorizontal="Both" LockedInUserDesigner="true" SizeF="777,10.0000067" LocationFloat="0,0" ForeColor="255,64,64,64" BackColor="Transparent" BorderWidth="2">
+          <StylePriority Ref="6" UseForeColor="false" UseBackColor="false" UseBorderWidth="false" />
+        </Item1>
+        <Item2 Ref="7" ControlType="XRPanel" Name="panel3" LockedInUserDesigner="true" SizeF="777,65" LocationFloat="0,10.0000067" BackColor="Transparent">
+          <Controls>
+            <Item1 Ref="8" ControlType="XRLabel" Name="Footer_PhoneLbl" Text="Phone :" LockedInUserDesigner="true" TextAlignment="TopLeft" SizeF="63.2916145,15" LocationFloat="0,22.9999866" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100" Tag_type="System.String" Tag="Footer_PhoneLbl">
+              <StylePriority Ref="9" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+            </Item1>
+            <Item2 Ref="10" ControlType="XRLabel" Name="Footer_Phone" RightToLeft="No" Text="phone" LockedInUserDesigner="true" TextAlignment="TopLeft" SizeF="123.958405,15" LocationFloat="63.2916145,23" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100">
+              <StylePriority Ref="11" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+            </Item2>
+            <Item3 Ref="12" ControlType="XRLabel" Name="Footer_Website" Text="website" LockedInUserDesigner="true" TextAlignment="TopLeft" SizeF="323.958374,15" LocationFloat="63.29164,0" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100">
+              <StylePriority Ref="13" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+            </Item3>
+            <Item4 Ref="14" ControlType="XRLabel" Name="Footer_WebsiteLbl" Text="Website :" LockedInUserDesigner="true" TextAlignment="TopLeft" SizeF="63.2916451,15" LocationFloat="0,0" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100" Tag_type="System.String" Tag="Footer_WebsiteLbl">
+              <StylePriority Ref="15" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+            </Item4>
+            <Item5 Ref="16" ControlType="XRLabel" Name="Page" Text="Page" LockedInUserDesigner="true" SizeF="40.62494,15" LocationFloat="627.416748,0" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100" Tag_type="System.String" Tag="WIM_R_Pages">
+              <StylePriority Ref="17" UseFont="false" UseBackColor="false" />
+            </Item5>
+            <Item6 Ref="18" ControlType="XRPageInfo" Name="pageInfo1" LockedInUserDesigner="true" TextAlignment="TopLeft" SizeF="108.958374,15.000001" LocationFloat="668.0417,0" Font="Times New Roman, 8pt" BackColor="Transparent" Padding="2,2,0,0,100">
+              <StylePriority Ref="19" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+            </Item6>
+          </Controls>
+          <StylePriority Ref="20" UseBackColor="false" />
+        </Item2>
+      </Controls>
+      <StylePriority Ref="21" UseForeColor="false" UseBackColor="false" UseBorderColor="false" UseBorderWidth="false" />
+    </Item2>
+    <Item3 Ref="22" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="18.75" LockedInUserDesigner="true" BackColor="Transparent">
+      <StylePriority Ref="23" UseBackColor="false" />
+    </Item3>
+  </Bands>
+</XtraReportsLayoutSerializer>

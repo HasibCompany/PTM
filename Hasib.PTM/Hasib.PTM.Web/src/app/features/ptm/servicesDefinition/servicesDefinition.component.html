@@ -1,0 +1,87 @@
+<div class="m-content h-dataPage">
+  <div class="row">
+    <div class="col-lg-5">
+      <h-tree #treeRef
+              [data]="serviceData"
+              idColumn="serviceID"
+              labelColumn="descriptionAR"
+              labelEnglishColumn="descriptionEN"
+              parentIdColumn="parentID"
+              codeSortOrder="levelSerial"
+              selectionMode="single"
+              [isDescOrder]="false"
+              [(selection)]="selectedNode"
+              (onNodeSelect)="onSelectNode($event)"
+              (onRefresh)="refreshTree()"
+              name="services"></h-tree>
+    </div>
+    <div class="col-lg-7">
+      <h-form #formEl>
+        <div class="row">
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_LEVEL' | translate}}
+            </h-label>
+            <h-spinner [(value)]="serviceNode.treeLevel" [disabled]="true"></h-spinner>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_SERIAL_LEVEL_SERVICE' | translate}}
+            </h-label>
+            <h-spinner [(value)]="serviceNode.levelSerial" [disabled]="true"></h-spinner>
+          </div>
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_SERVICE_NUMBER' | translate }}
+            </h-label>
+            <h-textBox [(value)]="serviceNode.serviceNumber" [disabled]="true"></h-textBox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_SERVICE_DESCRIPTION_ARABIC' | translate}}
+            </h-label>
+            <h-textBox [(value)]="serviceNode.descriptionAR" [required]="true" dataType="arabicText" [disabled]="pageMode==0"></h-textBox>
+          </div>
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_SERVICE_DESCRIPTION_ENGLISH' | translate}}
+            </h-label>
+            <h-textBox [(value)]="serviceNode.descriptionEN" [required]="true" dataType="englishText" [disabled]="pageMode==0"></h-textBox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_CATEGORY_TO_WHICH_IT_BELONGS' | translate }}
+            </h-label>
+            <h-textBox [(value)]="this.t.isAr ? serviceNode.parentDescriptionAR : serviceNode.parentDescriptionEN" [disabled]="true"></h-textBox>
+          </div>
+          <div class="col-lg-5">
+            <h-label>
+              {{'PTM_IT_HAS_SUBCATEGORIES' | translate }}
+            </h-label>
+            <h-radioButtonList [data]="[{id: 1, nameEn:'Yes', nameAr:'نعم'},
+                                      {id: 0, nameEn:'No', nameAr:'لا'}]"
+                               repeatDirection="h"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               [(selectedValue)]="serviceNode.hasChild"
+                               [disabled]="pageMode==0"
+                               [required]="true">
+            </h-radioButtonList>
+          </div>
+        </div>
+      </h-form>
+    </div>
+  </div>
+
+
+</div>

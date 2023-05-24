@@ -1,0 +1,92 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "module": "es2020",
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "allowUnreachableCode": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    //"emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "target": "es2020",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "globalize": [
+        "../node_modules/globalize/dist/globalize"
+      ],
+      "globalize/*": [
+        "../node_modules/globalize/dist/globalize/*"
+      ],
+      "cldr": [
+        "../node_modules/cldrjs/dist/cldr"
+      ],
+      "cldr/*": [
+        "../node_modules/cldrjs/dist/cldr/*"
+      ],
+      "@hasib/*": [
+        "app/*"
+      ],
+      "@hasib/core/auth": [
+        "app/core/auth/index"
+      ],
+      "@hasib/core/base": [
+        "app/core/base/index"
+      ],
+      "@hasib/core/services": [
+        "app/core/services/index"
+      ],
+      "@hasib/core/translate": [
+        "app/core/translate/index"
+      ],
+      "@hasib/core/utils": [
+        "app/core/utils/index"
+      ],
+      "@hasib/shared": [
+        "app/shared/index"
+      ],
+      "@hasib/settings": [
+        "app/app.settings"
+      ],
+      "@hasib/theme": [
+        "app/theme/index"
+      ],
+      "@hasib/ui": [
+        "app/ui/index"
+      ],
+      "@hasib/ui-custom": [
+        "app/ui-custom/index"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
+    },
+    "resolveJsonModule": true
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhiteSpace": false
+  },
+  "exclude": [
+    "node_modules",
+    "/node_modules",
+    "node_modules/*",
+    "src/assets/devExpress/devextreme/ts",
+    "dist"
+  ]
+}

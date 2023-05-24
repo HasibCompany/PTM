@@ -1,0 +1,34 @@
+<div class="m-content h-dataPage">
+
+  <div class="row">
+    <div class="col-lg-4 col-12 mx-auto">
+      <h-label>
+        {{'PTM_MAIN_CODE' | translate}}
+      </h-label>
+
+      <h-dropDownList [data]="[ { id: 1, nameEn: 'Elements of Quotation Evaluation', nameAr: 'عناصر تقييم عروض الاسعار' },
+                                { id: 2, nameEn: 'Reasons for selection/rejection/postponement/cancellation',    nameAr: 'أسباب الاختيار/الرفض/التأجيل/الالغا' },
+                                { id: 3, nameEn: 'Types of Purchase',    nameAr: 'أسباب الاحالة'  },
+                                { id: 4, nameEn: 'Copy the Iimages',   nameAr: 'أنسخ الصور' },
+                                { id: 5, nameEn: 'Terms of Purchase (Certifications, Delivery, Submission of Offers, etc.) ',   nameAr: 'شروط الشراء (التعاميد، التسليم، تقديم العروض ...الخ)' },
+                                { id: 6, nameEn: 'Attachments of the Required Offers',   nameAr: 'مرفقات العروض المطلوبة' },
+                                { id: 7, nameEn: 'Shipping and Dlearance Methods',   nameAr: 'طرق الشحن والتخليص' },
+                                { id:8, nameEn: 'Follow-up Types',   nameAr: 'أنواع المتابعة' },
+                                { id: 9, nameEn: 'Types of Requests for Proposals',   nameAr: 'أنواع طلبات العروض' },
+                                { id: 10, nameEn: 'Types of Quotations',   nameAr: 'أنواع عروض الاسعار' },
+                                { id: 11, nameEn: 'Types of Purchase orders',   nameAr: 'أنواع اوامر الشراء'}]"
+                      dataTextFieldAr="nameAr"
+                      dataTextFieldEn="nameEn"
+                      dataValueField="id"
+                      [showDefaultItem]="true"
+                      [required]="true"></h-dropDownList>
+    </div>
+  </div>
+  <h-dataTable #purchaserDataDT [(data)]="purchaserData"
+               [columns]="columns"
+               [editable]="true"
+               editMode="row"
+               [showAdd]="true"
+               name="tblNumberSettings"></h-dataTable>
+
+</div>

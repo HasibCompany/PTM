@@ -1,0 +1,24 @@
+<div class="m-content h-dataPage">
+
+  <h-dataTable #purchaserDataDT [(data)]="purchaserData"
+               [columns]="columns"
+               [editable]="true"
+               editMode="row"
+               [showAdd]="true"
+               [addData]="eventData"
+               [editData]="eventData"
+               [addDisable]="disableRow"
+               [editDisable]="disableRow"
+               (onSaveAddRow)="onSaveAddRow($event)"
+               (onSaveEditRow)="onSaveEditRow($event)"
+               (ondDeleteRow)="onDeleteRow($event)"
+               (onAddCell)="onAddEditCell($event,'Add')"
+               (onEditCell)="onAddEditCell($event,'Edit')"
+               (onAddClick)="onAddEditClick($event,'Add')"
+               (onEditClick)="onAddEditClick($event,'Edit')"
+               showCompositeHeader="true"
+               [showRowNumber]="true"
+               name="tblNumberSettings"></h-dataTable>
+  <h-reportDialog #report [(hidden)]="hideReport" title="{{'PTM_PURCHASING_REPRESENTATIVES_DEFINTION' | translate}}" [reportUrl]="reportUrl"></h-reportDialog>
+
+</div>

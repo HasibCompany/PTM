@@ -1,0 +1,35 @@
+export const LANG_EN_NAME = 'en';
+export const LANG_EN_TRANS =
+{
+  "PTM_MAIN_CODE": "Code Type",
+  "PTM_CODE": "Code",
+  "PTM_IS_ACTIVE": "Is Active",
+  "PTM_UNIFIED_CODE": "Unified Code",
+  "PTM_DEFAULT": "Default",
+  "PTM_ORDER": "Order",
+  "PTM_USED_CODES_CANNOT_DELETED": "Used codes cannot be deleted",
+  "PTM_RESERVED_CODES_CANNOT_BE_UPDATED_DELETED": "Reserved codes cannot be updated or deleted",
+  "PTM_EMPLOYEE_BASIC_INFO": "Employee basic information",
+  "PTM_PURCHASING_REPRESENTATIVE": "Purchasing Representative (Employee)",
+  "PTM_PURCHASING_REPRESENTATIVE_USED_CANNONT_DELETED": "Purchasing Representative (Employee) is used and cannot be deleted",
+  "PTM_DUPLICATED_ARABIC_DESC": "Duplicated Arabic description",
+  "PTM_DUPLICATED_ENGLISH_DESC": "Duplicated English description",
+  "PTM_LEVEL": "Level",
+  "PTM_SERIAL_LEVEL_SERVICE": "Serial Level Service",
+  "PTM_SERVICE_NUMBER": "Service Number",
+  "PTM_SERVICE_DESCRIPTION_ARABIC": "Service Description(Arabic)",
+  "PTM_SERVICE_DESCRIPTION_ENGLISH": "Service Description( English)",
+  "PTM_CATEGORY_TO_WHICH_IT_BELONGS": "Category to Which it Belongs",
+  "PTM_IT_HAS_SUBCATEGORIES": "It has Subcategories",
+  "PTM_SERVICE_NO_DUPLICATED": "Duplicated Service No <%>",
+  "PTM_NO_DELETION_MODIFICATION_ALLOWED_DUE_TO_USE_SERVICE_SYSTEM": "No deletion or modification is allowed due to the use of this service in the system",
+  "PTM_SERVICE_HAS_SUBCATEGORIES_NOT_ALLOWED_MODIFY_DELETE": "This service has sub-categories, so it is not allowed to modify or delete it",
+  "PTM_SERVICE_DESC_DUPLICATED": "Service description <%> is duplicated",
+  "PTM_SUBCATEGORIES_CANNOT_ADDED_SERVICE": "Subcategories cannot be added to this Service",
+  "PTM_DATES_ENTERED_NOT_VALID": "The dates entered are not valid",
+  "PTM_PURCHASING_REPRESENTATIVES_DEFINTION": "Purchasing Representatives Definition",
+  "PTM_EMPLOYEE_NAME": "Employee Name",
+  "PTM_THERE_MUST_LEAST_ONE_ACTIVE_DEFAULT_VALUE_CODE_TYPE": "There Must be at  Least One Active Default Value For Each Code Type",
+
+
+}

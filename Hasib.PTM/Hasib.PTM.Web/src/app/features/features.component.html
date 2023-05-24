@@ -1,0 +1,75 @@
+<app-header-nav></app-header-nav>
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+  <app-aside-nav></app-aside-nav>
+  <div id="appFeatures">
+    <app-page-title [hidden]="hideTitle"></app-page-title>
+    <div style="margin-top: 38px;" *ngIf="appToolBar.visible" [class.app-toolbar]="true">
+      <h-toolBar [visible]="appToolBar.visible"
+                 [hideNew]="appToolBar.hideNew" [disableNew]="appToolBar.disableNew"
+                 [hideEdit]="appToolBar.hideEdit" [disableEdit]="appToolBar.disableEdit"
+                 [hideDelete]="appToolBar.hideDelete" [disableDelete]="appToolBar.disableDelete"
+                 [hideSave]="appToolBar.hideSave" [disableSave]="appToolBar.disableSave"
+                 [hideCancel]="appToolBar.hideCancel" [disableSaveAndCancel]="appToolBar.disableSaveAndCancel"
+                 [hideSearch]="appToolBar.hideSearch" [disableSearch]="appToolBar.disableSearch"
+                 [hideAttach]="appToolBar.hideAttach" [disableAttach]="appToolBar.disableAttach"
+                 [hidePrint]="appToolBar.hidePrint" [disablePrint]="appToolBar.disablePrint"
+                 [hideOk]="appToolBar.hideOk" [disableOk]="appToolBar.disableOk"
+                 [hideBack]="appToolBar.hideBack"
+                 [hideSearchDiv]="appToolBar.hideSearchDiv"
+                 [disableNext]="appToolBar.disableNext"
+                 [disablePrev]="appToolBar.disablePrev"
+                 [disableFirst]="appToolBar.disableFirst"
+                 [disableLast]="appToolBar.disableLast"
+                 [disablePageNumber]="appToolBar.disablePageNumber"
+                 [searchPageNumber]="appToolBar.searchPageNumber"
+                 [maxSearchCount]="appToolBar.maxSearchCount"
+                 [pagesCount]="appToolBar.pagesCount"
+                 (onChangePageNumber)="onChangePageNumber($event)"
+                 (onNextSearch)="appToolBar.onNextSearch()"
+                 (onPreviousSearch)="appToolBar.onPreviousSearch()"
+                 (onFirstSearch)="appToolBar.onFirstSearch()"
+                 (onLastSearch)="appToolBar.onLastSearch()"
+                 (onInsert)="onInsert()"
+                 (onEdit)="onEdit()"
+                 (onDelete)="onDelete()"
+                 (onAttach)="appToolBar.onAttach()"
+                 (onSave)="appToolBar.onSave()"
+                 (onSearch)="onSearch()"
+                 (onPrint)="appToolBar.onPrint()"
+                 (onCancel)="onCancel()"
+                 [actionStatusKey]="appToolBar.actionStatusKey"
+                 [isAppToolBar]="true"></h-toolBar>
+    </div>
+    <div [class.app-alerts]="true" [class.h-alertIcon]="appAlert.messages.length > 1" *ngIf="appAlert.messages && appAlert.messages.length > 0">
+      <h-alert [(value)]="appAlert.messages"></h-alert>
+    </div>
+
+    <app-confirm *ngIf="appConfirm.visible"></app-confirm>
+    <div class="m-grid__item m-grid__item--fluid m-wrapper h-m-grid__item">
+      <div class="m-content Main-content">
+        <div class="row">
+          <div class="col-md-12">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
+<app-quick-sidebar></app-quick-sidebar>
+<app-scroll-top></app-scroll-top>
+
+<!--Begin Hint -->
+<div class="h-notify" [ngStyle]="{'left': t.isAr ? '30px' : (t.isEn ? '83%' : null) }">
+  <div *ngFor="let hintObj of hintList; let selectedIndex = index;"
+       class="alert alert-info m-alert animated bounceInUp"
+       [class.d-block]="showHint == true"
+       [class.d-none]="showHint ==  false">
+    <button type="button" class="close" (click)="close()"></button>
+    <span data-notify="message">{{t.isAr?hintObj.hintMsgAR:hintObj.hintMsgEN}}</span>
+    <a (click)="onclickHintButton(hintObj.referralID)" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 100001;"></a>
+
+  </div>
+</div>
+<!--End Hint -->

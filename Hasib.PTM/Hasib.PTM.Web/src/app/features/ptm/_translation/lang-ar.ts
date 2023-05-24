@@ -1,0 +1,35 @@
+export const LANG_AR_NAME = 'ar';
+export const LANG_AR_TRANS =
+{
+  "PTM_MAIN_CODE": "نوع الرمز",
+  "PTM_CODE": "الرمز",
+  "PTM_IS_ACTIVE": "فعال",
+  "PTM_UNIFIED_CODE": "الرمز الموحد",
+  "PTM_DEFAULT": "افتراضي",
+  "PTM_ORDER": "الترتيب",
+  "PTM_USED_CODES_CANNOT_DELETED": "لا يسمح بتعديل أو حذف الرموز المستخدمة",
+  "PTM_RESERVED_CODES_CANNOT_BE_UPDATED_DELETED": "لا يسمح بتعديل أو حذف الرموز المحجوزة",
+  "PTM_EMPLOYEE_BASIC_INFO": "معلومات الموظف الأساسية",
+  "PTM_PURCHASING_REPRESENTATIVE": "مندوب مشتريات (الموظف)",
+  "PTM_PURCHASING_REPRESENTATIVE_USED_CANNONT_DELETED": "مندوب المشتريات (الموظف) مستخدم في النظام ولا يُسمح بحذفه",
+  "PTM_DUPLICATED_ARABIC_DESC": "الوصف العربي مكرر",
+  "PTM_DUPLICATED_ENGLISH_DESC": "الوصف الإنجليزي مكرر",
+  "PTM_LEVEL": "المستوى",
+  "PTM_SERIAL_LEVEL_SERVICE": "مسلسل الخدمة في المستوى",
+  "PTM_SERVICE_NUMBER": "رقم الخدمة",
+  "PTM_SERVICE_DESCRIPTION_ARABIC": "وصف الخدمة (عربي)",
+  "PTM_SERVICE_DESCRIPTION_ENGLISH": "وصف الخدمة (الانجليزي)",
+  "PTM_CATEGORY_TO_WHICH_IT_BELONGS": "الخدمة الذي ينتمي اليه",
+  "PTM_IT_HAS_SUBCATEGORIES": "له خدمة فرعية",
+  "PTM_SERVICE_NO_DUPLICATED": "رقم الخدمة <%> مكرر",
+  "PTM_NO_DELETION_MODIFICATION_ALLOWED_DUE_TO_USE_SERVICE_SYSTEM": "لا يسمح بالحذف أو التعديل بسبب استخدام هذا الخدمة في النظام",
+  "PTM_SERVICE_HAS_SUBCATEGORIES_NOT_ALLOWED_MODIFY_DELETE": "هذا الخدمة يتبع له خدمات فرعية فلا يُسمح بتعديله أو حذفه",
+  "PTM_SERVICE_DESC_DUPLICATED": "وصف الخدمة <الخدمة> مكرر",
+  "PTM_SUBCATEGORIES_CANNOT_ADDED_SERVICE": "لا يمكن إضافة خدمات فرعية لهذة الخدمة",
+  "PTM_DATES_ENTERED_NOT_VALID": "التواريخ المدخلة غير صحيحة ",
+  "PTM_PURCHASING_REPRESENTATIVES_DEFINTION": "تعريف مندوبي المشتريات ",
+  "PTM_EMPLOYEE_NAME": "اسم الموظف ",
+  "PTM_THERE_MUST_LEAST_ONE_ACTIVE_DEFAULT_VALUE_CODE_TYPE": "لابد من وجود قيمة افتراضية واحدة فعالة على الأقل لكل نوع رمز",
+
+
+}
