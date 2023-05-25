@@ -65,7 +65,6 @@ export class GeneralCodesComponent extends Base implements OnInit {
       controlDataSource: this.attachmentTypeData,
       dataValueField: 'typeFlag', dataTextFieldEn: 'nameEn', dataTextFieldAr: 'nameAr', defaultValue: true
       , renderText: (event) => {
-
         const obj = this.attachmentTypeData.filter(item => { return item.typeFlag == event.row.typeFlag })[0];
         if (obj) {
           if (this.t.isAr)
@@ -110,7 +109,6 @@ export class GeneralCodesComponent extends Base implements OnInit {
       else {
         this.codesDT.columns[6].visible = false;
         this.codesDT.columns[6].VisibleMode = 'alwaysHidden';
-
         this.codesDT.columnsChanged();
       }
       this.loadData();
@@ -133,14 +131,15 @@ export class GeneralCodesComponent extends Base implements OnInit {
       descriptionEN: event.rowNewData.descriptionEN,
       isActive: event.rowNewData.isActive,
       isDefault: event.rowNewData.isDefault,
-      typeFlag: event.rowNewData.typeFlag,
+      typeFlag: this.codeType == 'PTC12' ? event.rowNewData.typeFlag : '',
       sortOrder: event.rowNewData.sortOrder,
     };
     this.ptmService.insertCodes(paramObj).subscribe((output: any) => {
-      if (output.valid && output.affectedRows) {
+      if (output.valid && output.insertedID != null) {
         this.appAlert.showSuccess();
-        this.codesDT.commitRow();
         this.loadData();
+        this.codesDT.commitRow(true);
+
       }
       else {
         this.appAlert.showError(output.message);
@@ -169,14 +168,15 @@ export class GeneralCodesComponent extends Base implements OnInit {
       isActive: event.rowNewData.isActive,
       isDefault: event.rowNewData.isDefault,
       sortOrder: event.rowNewData.sortOrder,
-      typeFlag: event.rowNewData.typeFlag,
+      typeFlag: this.codeType == 'PTC12' ? event.rowNewData.typeFlag : '',
       rowStamp: event.rowNewData.rowStamp
     };
     this.ptmService.updateCodes(paramObj).subscribe((output: any) => {
       if (output.valid && output.affectedRows) {
         this.appAlert.showSuccess();
-        this.codesDT.commitRow();
+      
         this.loadData();
+        this.codesDT.commitRow(true);
       }
       else {
         this.appAlert.showError(output.message);
@@ -221,12 +221,10 @@ export class GeneralCodesComponent extends Base implements OnInit {
   loadData() {
     let param = { codeType: this.codeType };
     this.ptmService.LoadCodes(param).subscribe(data => {
-
       this.codesData = data;
-
+      this.codesDT.refresh();
     });
   }
-
   onAddClick() {
     let max = this.codesData.length == 0 ? 499 : this.codesData.reduce((op, item) => op = op > item.code ? op : item.code, 499);
     this.eventData =
@@ -236,7 +234,6 @@ export class GeneralCodesComponent extends Base implements OnInit {
     this.addDisable = {
       isReserved: true
     }
-
   }
   reset() {
     this.codeType = '';
@@ -244,28 +241,9 @@ export class GeneralCodesComponent extends Base implements OnInit {
     this.appToolBar.disablePrint = true;
   }
   onEditClick(event) {
-    /*  if (event.row.codeID) { // to be done
-        let obj = {
-          checkValue: event.row.codeID
-          , sourceTable: 'PTM_Codes'
-          , checkTable: 'PTM_Codes'
-          , omitTable: 'PTM_Codes'
-        };
-        this.ptmService.LoadDataReferenceFound(obj).subscribe((result) => {
-          if (result) {
-            setTimeout(() => {
-              this.appAlert.showError('SHD_GENERAL_UPDATE_MSG');
-            });
-            // event.preventEditRow = true;
-            this.codesDT?.cancelEditRow();
-            return;
-            //  
-          }
   
-  
-        });
-      }*/
     if (event.row.isReserved == true) {
+
       this.editDisable = {
         ...this.editDisable,
         code: true,
@@ -291,7 +269,6 @@ export class GeneralCodesComponent extends Base implements OnInit {
       }
     }
   }
-
   onCancelEditRow(event) {
     event;
     this.appAlert.hide();

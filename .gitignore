@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Hasib.PTM/Hasib.PTM.Web/dist/out-tsc
