@@ -1,0 +1,518 @@
+<div class="m-content">
+  <h-form #formEl [disabled]="pageMode==0">
+    <h-tabs>
+      <h-tabElement label=" {{ 'WIM_SETTINGS_LINKING_STORE_INVENTORY_WITH_OTHER_SYSTEMS'| translate}}">
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_LINKED_FINANCIAL' | translate}}</h-label>
+            <h-switch name="swtLinkedFinancial"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [disabled]="pageMode==0 || !isFGLActive"
+                      [(checked)]="newObj.isLinkedFinancial.fieldValue"
+                      (onChange)="settingChanged(newObj.isLinkedFinancial)"></h-switch>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_LINKED_HR' | translate}}</h-label>
+            <h-switch name="swtLinkedHR"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [disabled]="pageMode==0 || !isHRMActive"
+                      [(checked)]="newObj.isLinkedHR.fieldValue"
+                      (onChange)="settingChanged(newObj.isLinkedHR)"></h-switch>
+          </div>
+        </div>
+
+        <div *ngIf="newObj.isLinkedFinancial.fieldValue">
+          <div class="row">
+            <div class="col-lg-4">
+              <h-label>
+                {{ 'WIM_FINANCIAL_CURRENT_YEAR'| translate}}
+              </h-label>
+              <h-textBox name="txtcurrYear"
+                         [disabled]="true"
+                         [(value)]="newObj.currYear.fieldValue"></h-textBox>
+            </div>
+            <div class="col-lg-4">
+              <h-label>
+                {{ 'WIM_FINANCIAL_CURRENT_PERIOD'| translate}}
+              </h-label>
+              <h-textBox name="txcurrPeriod"
+                         [disabled]="true"
+                         [(value)]="newObj.currPeriod.fieldValue"></h-textBox>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <h-label>
+                {{ 'WIM_FROM_DATE'| translate}}
+              </h-label>
+              <h-calendar name="clnPeriodFrom"
+                          calendarUIType="g" valueType="g"
+                          [disabled]="true"
+                          [(value)]="newObj.fromDate.fieldValue">
+              </h-calendar>
+            </div>
+            <div class="col-lg-4">
+              <h-label>
+                {{ 'WIM_END_DATE'| translate}}
+              </h-label>
+              <h-calendar name="clnPeriodFrom" calendarUIType="g" valueType="g"
+                          [disabled]="true"
+                          [(value)]="newObj.toDate.fieldValue">
+              </h-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_LINKED_FAM' | translate}}</h-label>
+            <h-switch name="swtLinkedFAM"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [disabled]="pageMode==0 || !isFAMActive"
+                      [(checked)]="newObj.isLinkedFAM.fieldValue"
+                      (onChange)="settingChanged(newObj.isLinkedFAM)"></h-switch>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_LINKED_PURCHASE' | translate}}</h-label>
+            <h-switch name="swtLinkedPurchase"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.isLinkedPurchase.fieldValue"
+                      (onChange)="settingChanged(newObj.isLinkedPurchase)"></h-switch>
+          </div>
+        </div>
+      </h-tabElement>
+      <h-tabElement label="   {{ 'WIM_ITEM_GROUPS_SETTINGS'| translate}}">
+
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_AUTO_GROUP_NUMBER' | translate}}</h-label>
+            <h-switch name="swtAutoGroupNo"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.autoGroupNo.fieldValue"
+                      [disabled]="disableItemsGroupsTab|| pageMode==0"
+                      (onChange)="settingChanged(newObj.autoGroupNo)"></h-switch>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_SEPARATOR_GROUP' | translate}}</h-label>
+            <h-dropDownList name="autSeperatorGroup"
+                            [data]="[{ id: '/', nameEn: '/', nameAr: '/' },
+                                    { id: '-', nameEn: '-', nameAr: '-' },
+                                    { id: '*', nameEn: 'None',    nameAr: 'بدون' }]"
+                            dataTextFieldAr="nameAr"
+                            dataTextFieldEn="nameEn"
+                            dataValueField="id"
+                            [showDefaultItem]="true"
+                            [required]="true"
+                            [disabled]="disableItemsGroupsTab|| pageMode==0"
+                            [(selectedValue)]="newObj.seperatorGroup.fieldValue"
+                            (onChange)="settingChanged(newObj.seperatorGroup)">
+            </h-dropDownList>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_ITEM_GROUP_LEVELS' | translate}}</h-label>
+            <h-dropDownList name="autGroupLevels"
+                            [data]="[{id: '1' }, { id: '2'},{ id: '3' }, { id: '4' }, { id: '5'}]"
+                            dataTextFieldAr="id"
+                            dataTextFieldEn="id"
+                            dataValueField="id"
+                            [showDefaultItem]="true"
+                            [required]="true"
+                            [disabled]="disableItemsGroupsTab|| pageMode==0"
+                            [(selectedValue)]="newObj.groupLevels.fieldValue"
+                            (onChange)="settingChanged(newObj.groupLevels)">
+            </h-dropDownList>
+          </div>
+        </div>
+        <div class="row">
+
+
+          <div class="col-lg-6 m--margin-top-30">
+            <h6 class="m-portlet__head-text font-weight-bold">{{ 'WIM_CLASSIFICATION_ITEM_GROUP_LEVELS' | translate}}</h6>
+            <h-dataTable [(data)]="groupLevelData" #groupLevelDT
+                         [columns]="groupLevelColums"
+                         [editable]="true"
+                         [showAdd]="true"
+                         [showDelete]="true"
+                         [showRowNumber]="true"
+                         [summary]="totalDigits"
+                         [enableAdd]="!disableItemsGroupsTab && pageMode!=0 && enableDTAdd"
+                         [enableEdit]="!disableItemsGroupsTab && pageMode!=0"
+                         [enableDelete]="!disableItemsGroupsTab && pageMode!=0&& enableDTDelete"
+                         (onSaveAddRow)="onSaveAddRow()"
+                         (onSaveEditRow)="onSaveEditRow('groupLevel')"
+                         (ondDeleteRow)="onDeleteRow()"
+                         name="tblgroupLevel">
+            </h-dataTable>
+          </div>
+
+        </div>
+
+
+      </h-tabElement>
+      <h-tabElement label="  {{ 'WIM_ITEM_NUMBER_SETTINGS'| translate}}">
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_STATOR_ITEM_NO' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'1' , nameAr:'المجموعة',nameEn:'Group number'},
+                         { id:'0' , nameAr:'بدون',nameEn:'Without'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [(selectedValue)]="newObj.statorItemNo.fieldValue"
+                               [disabled]="disableItemNoTab|| pageMode==0"
+                               (onChange)="rblSettingsChanged($event, newObj.statorItemNo)"
+                               name="rblSeperator"></h-radioButtonList>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_ITEM_SERIAL_DIGITS' | translate}}</h-label>
+            <h-spinner name="txtserialDigits"
+                       [(value)]="newObj.serialDigits.fieldValue"
+                       [required]="true"
+                       [disabled]="newObj.statorItemNo.fieldValue == 0 || pageMode==0|| disableItemNoTab"
+                       (onChange)="settingChanged(newObj.serialDigits, newObj.digits)"></h-spinner>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_SEPARATOR_BETWEEN_GROUP_AND_ITEM' | translate}}</h-label>
+            <h-dropDownList name="autSeperatorBet"
+                            [data]="[{ id: '/', nameEn: '/', nameAr: '/' },
+                                    { id: '-', nameEn: '-', nameAr: '-' },
+                                    { id: '*', nameEn: 'None',    nameAr: 'بدون' }]"
+                            dataTextFieldAr="nameAr"
+                            dataTextFieldEn="nameEn"
+                            dataValueField="id"
+                            [showDefaultItem]="true"
+                            [required]="true"
+                            [disabled]="newObj.statorItemNo.fieldValue == 0 || pageMode==0|| disableItemNoTab"
+                            [(selectedValue)]="newObj.seperatorBet.fieldValue"
+                            (onChange)="settingChanged(newObj.seperatorBet)">
+            </h-dropDownList>
+
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_ITEM_DIGITS' | translate}}</h-label>
+            <h-spinner name="txtdigits"
+                       [(value)]="newObj.digits.fieldValue"
+                       [disabled]="newObj.statorItemNo.fieldValue == 1 || pageMode==0 || disableItemNoTab"
+                       [min]="1"
+                       [max]="30"
+                       [required]="true"
+                       (onChange)="settingChanged(newObj.digits)"></h-spinner>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_AUTO_ITEM_NUMBER' | translate}}</h-label>
+            <h-switch name="swtAutoItemNo"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.autoItemNo.fieldValue"
+                      [disabled]="newObj.statorItemNo.fieldValue == 1 || disableItemNoTab|| pageMode==0"
+                      (onChange)="settingChanged(newObj.autoItemNo)"></h-switch>
+          </div>
+        </div>
+      </h-tabElement>
+      <h-tabElement label="      {{ 'WIM_STORE_NUMBER_SETTINGS'| translate}}">
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_DEF_STORE_LEVEL' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'C' , nameAr:'المنشأة',nameEn:'Organization'},
+                         { id:'B' , nameAr:'الفرع',nameEn:'Branch'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [(selectedValue)]="newObj.storeLevel.fieldValue"
+                               [disabled]="disableStoreNoTab|| pageMode==0"
+                               [required]="true"
+                               (onChange)="rblSettingsChanged($event, newObj.storeLevel)"
+                               name="rblstoreLevel"></h-radioButtonList>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_AUTO_STORE_NUMBER' | translate}}</h-label>
+            <h-switch name="swtAutoStoreNo"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.autoStoreNo.fieldValue"
+                      [disabled]="disableStoreNoTab|| pageMode==0"
+                      (onChange)="settingChanged(newObj.autoStoreNo)"></h-switch>
+          </div>
+        </div>
+      </h-tabElement>
+      <h-tabElement label=" {{ 'WIM_SYSTEM_GENERAL_SETTINGS'| translate}}">
+
+        <div class="row" *ngIf="isGovernment">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_SERIAL_NUMBER_DIGITS' | translate}}</h-label>
+            <h-spinner name="txtSerialNoDigits"
+                       [min]="6"
+                       [required]="true"
+                       [(value)]="newObj.serialNoDigits.fieldValue"
+                       [disabled]="disableObj.serialNoDigits|| pageMode==0"
+                       (onChange)="settingChanged(newObj.serialNoDigits)"></h-spinner>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_CHECK_SORTING_DATE_VOUCHERS' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'W' , nameAr:'تحذير',nameEn:'Warning'},
+                         { id:'S' , nameAr:'منع',nameEn:'Prohibit'},
+                         { id:'N' , nameAr:'بدون إجراء',nameEn:'No Action'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [(selectedValue)]="newObj.sortingDate.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.sortingDate)"
+                               name="rblsortingDate"></h-radioButtonList>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_INVENTORY_TRANS_AUTOMATICALLY_POSTING_FGL' | translate}}</h-label>
+            <h-switch></h-switch>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_ALLOW_RETURN_USED_ITEMS' | translate}}</h-label>
+            <h-switch name="swtAllowReturn"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.allowReturn.fieldValue"
+                      (onChange)="settingChanged(newObj.allowReturn)"></h-switch>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_RESERVE_APPROVED_QTY' | translate}}</h-label>
+            <h-switch name="swtReserveApproved"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.reserveApproved.fieldValue"
+                      (onChange)="settingChanged(newObj.reserveApproved)"></h-switch>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4" *ngIf="isGovernment">
+            <h-label> {{ 'WIM_RESERVE_APPROVED_LICENSE_QTY' | translate}}</h-label>
+            <h-switch name="swtReserveLicense"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.reserveLicense.fieldValue"
+                      (onChange)="settingChanged(newObj.reserveLicense)"></h-switch>
+          </div>
+
+          <div class="col-lg-4" *ngIf="isGovernment">
+            <h-label> {{ 'WIM_USE_DEF_ITEMS_TEMP_RECEIPT' | translate}}</h-label>
+            <h-switch name="swtTempReceipt"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.tempReceipt.fieldValue"
+                      (onChange)="settingChanged(newObj.tempReceipt)"></h-switch>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4" *ngIf="isGovernment">
+            <h-label> {{ 'WIM_ALLOW_RETURN_STORE' | translate}}</h-label>
+            <h-switch name="swtReturnStore"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.returnStore.fieldValue"
+                      (onChange)="settingChanged(newObj.returnStore)"></h-switch>
+          </div>
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_DISBUR_ITEMS_LESS_MINIMUM_BALANCE' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'W' , nameAr:'تحذير',nameEn:'Warning'},
+                         { id:'S' , nameAr:'منع',nameEn:'Prohibit'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [(selectedValue)]="newObj.minBalance.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.minBalance)"
+                               name="rblMinBalance"></h-radioButtonList>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_DISBUR_ITEMS_LESS_REORDER_BALANCE' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'W' , nameAr:'تحذير',nameEn:'Warning'},
+                         { id:'S' , nameAr:'منع',nameEn:'Prohibit'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [(selectedValue)]="newObj.reorderBalance.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.reorderBalance)"
+                               name="rblreorderBalance"></h-radioButtonList>
+          </div>
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_RECEIPT_ITEMS_EXCEED_UPPER_LIMIT' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'W' , nameAr:'تحذير',nameEn:'Warning'},
+                         { id:'S' , nameAr:'منع',nameEn:'Prohibit'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [(selectedValue)]="newObj.upperLimit.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.upperLimit)"
+                               name="rblupperLimit"></h-radioButtonList>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_ALLOW_RETURNED_ZERO_PRICE' | translate}}</h-label>
+            <h-switch name="swtZeroPrice"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.returnZeroPrice.fieldValue"
+                      (onChange)="settingChanged(newObj.returnZeroPrice)"></h-switch>
+          </div>
+
+          <div class="col-lg-4" *ngIf="isGovernment">
+            <h-label> {{ 'WIM_WARNING_MESSAGE_ISSUE_LICENSE' | translate}}</h-label>
+            <h-switch name="swtWarnMSG"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.warnMSG.fieldValue"
+                      (onChange)="settingChanged(newObj.warnMSG)"></h-switch>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4" *ngIf="isGovernment">
+            <h-label> {{ 'WIM_ALLOW_RECEIPT_MEMO_REC_ZERO_PRICE' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'N' , nameAr:'نعم',nameEn:'Yes'},
+                         { id:'Y' , nameAr:'لا',nameEn:'No'},
+                         { id:'S' , nameAr:'يتم تحديده على مستوى كل مستودع',nameEn:'Determined at the level of each store'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               [required]="true"
+                               name="rblreceiptZeroPrice"
+                               [(selectedValue)]="newObj.receiptZeroPrice.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.receiptZeroPrice)"
+                               repeatDirection="h"></h-radioButtonList>
+          </div>
+          <div class="col-lg-4">
+            <h-label> {{ 'WIM_DEAL_ITEM_LABLES' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'B' , nameAr:'Barcode',nameEn:'Barcode'},
+                         { id:'Q' , nameAr:' QR Code',nameEn:' QR Code'},
+                         { id:'A' , nameAr:'كليهما',nameEn:'All'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               name="rblitemLables"
+                               [(selectedValue)]="newObj.itemLables.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.itemLables)"
+                               repeatDirection="h"></h-radioButtonList>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_WEREHOUSE_MANAGER' | translate}}</h-label>
+            <h-lookup name="lkpManager" lookupType="Employee" [msg]="managerErrorMsg" [(selectedIDs)]="managerIDs" (onClear)="onClearLookup('manager')" (onChange)="onEmployeeSelects($event, 'manager')"></h-lookup>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'SHD_JOB_TITLE' | translate}}</h-label>
+            <h-textBox name="txtManagerJob" [(value)]="t.isAr ? newObj.managerJobAR :  newObj.managerJobEN" [disabled]="true"></h-textBox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-xs-1">
+            <h-label> {{ 'WIM_RESPONS_INVETORY_CONTROL' | translate}}</h-label>
+            <h-lookup name="lkpControl" lookupType="Employee" [msg]="controlErrorMsg" [(selectedIDs)]="controlIDs" (onClear)="onClearLookup('control')" (onChange)="onEmployeeSelects($event, 'control')"></h-lookup>
+          </div>
+
+          <div class="col-lg-4">
+            <h-label> {{ 'SHD_JOB_TITLE' | translate}}</h-label>
+            <h-textBox name="txtControlJob" [(value)]="t.isAr ? newObj.controlJobAR :  newObj.controlJobEN" [disabled]="true"></h-textBox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <h-label>{{'WIM_VOUCHER_AUTO_SERAIL_BY' | translate}}</h-label>
+            <h-radioButtonList [data]="docSerial"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [required]="true"
+                               [disabled]="disableObj.serialDocs|| pageMode==0"
+                               [(selectedValue)]="newObj.SerialDocs.fieldValue"
+                               (onChange)="rblSettingsChanged($event, newObj.SerialDocs)"
+                               name="rblSerialDocs"></h-radioButtonList>
+
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <h-label>{{'WIM_SHOW_QR_CODE_IN_PRINT_FORMS' | translate}}</h-label>
+            <h-switch name="swtPrintQR"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.PrintQR.fieldValue"
+                      (onChange)="settingChanged(newObj.PrintQR)"></h-switch>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12">
+            <h-label>{{'WIM_TAX_REFUNDS_INVENTORY_COST' | translate}}</h-label>
+            <h-switch name="swtTaxRefunds"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="newObj.taxRefund.fieldValue"
+                      (onChange)="settingChanged(newObj.taxRefund)"></h-switch>
+          </div>
+        </div>
+
+
+      </h-tabElement>
+
+    </h-tabs>
+
+  </h-form>
+</div>

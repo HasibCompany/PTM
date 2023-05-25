@@ -200,6 +200,7 @@
     <None Remove="src\app\app.settings.ts" />
     <None Remove="src\app\app-routing.module.ts" />
     <None Remove="src\environments\**" />
+    <None Remove="src\app\features\ptm\generalSettings\generalSettings.component.ts" />
     <None Remove="src\favicon.ico" />
     <None Remove="src\index.html" />
     <None Remove="src\unsupported-browser.html" />
@@ -219,6 +220,10 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\features\ptm\generalSettings\generalSettings.component.ts" />
   </ItemGroup>
 
 </Project>

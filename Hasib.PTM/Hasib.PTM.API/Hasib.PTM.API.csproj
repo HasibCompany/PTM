@@ -70,16 +70,18 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hasib.PTM.Business\Hasib.PTM.Business.csproj" />
+    <ProjectReference Include="..\Hasib.PTM.Model\Hasib.PTM.Model.csproj" />
+    <ProjectReference Include="..\Hasib.PTM.Web\Hasib.PTM.Web.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Hasib.Common.Business">
-      <HintPath>..\..\..\Dlls\Hasib.Common.Business.dll</HintPath>
-     </Reference>
+      <HintPath>..\..\Dlls\Hasib.Common.Business.dll</HintPath>
+    </Reference>
     <Reference Include="Hasib.Common.Model">
-      <HintPath>..\..\..\Dlls\Hasib.Common.Model.dll</HintPath>
+      <HintPath>..\..\Dlls\Hasib.Common.Model.dll</HintPath>
     </Reference>
     <Reference Include="Hasib.Library">
-      <HintPath>..\..\..\Dlls\Hasib.Library.dll</HintPath>
+      <HintPath>..\..\Dlls\Hasib.Library.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

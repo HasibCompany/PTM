@@ -22,6 +22,7 @@ import { CommonBusinessModule } from '@hasib/commonBusiness/commonBusiness.modul
 import { PurchasingRepresentativesDefinitionComponent } from "@hasib/features/ptm/purchasingRepresentativesDefinition/purchasingRepresentativesDefinition.component";
 import { ServicesDefinitionComponent } from "@hasib/features/ptm/servicesDefinition/servicesDefinition.component";
 import { GeneralSystemCodesComponent } from './generalSystemCodes/generalSystemCodes.component';
+import { GeneralSettingsComponent } from './generalSettings/generalSettings.component';
 
 //#region PTM Version
 //###################################################### Critical Part of Code ##############################################################################################
@@ -69,6 +70,11 @@ const routes: Routes = [
         component: GeneralSystemCodesComponent,
         canDeactivate: [CanDeactivateGuard]
       },
+      {
+        path: 'generalSettings',
+        component: GeneralSettingsComponent,
+        canDeactivate: [CanDeactivateGuard]
+      },
     ]
     
   }
@@ -81,7 +87,8 @@ const componentsArray = [
   GeneralCodesComponent,
   PurchasingRepresentativesDefinitionComponent,
   ServicesDefinitionComponent,
-  GeneralSystemCodesComponent
+  GeneralSystemCodesComponent,
+  GeneralSettingsComponent
 ];
 @NgModule({
   imports: [

@@ -38,17 +38,6 @@
     <ProjectReference Include="..\Hasib.PTM.Model\Hasib.PTM.Model.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Hasib.Common.Business">
-      <HintPath>..\..\..\Dlls\Hasib.Common.Business.dll</HintPath>
-    </Reference>
-    <Reference Include="Hasib.Common.Model">
-      <HintPath>..\..\..\Dlls\Hasib.Common.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Hasib.Library">
-      <HintPath>..\..\..\Dlls\Hasib.Library.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="ReportConfig\Reources\common-ar.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -78,5 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Hasib.Common.Business">
+      <HintPath>..\..\Dlls\Hasib.Common.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Hasib.Common.Model">
+      <HintPath>..\..\Dlls\Hasib.Common.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Hasib.Library">
+      <HintPath>..\..\Dlls\Hasib.Library.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
