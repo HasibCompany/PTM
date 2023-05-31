@@ -111,5 +111,5 @@ export const LANG_AR_TRANS =
   "PTM_LAST_STOP_RECEIVING_OFFER_NO":"آخر رقم محضر ايقاف استلام العروض",
   "PTM_AUTO_NUMBERING_DECIDING_COMMITTEE_DOC":"تسلسل تلقائي لمحضر لجنة البت",
   "PTM_LAST_DECIDING_COMMITTEE_DOC_NO":"آخر رقم محضر لجنة بت",
-
+  //
 }
