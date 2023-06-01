@@ -422,3 +422,7 @@ FodyWeavers.xsd
 /Hasib.PTM/Hasib.PTM.Web/src/app/app.module.ts
 /Hasib.PTM/Hasib.PTM.Web/src/app/app-routing.module.ts
 /Hasib.PTM/Hasib.PTM.Web/.angular/cache/14.2.10
+/Hasib.PTM/Hasib.PTM.Web/src/app/features/ptm/_translation/lang-ar.ts
+/Hasib.PTM/Hasib.PTM.Business/Hasib.PTM.Business.csproj
+/Hasib.PTM/Hasib.PTM.API/Hasib.PTM.API.csproj
+/Hasib.PTM/Hasib.PTM.Model/Hasib.PTM.Model.csproj
