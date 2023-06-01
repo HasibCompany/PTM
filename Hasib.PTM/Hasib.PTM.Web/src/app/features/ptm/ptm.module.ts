@@ -23,6 +23,8 @@ import { PurchasingRepresentativesDefinitionComponent } from "@hasib/features/pt
 import { ServicesDefinitionComponent } from "@hasib/features/ptm/servicesDefinition/servicesDefinition.component";
 import { GeneralSystemCodesComponent } from './generalSystemCodes/generalSystemCodes.component';
 import { GeneralSettingsComponent } from './generalSettings/generalSettings.component';
+import { PurchaseOrderPermitComponent } from './purchaseOrderPermit/purchaseOrderPermit.component';
+
 
 //#region PTM Version
 //###################################################### Critical Part of Code ##############################################################################################
@@ -75,6 +77,11 @@ const routes: Routes = [
         component: GeneralSettingsComponent,
         canDeactivate: [CanDeactivateGuard]
       },
+      {
+        path: 'purchaseOrderPermit',
+        component: PurchaseOrderPermitComponent,
+        canDeactivate: [CanDeactivateGuard]
+      },
     ]
     
   }
@@ -88,7 +95,8 @@ const componentsArray = [
   PurchasingRepresentativesDefinitionComponent,
   ServicesDefinitionComponent,
   GeneralSystemCodesComponent,
-  GeneralSettingsComponent
+  GeneralSettingsComponent,
+  PurchaseOrderPermitComponent
 ];
 @NgModule({
   imports: [

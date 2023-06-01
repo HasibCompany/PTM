@@ -1,0 +1,35 @@
+<div class="m-content h-dataPage">
+  <div class="col-12 mx-auto">
+    <div class="col-lg-4 mx-auto m--margin-bottom-20">
+      <h-label>{{ 'PTM_TRANSACTION_NAME'| translate}}</h-label>
+      <h-productConstant productConstantType="281"
+                         controlType="dropDownList"
+                         name="productconstantType"
+                         [disabled]="false"
+                         [(selectedValue)]="codeType"
+                         (onChange)="codeTypeChanged($event)">
+      </h-productConstant>
+    </div>
+  </div>
+  <div class="col-12">
+    <h-dataTable [(data)]="codesData" #codesDT
+                 [columns]="columns"
+                 [editable]="true"
+                 [showAdd]="codeType != '' && codeType !=null"
+                 [isActiveSwitch]="true"
+                 [showRowNumber]="true"
+                 [editDisable]="editDisable"
+                 [addDisable]="addDisable"
+                 [addData]="eventData"
+                 (onSaveAddRow)="onSaveAddRow($event)"
+                 (onSaveEditRow)="onSaveEditRow($event)"
+                 (ondDeleteRow)="ondDeleteRow($event)"
+                 (onEditClick)="onEditClick($event)"
+                 (onAddClick)="onAddClick()"
+                 (onCancelEditRow)="onCancelEditRow($event)"
+                  showCompositeHeader="true"
+                 name="tblgeneralCodes">
+    </h-dataTable>
+  </div>
+  <!--<h-reportDialog #report [(hidden)]="hideReport" title="{{ 'WIM_GENERAL_CODES' | translate}}" [reportUrl]="reportUrl"></h-reportDialog>-->
+</div>
