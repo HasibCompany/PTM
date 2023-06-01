@@ -164,6 +164,20 @@ export class PtmService {
     let url: string = `${Settings.ptmUrl}api/PTM/Codes/DeleteCodes`;
     return this.http.post(url, paramsObj, httpOptions);
   }
- 
+ //settings
+ //todo : create a new service for settings
+  LoadSettings(paramsObj: any): Observable<any> {
+    let url: string = `${Settings.ptmUrl}api/PTM/Settings/LoadSettings`;
+    return this.http.get(url, { params: paramsObj });
+  }
+  UpdateSettings(paramsObj: any): Observable<any> {
+let url: string = `${Settings.ptmUrl}api/PTM/Settings/UpdateSettings`;
+    return this.http.put(url, paramsObj, httpOptions);
+  }
+//todo : create updatesettingsbulk service
+  UpdateSettingsBulk(paramsObj: any): Observable<any> {
+let url: string = `${Settings.ptmUrl}api/PTM/Settings/UpdateSettingsBulk`;
+    return this.http.put(url, paramsObj, httpOptions);
+  }
 
 }
