@@ -28,10 +28,10 @@
 
   <ItemGroup>
     <Reference Include="Hasib.Common.Model">
-      <HintPath>..\..\Dlls\Hasib.Common.Model.dll</HintPath>
+      <HintPath>..\..\..\ERP\Dlls\Hasib.Common.Model.dll</HintPath>
     </Reference>
     <Reference Include="Hasib.Library">
-      <HintPath>..\..\Dlls\Hasib.Library.dll</HintPath>
+      <HintPath>..\..\..\ERP\Dlls\Hasib.Library.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>System</HintPath>
