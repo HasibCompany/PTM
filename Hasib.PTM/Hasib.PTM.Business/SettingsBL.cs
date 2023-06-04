@@ -72,5 +72,6 @@ namespace Hasib.PTM.Business
             }
              return (IsInstalled && IsActive);
         }
+
     }
 }
