@@ -25,7 +25,6 @@ namespace Hasib.PTM.API.Controllers
         [HttpGet("LoadSettings")]
         public async Task<ActionResult<List<Settings>>> LoadSettings(int? organizationID, string settingCode, int? createdSID)
         {
-            createdSID= SessionId;
             return await Settings.LoadSettings(organizationID, settingCode, createdSID);
         }
         //todo: create a method called UpdateSettingsBulk that takes 1 parametes : settings object and calls UpdateSettingsBulk from the business layer and return output
@@ -35,11 +34,5 @@ namespace Hasib.PTM.API.Controllers
         {
             return await Settings.UpdateSettingsBulk(obj);
         }
-        [HttpGet("CheckAppActivate")]
-        public async Task<ActionResult<bool>> CheckAppActivate(string appCode)
-        {
-            return await Settings.CheckAppActivate(appCode);
-        }
     }
-
 }

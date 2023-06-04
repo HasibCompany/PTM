@@ -4,7 +4,6 @@ using System;
 using System.Data.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Data;
 
 namespace Hasib.PTM.Model
 { //todo : create a class called generalSettings
@@ -16,7 +15,8 @@ namespace Hasib.PTM.Model
         public string SettingCode { get; set; }
         public string SettingNameAR { get; set; }
         public string SettingNameEN { get; set; }
-        public string FieldType { get; set; }
+        public string SettingValue { get; set; }
+        public string SettingType { get; set; }
         public string SettingDescription { get; set; }
         public bool? IsActive { get; set; }
         public int? CreatedSID { get; set; }
@@ -27,7 +27,7 @@ namespace Hasib.PTM.Model
         //todo: add a property called tabNumber type tinyint and not nullable
         public byte? TabNumber { get; set; }
         //todo: add a property called packageType type char and not nullable
-        public string PackageType { get; set; }
+        public char? PackageType { get; set; }
         public string JsonData { get; set; }
         //todo: add a property called fieldValue type string and nullable
         public string FieldValue { get; set; }
@@ -35,7 +35,7 @@ namespace Hasib.PTM.Model
     }
 
     public class SettingsModel : BaseModel
-    { 
+    {
         public SettingsModel(DBHelper db) : base(db) { }
         //todo creat a method called LoadSettings the loads all the settings from the database and takes 3 parameters organizationID type int,settingCode type string and createdSID type int and fill the list of Settings and return the list of Settings
         public async Task<List<Settings>> LoadSettings(int? organizationID, string settingCode, int? createdSID)
@@ -45,12 +45,12 @@ namespace Hasib.PTM.Model
 
             int c0 = rd.GetOrdinal("organizationID");
             int c1 = rd.GetOrdinal("settingCode");
-            int c2 = rd.GetOrdinal("nameAR");
-            int c3 = rd.GetOrdinal("nameEN");
-            int c4 = rd.GetOrdinal("fieldValue");
-            int c5 = rd.GetOrdinal("fieldType");
-            int c6 = rd.GetOrdinal("tabNumber");
-            int c7 = rd.GetOrdinal("packageType");
+            int c2 = rd.GetOrdinal("settingNameAR");
+            int c3 = rd.GetOrdinal("settingNameEN");
+            int c4 = rd.GetOrdinal("settingValue");
+            int c5 = rd.GetOrdinal("settingType");
+            int c6 = rd.GetOrdinal("settingDescription");
+            int c7 = rd.GetOrdinal("isActive");
             int c8 = rd.GetOrdinal("createdSID");
             int c9 = rd.GetOrdinal("createdOn");
             int c10 = rd.GetOrdinal("modifiedSID");
@@ -64,17 +64,17 @@ namespace Hasib.PTM.Model
                 if (!rd.IsDBNull(c1)) item.SettingCode = rd.GetString(c1);
                 if (!rd.IsDBNull(c2)) item.SettingNameAR = rd.GetString(c2);
                 if (!rd.IsDBNull(c3)) item.SettingNameEN = rd.GetString(c3);
-                if (!rd.IsDBNull(c4)) item.FieldValue = rd.GetString(c4);
-                if (!rd.IsDBNull(c5)) item.FieldType = rd.GetString(c5);
-                if (!rd.IsDBNull(c6)) item.TabNumber = rd.GetByte(c6);
-                if (!rd.IsDBNull(c7)) item.PackageType = rd.GetString(c7);
+                if (!rd.IsDBNull(c4)) item.SettingValue = rd.GetString(c4);
+                if (!rd.IsDBNull(c5)) item.SettingType = rd.GetString(c5);
+                if (!rd.IsDBNull(c6)) item.SettingDescription = rd.GetString(c6);
+                if (!rd.IsDBNull(c7)) item.IsActive = rd.GetBoolean(c7);
                 if (!rd.IsDBNull(c8)) item.CreatedSID = rd.GetInt32(c8);
                 if (!rd.IsDBNull(c9)) item.CreatedOn = rd.GetDateTime(c9);
                 if (!rd.IsDBNull(c10)) item.ModifiedSID = rd.GetInt32(c10);
                 if (!rd.IsDBNull(c11)) item.ModifiedOn = rd.GetDateTime(c11);
                 if (!rd.IsDBNull(c12)) item.RowStamp = rd.GetValue(c12) as byte[];
                 res.Add(item);
-
+      
 
             }
             //todo close date reader and return the list of Settings
