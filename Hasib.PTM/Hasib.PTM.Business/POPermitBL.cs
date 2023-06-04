@@ -28,6 +28,7 @@ namespace Hasib.PTM.Business
         {
             try
             {
+
                 return await POPermitModel.InsertPOPermit(screenCode, permitFor, userGroupID, administrativePostID, professionID, userID, fromAmount, toAmount, fromDate, toDate, isActive, createdSID);
             }
             finally
