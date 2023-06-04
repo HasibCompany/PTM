@@ -11,7 +11,7 @@ namespace Hasib.PTM.API.Controllers
     [Authorize(Roles = "User")]
     [Produces("application/json")]
     [Route("api/PTM/Settings")]
-    [ApiController]
+    [ApiController] 
     public class SettingsController : BaseController
     {
         SettingsBL Settings { get { return new SettingsBL(SessionId, ActionType); } }
