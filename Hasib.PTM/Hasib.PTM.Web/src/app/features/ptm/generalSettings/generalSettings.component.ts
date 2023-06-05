@@ -92,7 +92,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
   fiscalYearStatus: string | null;
   fiscalYearStatusData: any = [];
   changedData: any = [];
-  rowStamp: any;
+  settingsData: any = [];
   constructor(public ptmService: PtmService, private globalService: Global, private _es: EventEmitterService, private sharedService: SharedService) {
     super();
     this.ptmService;
@@ -104,13 +104,14 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     this.appToolBar.show();
     this.appToolBar.disableEdit = false;
     if (this.isGovernment) {
-      // this.docSerial.push({ id: 'F', nameEn: 'Fiscal Year', nameAr: 'السنة المالية' });
     }
     this._es.onLegalEntityChanged.pipe(takeUntil(this.componentDestroyed)).subscribe(() => {
       this.appAlert.hide();
       this.clear();
       if (this.globalService.getCurrentLegalEntityInfo() && this.globalService.getCurrentLegalEntityInfo().orgUnitID) {
         this.organizationID = this.globalService.getCurrentLegalEntityInfo().orgUnitID;
+        this.loadSettings();
+        this.loadLinkedSystems();
       }
       else {
         this.appAlert.showError('SHD_JOURNAL_DEFAULT_ORG_VALIDATION');
@@ -145,20 +146,24 @@ export class GeneralSettingsComponent extends Base implements OnInit {
 
 
     this.appToolBar.onEdit = () => {
-
+      this.changedData = [];
       this.pageMode = PageMode.editMode;
       this.appToolBar.disableSaveAndCancel = false;
     }
 
     this.appToolBar.onSave = () => {
-
-
+      if (this.validateLastNumberToBeGreater()) {
+        if (this.formEl.validate())
+          this.saveSettings();
+      }
     }
 
     this.appToolBar.onCancel = () => {
       if (this.pageMode == PageMode.editMode) {
         this.pageMode = PageMode.inquiryMode;
         this.appToolBar.disableEdit = false;
+        this.clear();
+        this.loadSettings();
       }
     }
 
@@ -172,7 +177,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
 
     this.ptmService.LoadSettings(paramObj).subscribe((res: any) => {
       if (res && res.length > 0) {
-
+        this.settingsData = res;
         this.linkObj.purchaseYearName = res.filter(item => item.settingCode == "PT001")[0].fieldValue;
         this.linkObj.purchaseYearStartDate = res.filter(item => item.settingCode == "PT002")[0].fieldValue;
         this.linkObj.purchaseYearEndDate = res.filter(item => item.settingCode == "PT003")[0].fieldValue;
@@ -194,20 +199,29 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         //إعدادات الترقيم التلقائي
         this.autoNumbering.autoPurchaseReqNo = res.filter(item => item.settingCode == "PT016")[0].fieldValue;
         this.autoNumbering.lastPurchaseReqNo = res.filter(item => item.settingCode == "PT017")[0].fieldValue;
+        this.autoNumbering.tempLastPurchaseReqNo = res.filter(item => item.settingCode == "PT017")[0].fieldValue;
+
         this.autoNumbering.autoPurchaseTransNo = res.filter(item => item.settingCode == "PT018")[0].fieldValue;
         this.autoNumbering.lastPurchaseTransNo = res.filter(item => item.settingCode == "PT019")[0].fieldValue;
+        this.autoNumbering.tempLastPurchaseTransNo = res.filter(item => item.settingCode == "PT019")[0].fieldValue;
         this.autoNumbering.autoQuotationsReqNo = res.filter(item => item.settingCode == "PT020")[0].fieldValue;
         this.autoNumbering.lastQuotationsReqNo = res.filter(item => item.settingCode == "PT021")[0].fieldValue;
+        this.autoNumbering.tempLastQuotationsReqNo = res.filter(item => item.settingCode == "PT021")[0].fieldValue;
         this.autoNumbering.autoChangeReqNo = res.filter(item => item.settingCode == "PT022")[0].fieldValue;
         this.autoNumbering.lastChangeReqNo = res.filter(item => item.settingCode == "PT023")[0].fieldValue;
+        this.autoNumbering.tempLastChangeReqNo = res.filter(item => item.settingCode == "PT023")[0].fieldValue;
         this.autoNumbering.autoChangeOrderNo = res.filter(item => item.settingCode == "PT024")[0].fieldValue;
         this.autoNumbering.lastChangeOrderNo = res.filter(item => item.settingCode == "PT025")[0].fieldValue;
+        this.autoNumbering.tempLastChangeOrderNo = res.filter(item => item.settingCode == "PT025")[0].fieldValue;
         this.autoNumbering.autoOfferRecordsOpeningNo = res.filter(item => item.settingCode == "PT026")[0].fieldValue;
         this.autoNumbering.lastOfferRecordsOpeningNo = res.filter(item => item.settingCode == "PT027")[0].fieldValue;
+        this.autoNumbering.tempLastOfferRecordsOpeningNo = res.filter(item => item.settingCode == "PT027")[0].fieldValue;
         this.autoNumbering.autoOffersIncpectinsNo = res.filter(item => item.settingCode == "PT028")[0].fieldValue;
         this.autoNumbering.lastOffersIncpectinsNo = res.filter(item => item.settingCode == "PT029")[0].fieldValue;
+        this.autoNumbering.tempLastOffersIncpectinsNo = res.filter(item => item.settingCode == "PT029")[0].fieldValue;
         this.autoNumbering.autoTechnicalRecordsNo = res.filter(item => item.settingCode == "PT030")[0].fieldValue;
         this.autoNumbering.lastTechnicalRecordsNo = res.filter(item => item.settingCode == "PT031")[0].fieldValue;
+        this.autoNumbering.tempLastTechnicalRecordsNo = res.filter(item => item.settingCode == "PT031")[0].fieldValue;
         this.autoNumbering.serialBy = res.filter(item => item.settingCode == "PT032")[0].fieldValue;
         //إعدادات ضوابط طلبات التغيير
         this.changeReqSetsObj.hIncreaseRate = res.filter(item => item.settingCode == "PT033")[0].fieldValue;
@@ -221,15 +235,26 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.purchaseOrderSetsObj.purchaseRecNoSameToPurchaseReq = res.filter(item => item.settingCode == "PT044")[0].fieldValue;
         this.purchaseOrderSetsObj.purchaseRecCancellationMethod = res.filter(item => item.settingCode == "PT045")[0].fieldValue;
         this.purchaseOrderSetsObj.determinePurchaseRecordNoInEtimad = res.filter(item => item.settingCode == "PT046")[0].fieldValue;
-        //إعدادات مالية
-        this.financialSetsObj.useProjectReservations = res.filter(item => item.settingCode == "PT047")[0].fieldValue;
-        this.financialSetsObj.allowDealWithForeignCurrencies = res.filter(item => item.settingCode == "PT048")[0].fieldValue;
 
+        if (this.isGovernment) {
+          //إعدادات مالية
+          this.financialSetsObj.useProjectReservations = res.filter(item => item.settingCode == "PT047")[0].fieldValue;
+          this.financialSetsObj.allowDealWithForeignCurrencies = res.filter(item => item.settingCode == "PT048")[0].fieldValue;
+          //todoDB
+          //إعدادات أخرى
+          this.otherSetsObj.vendorID;
+          this.otherSetsObj.vendorIDs;
+          this.otherSetsDepartmentIDs;
+          this.otherSetsObj.departmentID;
+          //إعدادات المنافسات
+          this.tendersObj.autoDecideCommitteeDocNo = res.filter(item => item.settingCode == "PT075")[0].fieldValue;
+          this.tendersObj.lastDecideCommitteeDocNo = res.filter(item => item.settingCode == "PT076")[0].fieldValue;
+        }
         //أعدادت أخرى
         this.otherSetsObj.dealingVendorsBlackList = res.filter(item => item.settingCode == "PT049")[0].fieldValue;
         this.otherSetsObj.noticeExpirationPeriod = res.filter(item => item.settingCode == "PT050")[0].fieldValue;
         this.otherSetsObj.supplier = res.filter(item => item.settingCode == "PT051")[0].fieldValue;
-        //todo vendor id and departmentid
+
         this.otherSetsObj.stoppingPeriod = res.filter(item => item.settingCode == "PT052")[0].fieldValue;
 
         //إعدادات رموز الخدمات
@@ -261,9 +286,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.tendersObj.lastTenderLetterNo = res.filter(item => item.settingCode == "PT072")[0].fieldValue;
         this.tendersObj.autoStopReceiveOfferNo = res.filter(item => item.settingCode == "PT073")[0].fieldValue;
         this.tendersObj.lastStopReceiveOfferNo = res.filter(item => item.settingCode == "PT074")[0].fieldValue;
-        this.tendersObj.autoDecideCommitteeDocNo = res.filter(item => item.settingCode == "PT075")[0].fieldValue;
-        this.tendersObj.lastDecideCommitteeDocNo = res.filter(item => item.settingCode == "PT076")[0].fieldValue;
-        this.rowStamp = res.rowStamp;
+
+
       }
     }, error => {
       this.appAlert.showError(error);
@@ -333,12 +357,15 @@ export class GeneralSettingsComponent extends Base implements OnInit {
   };
   controllerChanged(event, code, controllerType) {
     controllerType;
-    if (this.changedData.length > 1) {
+    if (this.changedData.length > 0) {
       let foundObj = this.changedData.filter(x => x.settingCode == code)[0];
       if (foundObj)
-        this.changedData = this.changedData.splice(this.changedData.indexOf(foundObj), 1);
+        this.changedData = this.changedData.filter(function (obj) {
+          return obj.settingCode !== foundObj.settingCode;
+        });
     }
-    this.changedData.push({ settingCode: code, fieldValue: event.value, rowStamp: this.rowStamp });
+    let rowStamp = this.settingsData?.filter(x => x.settingCode == code)[0]?.rowStamp;
+    this.changedData.push({ settingCode: code, fieldValue: event.value, rowStamp: rowStamp });
 
   };
   onSelectLookup(event, type) {
@@ -437,27 +464,34 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     return {
       autoPurchaseReqNo: false,
       lastPurchaseReqNo: '',
-
+      tempLastPurchaseReqNo: '',
       autoPurchaseTransNo: false,
       lastPurchaseTransNo: '',
+      tempLastPurchaseTransNo: '',
 
       autoQuotationsReqNo: false,
       lastQuotationsReqNo: '',
+      tempLastQuotationsReqNo: '',
 
       autoChangeReqNo: false,
       lastChangeReqNo: '',
+      tempLastChangeReqNo: '',
 
       autoChangeOrderNo: false,
       lastChangeOrderNo: '',
+      tempLastChangeOrderNo: '',
 
       autoOfferRecordsOpeningNo: false,
       lastOfferRecordsOpeningNo: '',
+      tempLastOfferRecordsOpeningNo: '',
 
       autoOffersIncpectinsNo: false,
       lastOffersIncpectinsNo: '',
+      tempLastOffersIncpectinsNo: '',
 
       autoTechnicalRecordsNo: false,
       lastTechnicalRecordsNo: '',
+      tempLastTechnicalRecordsNo: '',
       serialBy: '',
       tabNumber: 1,
     };
@@ -683,7 +717,68 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     //DB
     this.controllerChanged(event, 'PT012', 'ckbl');
 
+  };
+  saveSettings() {
+    if (this.changedData.length > 0) {
+      if (this.changedData.length > 1) {
+        let paramObj =
+        {
+          jsonData: JSON.stringify(this.changedData),
+          organizationID: this.organizationID,
+
+        }
+        this.ptmService.UpdateSettingsBulk(paramObj).subscribe(output => {
+          if (output.valid) {
+            this.appAlert.showSuccess();
+            this.loadSettings();
+          }
+          else {
+            this.appAlert.showError(output.message);
+          }
+        });
+      }
+      else {
+        let paramObj =
+        {
+          organizationID: this.organizationID,
+          settingCode: this.changedData[0].settingCode,
+          fieldValue: this.changedData[0].fieldValue,
+          rowStamp: this.changedData[0].rowStamp,
+
+        }
+        this.ptmService.UpdateSettings(paramObj).subscribe(output => {
+          if (output.valid) {
+            this.appAlert.showSuccess();
+            this.loadSettings();
+          }
+          else {
+            this.appAlert.showError(output.message);
+          }
+        });
+      }
+    }
   }
+  validateLastNumberToBeGreater() {
+    if (this.autoNumbering.lastChangeOrderNo < this.autoNumbering.tempLastChangeOrderNo)
+      return false;
+    else if (this.autoNumbering.lastChangeReqNo < this.autoNumbering.tempLastChangeReqNo)
+      return false;
+    else if (this.autoNumbering.lastOfferRecordsOpeningNo < this.autoNumbering.tempLastOfferRecordsOpeningNo)
+      return false;
+    else if (this.autoNumbering.lastOffersIncpectinsNo < this.autoNumbering.tempLastOffersIncpectinsNo)
+      return false;
+    else if (this.autoNumbering.lastPurchaseReqNo < this.autoNumbering.tempLastPurchaseReqNo)
+      return;
+    else if (this.autoNumbering.lastPurchaseTransNo < this.autoNumbering.tempLastPurchaseTransNo)
+      return false;
+    else if (this.autoNumbering.lastQuotationsReqNo < this.autoNumbering.tempLastQuotationsReqNo)
+      return false;
+    else if (this.autoNumbering.lastTechnicalRecordsNo < this.autoNumbering.tempLastTechnicalRecordsNo)
+      return false;
+    else return true;
+
+  }
+
   //to do create function
   clear() {
     this.linkObj = this.getEmptylinkObj();
@@ -697,7 +792,12 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     this.otherSetsObj = this.getEmptyOtherSetsObj();
     this.directPurchaseObj = this.getEmptyDirectPurchaseObj();
     this.tendersObj = this.getEmptyTendersObj();
-
+    this.fiscalYearID = null;
+    this.fiscalYearName = null;
+    this.fiscalYearStatus = null;
+    this.fiscalYearStatusData = [];
+    this.changedData = [];
+    this.settingsData = [];
 
   }
 

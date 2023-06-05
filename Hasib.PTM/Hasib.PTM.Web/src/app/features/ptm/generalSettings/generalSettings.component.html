@@ -324,7 +324,7 @@
             <!--end إعدادات ضوابط طلبات التغيير-->
           </div>
 
-          <div class="col-6">
+          <div class="col-6" [hidden]="!isGovernment">
             <!--start الإعدادات المالية-->
             <h-panel title="{{ 'PTM_FINANCIAL_SETTINGS' | translate}}" [showRefresh]="false" [showCollapse]="false">
               <div class="row">
@@ -524,7 +524,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" [hidden]="!isGovernment">
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_SUPPLIER_DEFAULT_DESTINATION_RESERVATION_REQUEST' | translate}}</h-label>
                   <h-radioButtonList [data]="[
@@ -533,6 +533,7 @@
                                      dataTextFieldAr="nameAr"
                                      dataTextFieldEn="nameEn"
                                      dataValueField="id"
+                                     [required]="true"
                                      (onChange)="controllerChanged($event,'PT051','rdl')"
                                      [(selectedValue)]="otherSetsObj.supplier"
                                      repeatDirection="h"></h-radioButtonList>
@@ -541,8 +542,9 @@
                 <div class="col-lg-4 col-xs-1" [hidden]="otherSetsObj.supplier!='D'">
                   <h-label> {{ 'PTM_PURCHASING_DESTINATION' | translate}}</h-label>
                   <h-lookup name="lkpDeptSupplier" lookupType="Department"
-                            [(selectedIDs)]="otherSetsObj.departmentIDs"
+                            [(selectedIDs)]="otherSetsDepartmentIDs"
                             (onChange)="onSelectLookup($event,'otherSetsDept')"
+                            [required]="otherSetsObj.supplier=='D'"
                             (onClear)="onClearLookup($event,'otherSetsDept')"> </h-lookup>
                 </div>
                 <div class="col-lg-4 col-xs-1" [hidden]="otherSetsObj.supplier!='V'">
@@ -551,8 +553,12 @@
                             [(selectedIDs)]="otherSetsObj.vendorIDs"
                             (onChange)="onSelectLookup($event,'otherSetsVendor')"
                             (onClear)="onClearLookup($event,'otherSetsVendor')"
+                            [required]="otherSetsObj.supplier=='V'"
                             lookupType="Vendor"></h-lookup>
                 </div>
+
+              </div>
+              <div class="row">
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_STOPPING_PERIOD_DATE_ISSUANEFOR_LETTERS' | translate}}</h-label>
                   <h-spinner name="txtserialDigits"
@@ -684,7 +690,7 @@
         <!--DB-->
         <div class="row">
           <!--start إعدادات ترقيم معاملة الشراء-->
-          <h-panel title="{{ 'PTM_PURCHASE_TRANS_NO_SETTINGS'| translate}}"[showRefresh]="false" [showCollapse]="false">
+          <h-panel title="{{ 'PTM_PURCHASE_TRANS_NO_SETTINGS'| translate}}" [showRefresh]="false" [showCollapse]="false">
             <div class="row">
               <div class="col-lg-12">
 
@@ -841,7 +847,7 @@
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
         </div>
-        <div class="row">
+        <div class="row" [hidden]="!isGovernment">
           <div class="col-lg-4">
             <h-label> {{ 'PTM_AUTO_NUMBERING_DECIDING_COMMITTEE_DOC' | translate}}</h-label>
             <h-switch name="swtAutoDecideCommitteeDocNo"
@@ -918,7 +924,7 @@
           </div>
         </div>
         <div class="row">
-          <h-panel title="{{ 'PTM_TENDER_NUMBER_SETTINGS'| translate}}"[showRefresh]="false" [showCollapse]="false">
+          <h-panel title="{{ 'PTM_TENDER_NUMBER_SETTINGS'| translate}}" [showRefresh]="false" [showCollapse]="false">
             <div class="row">
               <div class="col-lg-12">
 
