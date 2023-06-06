@@ -16,6 +16,7 @@ namespace Hasib.PTM.Model
         public int? AdministrativePostID { get; set; }
         public int? ProfessionID { get; set; }
         public int? UserID { get; set; }
+        public int? PermissionID { get; set; }
         public string PermissionNameAR { get; set; }
         public string PermissionNameEN { get; set; }
         public string UserNameAR { get; set; }
@@ -23,7 +24,7 @@ namespace Hasib.PTM.Model
         public decimal FromAmount { get; set; }
         public decimal ToAmount { get; set; }
         public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime? ToDate { get; set; }
         public bool IsActive { get; set; }
         public int CreatedSID { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -46,24 +47,24 @@ namespace Hasib.PTM.Model
             int c4 = rd.GetOrdinal("administrativePostID");
             int c5 = rd.GetOrdinal("professionID");
             int c6 = rd.GetOrdinal("userID");
-            int c7 = rd.GetOrdinal("permissionNameAR");
-            int c8 = rd.GetOrdinal("permissionNameEN");
-            int c9 = rd.GetOrdinal("userNameAR");
-            int c10 = rd.GetOrdinal("userNameEN");
-            int c11 = rd.GetOrdinal("fromAmount");
-            int c12 = rd.GetOrdinal("toAmount");
-            int c13 = rd.GetOrdinal("fromDate");
-            int c14 = rd.GetOrdinal("toDate");
-            int c15 = rd.GetOrdinal("isActive");
-            int c16 = rd.GetOrdinal("createdSID");
-            int c17 = rd.GetOrdinal("createdOn");
-            int c18 = rd.GetOrdinal("modifiedSID");
-            int c19 = rd.GetOrdinal("modifiedOn");
-            int c20 = rd.GetOrdinal("rowStamp");
+            int c7 = rd.GetOrdinal("permissionID");
+            int c8 = rd.GetOrdinal("permissionNameAR");
+            int c9 = rd.GetOrdinal("permissionNameEN");
+            int c10 = rd.GetOrdinal("fromAmount");
+            int c11 = rd.GetOrdinal("toAmount");
+            int c12 = rd.GetOrdinal("fromDate");
+            int c13 = rd.GetOrdinal("toDate");
+            int c14 = rd.GetOrdinal("isActive");
+            int c15 = rd.GetOrdinal("createdSID");
+            int c16 = rd.GetOrdinal("createdOn");
+            int c17 = rd.GetOrdinal("modifiedSID");
+            int c18 = rd.GetOrdinal("modifiedOn");
+            int c19 = rd.GetOrdinal("rowStamp");
 
             while (rd.Read())
             {
                 var r = new POPermit();
+
 
                 r.POpermitID = rd.GetInt32(c0);
                 r.ScreenCode = rd.GetString(c1);
@@ -72,20 +73,19 @@ namespace Hasib.PTM.Model
                 if (!rd.IsDBNull(c4)) r.AdministrativePostID = rd.GetInt32(c4);
                 if (!rd.IsDBNull(c5)) r.ProfessionID = rd.GetInt32(c5);
                 if (!rd.IsDBNull(c6)) r.UserID = rd.GetInt32(c6);
-                if (!rd.IsDBNull(c7)) r.PermissionNameAR = rd.GetString(c7);
-                if (!rd.IsDBNull(c8)) r.PermissionNameEN = rd.GetString(c8);
-                if (!rd.IsDBNull(c9)) r.UserNameAR = rd.GetString(c9);
-                if (!rd.IsDBNull(c10)) r.UserNameEN = rd.GetString(c10);
-                r.FromAmount = rd.GetDecimal(c11);
-                r.ToAmount = rd.GetDecimal(c12);
-                r.FromDate = rd.GetDateTime(c13);
-                if (!rd.IsDBNull(c14)) r.ToDate = rd.GetDateTime(c14);
-                r.IsActive = rd.GetBoolean(c15);
-                r.CreatedSID = rd.GetInt32(c16);
-                r.CreatedOn = rd.GetDateTime(c17);
-                if (!rd.IsDBNull(c18)) r.ModifiedSID = rd.GetInt32(c18);
-                if (!rd.IsDBNull(c19)) r.ModifiedOn = rd.GetDateTime(c19);
-                r.RowStamp = rd.GetValue(c20) as byte[];
+                if (!rd.IsDBNull(c7)) r.PermissionID = rd.GetInt32(c7);
+                if (!rd.IsDBNull(c8)) r.PermissionNameAR = rd.GetString(c8);
+                if (!rd.IsDBNull(c9)) r.PermissionNameEN = rd.GetString(c9);
+                r.FromAmount = rd.GetDecimal(c10);
+                r.ToAmount = rd.GetDecimal(c11);
+                r.FromDate = rd.GetDateTime(c12);
+                if (!rd.IsDBNull(c13)) r.ToDate = rd.GetDateTime(c13);
+                r.IsActive = rd.GetBoolean(c14);
+                r.CreatedSID = rd.GetInt32(c15);
+                r.CreatedOn = rd.GetDateTime(c16);
+                if (!rd.IsDBNull(c17)) r.ModifiedSID = rd.GetInt32(c17);
+                if (!rd.IsDBNull(c18)) r.ModifiedOn = rd.GetDateTime(c18);
+                r.RowStamp = rd.GetValue(c19) as byte[];
 
                 res.Add(r);
             }

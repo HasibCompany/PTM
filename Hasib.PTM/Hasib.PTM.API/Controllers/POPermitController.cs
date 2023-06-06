@@ -29,13 +29,13 @@ namespace Hasib.PTM.API.Controllers
         [HttpPost("InsertPOPermit")]
         public async Task<ActionResult<Output>> InsertPOPermit([FromBody] POPermit obj)
         {
-            return await POPermit.InsertPOPermit(obj.ScreenCode, obj.PermitFor, obj.UserGroupID, obj.AdministrativePostID, obj.ProfessionID, obj.UserID, obj.FromAmount, obj.ToAmount, obj.FromDate, obj.ToDate, obj.IsActive, obj.CreatedSID);
+            return await POPermit.InsertPOPermit(obj.ScreenCode, obj.PermitFor, obj.UserGroupID, obj.AdministrativePostID, obj.ProfessionID, obj.UserID, obj.FromAmount, obj.ToAmount, obj.FromDate, obj.ToDate, obj.IsActive, SessionId);
         }
         [TypeFilter(typeof(AuthourizationActionFilter), Arguments = new object[] { ActionFlagEnum.CanUpdate })]
         [HttpPut("UpdatePOPermit")]
         public async Task<ActionResult<Output>> UpdatePOPermit([FromBody] POPermit obj)
         {
-            return await POPermit.UpdatePOPermit(obj.POpermitID, obj.ScreenCode, obj.PermitFor, obj.UserGroupID, obj.AdministrativePostID, obj.ProfessionID, obj.UserID, obj.FromAmount, obj.ToAmount, obj.FromDate, obj.ToDate, obj.IsActive, obj.ModifiedSID, obj.RowStamp);
+            return await POPermit.UpdatePOPermit(obj.POpermitID, obj.ScreenCode, obj.PermitFor, obj.UserGroupID, obj.AdministrativePostID, obj.ProfessionID, obj.UserID, obj.FromAmount, obj.ToAmount, obj.FromDate, obj.ToDate, obj.IsActive, SessionId, obj.RowStamp);
         }
         [TypeFilter(typeof(AuthourizationActionFilter), Arguments = new object[] { ActionFlagEnum.CanDelete })]
         [HttpPost("DeletePOPermit")]

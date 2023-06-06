@@ -2,34 +2,34 @@
   <div class="col-12 mx-auto">
     <div class="col-lg-4 mx-auto m--margin-bottom-20">
       <h-label>{{ 'PTM_TRANSACTION_NAME'| translate}}</h-label>
-      <h-productConstant productConstantType="281"
+      <h-productConstant productConstantType="282"
                          controlType="dropDownList"
                          name="productconstantType"
-                         [disabled]="false"
-                         [(selectedValue)]="codeType"
-                         (onChange)="codeTypeChanged($event)">
+                         [(selectedValue)]="newObj.screenCode"
+                         (onChange)="screenCodeChanged($event)">
       </h-productConstant>
     </div>
   </div>
   <div class="col-12">
-    <h-dataTable [(data)]="codesData" #codesDT
-                 [columns]="columns"
+    <h-dataTable [(data)]="permitionsData" #permitionsDT
+                 [columns]="permitionsColumn"
                  [editable]="true"
-                 [showAdd]="codeType != '' && codeType !=null"
+                 [showAdd]="newObj.screenCode!=null"
                  [isActiveSwitch]="true"
                  [showRowNumber]="true"
-                 [editDisable]="editDisable"
-                 [addDisable]="addDisable"
+                 [editDisable]="eventDisable"
+                 [addDisable]="eventDisable"
                  [addData]="eventData"
+                 (onAddCell)="cellEvents($event,'add')"
+                 (onEditCell)="cellEvents($event,'edit')"
                  (onSaveAddRow)="onSaveAddRow($event)"
                  (onSaveEditRow)="onSaveEditRow($event)"
                  (ondDeleteRow)="ondDeleteRow($event)"
                  (onEditClick)="onEditClick($event)"
                  (onAddClick)="onAddClick()"
                  (onCancelEditRow)="onCancelEditRow($event)"
-                  showCompositeHeader="true"
-                 name="tblgeneralCodes">
+                 showCompositeHeader="true"
+                 name="tblPermitions">
     </h-dataTable>
   </div>
-  <!--<h-reportDialog #report [(hidden)]="hideReport" title="{{ 'WIM_GENERAL_CODES' | translate}}" [reportUrl]="reportUrl"></h-reportDialog>-->
 </div>
