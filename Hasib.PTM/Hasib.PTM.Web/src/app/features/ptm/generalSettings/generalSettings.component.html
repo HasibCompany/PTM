@@ -3,14 +3,16 @@
     <h-tabs>
       <h-tabElement label="{{ 'PTM_GENERAL_SETTINGS_PURCHASING'| translate}}">
         <!--start إعدادات الربط مع الأنظمة-->
-        <h-panel title="{{ 'PTM_INTEGRATION_SETTINGS'| translate}}">
+        <h-panel title="{{ 'PTM_INTEGRATION_SETTINGS'| translate}}" [showRefresh]="false" [showCollapse]="false">
           <div class="row" [hidden]="linkObj.linkedToFGL">
             <div class="col-lg-4">
               <h-label>
                 {{ 'PTM_CURRENT_YEAR'| translate}}
               </h-label>
               <h-textBox name="txtcurrYear"
-                         [disabled]="pageMode!=2" [(value)]="linkObj.purchaseYearName"></h-textBox>
+                         [disabled]="pageMode!=2"
+                         [(value)]="linkObj.purchaseYearName"
+                         (onChange)="controllerChanged($event,'PT001','txt')"></h-textBox>
             </div>
             <!--todo set value for calender -->
             <div class="col-lg-4">
@@ -20,6 +22,7 @@
               <h-calendar name="clnPeriodFrom"
                           calendarUIType="g"
                           valueType="g"
+                          (onChange)="controllerChanged($event,'PT002','cln')"
                           [(value)]="linkObj.purchaseYearStartDate"
                           [disabled]="true">
               </h-calendar>
@@ -32,6 +35,7 @@
                           calendarUIType="g"
                           valueType="g"
                           [disabled]="pageMode!=2"
+                          (onChange)="controllerChanged($event,'PT003','cln')"
                           [(value)]="linkObj.purchaseYearEndDate">
               </h-calendar>
             </div>
@@ -44,7 +48,7 @@
                         onText="SHD_YES"
                         offText="SHD_NO"
                         [disabled]="!isFGLActive || pageMode!=2"
-                        (onChange)="onLinkedFinancialChange($event)"
+                        (onChange)="onLinkedChange($event,'FGL')"
                         [(checked)]="linkObj.linkedToFGL"></h-switch>
             </div>
             <div class="col-lg-4" [hidden]="!linkObj.linkedToFGL">
@@ -60,7 +64,7 @@
                 {{ 'PTM_FISCAL_YEAR_STATUS'| translate}}
               </h-label>
               <h-textBox name="txfiscalYearStatus"
-                         [(value)]="linkObj.fiscalYearStatus"
+                         [(value)]="fiscalYearStatus"
                          [disabled]="true"></h-textBox>
             </div>
           </div>
@@ -71,6 +75,7 @@
               <h-switch name="swtLinkedWIM"
                         onText="SHD_YES"
                         offText="SHD_NO"
+                        (onChange)="onLinkedChange($event,'WIM')"
                         [disabled]="!isWIMActive|| pageMode!=2"
                         [(checked)]="linkObj.linkedToWIM"></h-switch>
             </div>
@@ -80,6 +85,7 @@
                         onText="SHD_YES"
                         offText="SHD_NO"
                         [disabled]="!linkObj.linkedToWIM"
+                        (onChange)="controllerChanged($event,'PT007','swt')"
                         [(checked)]="linkObj.pecifyStorenInPurchasing"></h-switch>
             </div>
             <div class="col-lg-4">
@@ -87,6 +93,7 @@
               <h-switch name="swtLinkedHRM"
                         onText="SHD_YES"
                         offText="SHD_NO"
+                        (onChange)="controllerChanged($event,'PT008','swt')"
                         [disabled]="!isHRMActive || pageMode!=2"
                         [(checked)]="linkObj.linkedToHRM">
 
@@ -97,6 +104,7 @@
               <h-switch name="swtLinkedFPC"
                         onText="SHD_YES"
                         offText="SHD_NO"
+                        (onChange)="controllerChanged($event,'PT009','swt')"
                         [disabled]="!isFPCActive || pageMode!=2"
                         [(checked)]="linkObj.linkedToFPC">
 
@@ -105,54 +113,7 @@
           </div>
         </h-panel>
         <!--end إعدادات الربط مع الأنظمة-->
-        <!--start إعدادات ترقيم معاملة الشراء-->
-        <h-panel title="{{ 'PTM_PURCHASE_TRANS_NO_SETTINGS'| translate}}">
-          <div class="row">
-            <div class="col-lg-6 m--margin-top-30">
-              <h6 class="m-portlet__head-text font-weight-bold">{{ 'PTM_PURCHASE_TENDERS_TRANS_NO_FORMAT' | translate}}</h6>
-              <h-dataTable [(data)]="transNumberingObj.transNumberingData" #transNumberingDT
-                           [columns]="transNumberingColums"
-                           [editable]="true"
-                           [showRefresh]="false"
-                           [showSearch]="false"
-                           [showLengthMenu]="false"
-                           [showRowNumber]="false"
-                           [showSettings]="false"
-                           name="tbltransNumbering">
-              </h-dataTable>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <h-label> {{ 'PTM_SEPARATOR' | translate}}</h-label>
-              <h-radioButtonList name="autTranssperator"
-                                 [data]="[{ id: '/', nameEn: '/', nameAr: '/' },
-                                    { id: '-', nameEn: '-', nameAr: '-' },
-                                    { id: '*', nameEn: 'None',    nameAr: 'بدون' }]"
-                                 dataTextFieldAr="nameAr"
-                                 dataTextFieldEn="nameEn"
-                                 dataValueField="id"
-                                 [(selectedValue)]="transNumberingObj.seperator">
-              </h-radioButtonList>
-            </div>
-            <div class="col-lg-4">
-              <h-label> {{ 'PTM_FIXED_PART' | translate}}</h-label>
-              <h-checkBoxList name="ddlTransFixedPart"
-                              [data]="[{ id: '0', nameEn: '/', nameAr: 'رقم/نص' },
-                                    { id: '1', nameEn: '-', nameAr: 'السنة المالية' },
-                                    { id: '2', nameEn: 'None',    nameAr: 'الموقع' }]"
-                              dataTextFieldAr="nameAr"
-                              dataTextFieldEn="nameEn"
-                              dataValueField="id"
-                              [(checkedFlags)]="transNumberingObj.fixedPart"
-                              [required]="true">
-              </h-checkBoxList>
-            </div>
-          </div>
 
-
-        </h-panel>
-        <!--end إعدادات ترقيم معاملة الشراء-->
         <div class="row">
           <div class="col-12">
             <!--start إعدادات الترقيم التلقائي-->
@@ -164,6 +125,7 @@
                   <h-switch name="swtAutoNoPurchaseReq"
                             onText="SHD_YES"
                             [(checked)]="autoNumbering.autoPurchaseReqNo"
+                            (onChange)="controllerChanged($event,'PT016','swt')"
                             offText="SHD_NO"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -172,6 +134,7 @@
                   </h-label>
                   <h-textBox name="txtLastPurchaseReqNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT017','txt')"
                              [(value)]="autoNumbering.lastPurchaseReqNo"></h-textBox>
                 </div>
                 <div class="col-lg-2">
@@ -179,6 +142,7 @@
                   <h-switch name="swtAutoNoPurchaseOrder"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT018','swt')"
                             [(checked)]="autoNumbering.autoPurchaseOrderNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -187,8 +151,9 @@
                   </h-label>
                   <h-textBox name="txtLastPurchaseOrderNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT019','txt')"
                              [(value)]="autoNumbering.lastPurchaseOrderNo">
-                    >
+
                   </h-textBox>
                 </div>
               </div>
@@ -201,6 +166,7 @@
                   <h-switch name="swtAutoNoQutatuinReq"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT020','swt')"
                             [(checked)]="autoNumbering.autoQutatuinReqNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -209,6 +175,7 @@
                   </h-label>
                   <h-textBox name="txtLastQutationNo"
                              [(value)]="autoNumbering.lastQutationNo"
+                             (onChange)="controllerChanged($event,'PT021','txt')"
                              [disabled]="pageMode!=2"></h-textBox>
                 </div>
                 <div class="col-lg-2">
@@ -216,6 +183,7 @@
                   <h-switch name="swtAutoNoChangeReq"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT022','swt')"
                             [(checked)]="autoNumbering.autoChangeReqNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -224,6 +192,7 @@
                   </h-label>
                   <h-textBox name="txtLastChangeReqNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT023','txt')"
                              [(value)]="autoNumbering.lastChangeReqNo"></h-textBox>
                 </div>
               </div>
@@ -234,6 +203,7 @@
                   <h-switch name="swtAutoNoChangeOrder"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT024','swt')"
                             [(checked)]="autoNumbering.autoChangeOrderNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -242,6 +212,7 @@
                   </h-label>
                   <h-textBox name="txtLastChangeOrderNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT025','txt')"
                              [(value)]="autoNumbering.lastChangeOrderNo"></h-textBox>
                 </div>
                 <div class="col-lg-2">
@@ -249,6 +220,7 @@
                   <h-switch name="swtAutoNoSquencingOpeiningOrder"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT026','swt')"
                             [(checked)]="autoNumbering.autoOfferRecordsOpeningNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -257,6 +229,7 @@
                   </h-label>
                   <h-textBox name="txtLastquencingOpeiningOrderNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT027','txt')"
                              [(value)]="autoNumbering.lastOfferRecordsOpeningNo"></h-textBox>
                 </div>
               </div>
@@ -268,6 +241,7 @@
                   <h-switch name="swtAutoNoSquencingOpeiningOffer"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT028','swt')"
                             [(checked)]="autoNumbering.autoOfferInspectionNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -276,6 +250,7 @@
                   </h-label>
                   <h-textBox name="txtLastquencingSquencingOpeiningOfferNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT029','txt')"
                              [(value)]="autoNumbering.lastOfferInspectionNo">
 
                   </h-textBox>
@@ -285,6 +260,7 @@
                   <h-switch name="swtAutoNoSquencingTechnicalRecord"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT030','swt')"
                             [(checked)]="autoNumbering.autoTechnicalRecordNo"></h-switch>
                 </div>
                 <div class="col-lg-2">
@@ -293,6 +269,7 @@
                   </h-label>
                   <h-textBox name="txtLastquencingSquencingTechnicalRecordNo"
                              [disabled]="pageMode!=2"
+                             (onChange)="controllerChanged($event,'PT031','txt')"
                              [(value)]="autoNumbering.lastTechnicalRecordNo">
                   </h-textBox>
                 </div>
@@ -307,6 +284,7 @@
                                      dataValueField="id"
                                      repeatDirection="h"
                                      [required]="true"
+                                     (onChange)="controllerChanged($event,'PT032','rdl')"
                                      [(selectedValue)]="autoNumbering.serialBy"
                                      name="rblSerialDocs"></h-radioButtonList>
                 </div>
@@ -325,7 +303,10 @@
               <div class="row">
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_HIGHEST_INCREASE_RATE_OVER' | translate}}</h-label>
-                  <h-spinner name="spnHighestIncreaseRateOver" [(value)]="changeReqSetsObj.hIncreaseRate" [placeHolder]="'%'"></h-spinner>
+                  <h-spinner name="spnHighestIncreaseRateOver"
+                             [(value)]="changeReqSetsObj.hIncreaseRate"
+                             (onChange)="controllerChanged($event,'PT033','spn')"
+                             [placeHolder]="'%'"></h-spinner>
                 </div>
                 <div class="col-lg-4">
                   <h-label>
@@ -333,6 +314,7 @@
                   </h-label>
                   <h-spinner name="spnHighestDiscountRateOver"
                              [(value)]="changeReqSetsObj.hDiscountRate"
+                             (onChange)="controllerChanged($event,'PT034','spn')"
                              [disabled]="pageMode!=2" [placeHolder]="'%'"></h-spinner>
                 </div>
               </div>
@@ -342,6 +324,30 @@
             <!--end إعدادات ضوابط طلبات التغيير-->
           </div>
 
+          <div class="col-6" [hidden]="!isGovernment">
+            <!--start الإعدادات المالية-->
+            <h-panel title="{{ 'PTM_FINANCIAL_SETTINGS' | translate}}" [showRefresh]="false" [showCollapse]="false">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h-label> {{ 'PTM_USE_PROJECT_RESERVATIONS' | translate}}</h-label>
+                  <h-switch name="swtLinkedFAM"
+                            onText="SHD_YES"
+                            offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT047','swt')"
+                            [(checked)]="financialSetsObj.useProjectReservations"></h-switch>
+                </div>
+                <div class="col-lg-4">
+                  <h-label> {{ 'PTM_ALLOWING_DEAL_FOREIGN_CURRENCIES' | translate}}</h-label>
+                  <h-switch name="swtLinkedFAM"
+                            onText="SHD_YES"
+                            offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT048','swt')"
+                            [(checked)]="financialSetsObj.allowDealWithForeignCurrencies"></h-switch>
+                </div>
+              </div>
+              <!--end  الإعدادات المالية-->
+            </h-panel>
+          </div>
         </div>
         <div class="row">
           <div class="col-6">
@@ -353,6 +359,7 @@
                   <h-switch name="swtPurchasingCyclesSettingsRequest"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT035','swt')"
                             [(checked)]="purchaseReqSetsObj.specifyPurchaseCycle"></h-switch>
                 </div>
                 <div class="col-lg-4">
@@ -361,6 +368,7 @@
                   </h-label>
                   <h-spinner name="txtPeriodAfterAlertRequiredImplement"
                              [(value)]="purchaseReqSetsObj.periodToAlert"
+                             (onChange)="controllerChanged($event,'PT036','spn')"
                              [disabled]="true"></h-spinner>
                 </div>
               </div>
@@ -370,6 +378,7 @@
                   <h-switch name="swtAddDateFromExternalFile"
                             onText="SHD_YES"
                             offText="SHD_NO"
+                            (onChange)="controllerChanged($event,'PT039','swt')"
                             [(checked)]="purchaseReqSetsObj.addDateFromExternal"></h-switch>
                 </div>
                 <div class="col-lg-4">
@@ -383,7 +392,8 @@
                                      dataValueField="id"
                                      repeatDirection="h"
                                      [required]="true"
-                                     [selectedValue]="purchaseReqSetsObj.specifyPurchaseResponsiblePerson"
+                                     (onChange)="controllerChanged($event,'PT040','rdl')"
+                                     [(selectedValue)]="purchaseReqSetsObj.specifyPurchaseResponsiblePerson"
                                      name="rblSpecifyingsResponsiblePersonProcessRequest"></h-radioButtonList>
                 </div>
               </div>
@@ -402,14 +412,16 @@
                   <h-switch name="swtLinkedFAM"
                             onText="SHD_YES"
                             offText="SHD_NO"
-                            [(checked)]="purchaseOrderSetsObj.makePurchaseRecordDescSameSubjectPurchaseRequest"></h-switch>
+                            (onChange)="controllerChanged($event,'PT043','swt')"
+                            [(checked)]="purchaseOrderSetsObj.purchaseRecDescSameToSubject"></h-switch>
                 </div>
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_MAKE_PURCHASE_RECORD_NO_SAME_SUBJECT_PURCHASE_REQUEST' | translate}}</h-label>
                   <h-switch name="swtLinkedFAM"
                             onText="SHD_YES"
                             offText="SHD_NO"
-                            [(checked)]="purchaseOrderSetsObj.makePurchaseRecordNoSameSubjectPurchaseRequest"></h-switch>
+                            (onChange)="controllerChanged($event,'PT044','swt')"
+                            [(checked)]="purchaseOrderSetsObj.purchaseRecNoSameToPurchaseReq"></h-switch>
                 </div>
               </div>
               <div class="row">
@@ -422,6 +434,7 @@
                                      dataTextFieldEn="nameEn"
                                      dataValueField="id"
                                      repeatDirection="h"
+                                     (onChange)="controllerChanged($event,'PT045','rdl')"
                                      [(selectedValue)]="purchaseOrderSetsObj.purchaseRecCancellationMethod"
                                      [required]="true"></h-radioButtonList>
                 </div>
@@ -435,6 +448,7 @@
                                      dataTextFieldEn="nameEn"
                                      dataValueField="id"
                                      repeatDirection="h"
+                                     (onChange)="controllerChanged($event,'PT046','rdl')"
                                      [(selectedValue)]="purchaseOrderSetsObj.determinePurchaseRecordNoInEtimad"
                                      [required]="true"></h-radioButtonList>
                 </div>
@@ -445,28 +459,6 @@
         </div>
         <div class="row">
 
-          <div class="col-6">
-            <!--start الإعدادات المالية-->
-            <h-panel title="{{ 'PTM_FINANCIAL_SETTINGS' | translate}}" [showRefresh]="false" [showCollapse]="false">
-              <div class="row">
-                <div class="col-lg-4">
-                  <h-label> {{ 'PTM_USE_PROJECT_RESERVATIONS' | translate}}</h-label>
-                  <h-switch name="swtLinkedFAM"
-                            onText="SHD_YES"
-                            offText="SHD_NO"
-                            [(checked)]="financialSetsObj.useProjectReservations"></h-switch>
-                </div>
-                <div class="col-lg-4">
-                  <h-label> {{ 'PTM_ALLOWING_DEAL_FOREIGN_CURRENCIES' | translate}}</h-label>
-                  <h-switch name="swtLinkedFAM"
-                            onText="SHD_YES"
-                            offText="SHD_NO"
-                            [(checked)]="financialSetsObj.allowDealWithForeignCurrencies"></h-switch>
-                </div>
-              </div>
-              <!--end  الإعدادات المالية-->
-            </h-panel>
-          </div>
 
           <div class="col-6">
             <!--star إعدادات رموز الخدمات-->
@@ -475,6 +467,7 @@
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_COUNT_SERVICE_LEVELS' | translate}}</h-label>
                   <h-spinner name="spnserviceLevelsCount"
+                             (onChange)="controllerChanged($event,'PT053','spn')"
                              [(value)]="serviceCodesSetsObj.serviceLevelsCount"></h-spinner>
                 </div>
                 <div class="col-lg-4">
@@ -482,6 +475,7 @@
                   <h-switch name="swtLinkedFAM"
                             [(checked)]="serviceCodesSetsObj.autoServiceNo"
                             onText="SHD_YES"
+                            (onChange)="controllerChanged($event,'PT054','swt')"
                             offText="SHD_NO"></h-switch>
                 </div>
                 <div class="col-lg-4 col-xs-1">
@@ -493,7 +487,7 @@
                                   dataTextFieldAr="nameAr"
                                   dataTextFieldEn="nameEn"
                                   dataValueField="id"
-                                  [showDefaultItem]="true"
+                                  (onChange)="controllerChanged($event,'PT055','ddl')"
                                   [(selectedValue)]="serviceCodesSetsObj.serviceNoSeperator"
                                   [required]="true">
                   </h-dropDownList>
@@ -502,8 +496,6 @@
               <!--end إعدادات رموز الخدمات-->
             </h-panel>
           </div>
-        </div>
-        <div class="row">
 
           <div class="col-6">
             <!--start إعدادات أخرى-->
@@ -519,6 +511,7 @@
                                      dataTextFieldEn="nameEn"
                                      dataValueField="id"
                                      repeatDirection="h"
+                                     (onChange)="controllerChanged($event,'PT049','rdl')"
                                      [(selectedValue)]="otherSetsObj.dealingVendorsBlackList"
                                      [required]="true"></h-radioButtonList>
                 </div>
@@ -526,11 +519,12 @@
                   <h-label> {{ 'PTM_NOTICE_EXPIRATION_PERIOD_GURANTEE_LETTERS_DAYS' | translate}}</h-label>
                   <h-spinner name="txtserialDigits"
                              [(value)]="otherSetsObj.noticeExpirationPeriod"
+                             (onChange)="controllerChanged($event,'PT050')"
                              [required]="true"></h-spinner>
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" [hidden]="!isGovernment">
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_SUPPLIER_DEFAULT_DESTINATION_RESERVATION_REQUEST' | translate}}</h-label>
                   <h-radioButtonList [data]="[
@@ -539,23 +533,37 @@
                                      dataTextFieldAr="nameAr"
                                      dataTextFieldEn="nameEn"
                                      dataValueField="id"
+                                     [required]="true"
+                                     (onChange)="controllerChanged($event,'PT051','rdl')"
                                      [(selectedValue)]="otherSetsObj.supplier"
                                      repeatDirection="h"></h-radioButtonList>
                 </div>
+                <!--DB-->
                 <div class="col-lg-4 col-xs-1" [hidden]="otherSetsObj.supplier!='D'">
                   <h-label> {{ 'PTM_PURCHASING_DESTINATION' | translate}}</h-label>
-                  <h-lookup name="lkpDeptSupplier" lookupType="Department" [(selectedIDs)]="otherSetsObj.departmentIDs"> </h-lookup>
+                  <h-lookup name="lkpDeptSupplier" lookupType="Department"
+                            [(selectedIDs)]="otherSetsDepartmentIDs"
+                            (onChange)="onSelectLookup($event,'otherSetsDept')"
+                            [required]="otherSetsObj.supplier=='D'"
+                            (onClear)="onClearLookup($event,'otherSetsDept')"> </h-lookup>
                 </div>
                 <div class="col-lg-4 col-xs-1" [hidden]="otherSetsObj.supplier!='V'">
                   <h-label> {{ 'PTM_VENDOR' | translate}}</h-label>
                   <h-lookup name="lkpSuppVendor"
                             [(selectedIDs)]="otherSetsObj.vendorIDs"
+                            (onChange)="onSelectLookup($event,'otherSetsVendor')"
+                            (onClear)="onClearLookup($event,'otherSetsVendor')"
+                            [required]="otherSetsObj.supplier=='V'"
                             lookupType="Vendor"></h-lookup>
                 </div>
+
+              </div>
+              <div class="row">
                 <div class="col-lg-4">
                   <h-label> {{ 'PTM_STOPPING_PERIOD_DATE_ISSUANEFOR_LETTERS' | translate}}</h-label>
                   <h-spinner name="txtserialDigits"
                              [(value)]="otherSetsObj.stoppingPeriod"
+                             (onChange)="controllerChanged($event,'PT052','spn')"
                              [required]="true"></h-spinner>
                 </div>
               </div>
@@ -563,29 +571,34 @@
             </h-panel>
           </div>
         </div>
+
       </h-tabElement>
 
       <h-tabElement label="  {{ 'PTM_DIRECT_PURCHASE_SETTINGS'| translate}}">
-        <!--start Tab "إعدادات المنافسات"-->
         <div class="row">
           <div class="col-lg-4">
             <h-label> {{ 'PTM_AUTO_WARNING_PO_DELAYED_DELIVERY_STORES' | translate}}</h-label>
-            <h-switch name="swtLinkedFAM"
+            <h-switch name="swtAutoWarnPODelay"
                       onText="SHD_YES"
                       offText="SHD_NO"
+                      (onChange)="controllerChanged($event,'PT056','swt')"
                       [(checked)]="directPurchaseObj.autoWarning"></h-switch>
           </div>
           <div class="col-lg-4">
             <h-label> {{ 'PTM_ALLOWED_DURATION_PERIOD_DELAY_DAYS' | translate}}</h-label>
-            <h-spinner name="txtserialDigits"
+            <h-spinner name="spnAllowPeriodDelay"
                        [(value)]="directPurchaseObj.allowedLateDuration"
+                       (onChange)="controllerChanged($event,'PT057','spn')"
                        [required]="true"></h-spinner>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 col-xs-1">
             <h-label> {{ 'PTM_PURCHASING_DESTINATION' | translate}}</h-label>
-            <h-lookup name="lkpManager" lookupType="Department" [(selectedIDs)]="directPurchaseObj.departmentIDs"></h-lookup>
+            <h-lookup name="lkpManager" lookupType="Department"
+                      [(selectedIDs)]="directPurchaseObjDepartmentIDs"
+                      (onChange)="onSelectLookup($event,'DPODept')"
+                      (onClear)="onClearLookup($event,'DPODept')"></h-lookup>
           </div>
           <div class="col-lg-4">
             <h-label> {{ 'PTM_ALLOWED_MAKE_PO_RESERVING_AMOUNT' | translate}}</h-label>
@@ -595,6 +608,7 @@
                                dataTextFieldAr="nameAr"
                                dataTextFieldEn="nameEn"
                                dataValueField="id"
+                               (onChange)="controllerChanged($event,'PT059','rdl')"
                                [(selectedValue)]="directPurchaseObj.allowedtoMakePO"
                                repeatDirection="h"></h-radioButtonList>
           </div>
@@ -602,6 +616,8 @@
             <div class="">
               <h-label> {{ 'SHD_USER' | translate }}</h-label>
               <h-lookup lookupType="User"
+                        (onChange)="onSelectLookup($event,'DPOUser')"
+                        (onClear)="onClearLookup($event,'DPOUser')"
                         [(selectedIDs)]="directPurchaseObj.userIDs"
                         name="User"> </h-lookup>
             </div>
@@ -610,6 +626,8 @@
             <div class="">
               <h-label> {{ 'SHD_GROUP' | translate }}</h-label>
               <h-lookup lookupType="Group"
+                        (onChange)="onSelectLookup($event,'DPOGroup')"
+                        (onClear)="onClearLookup($event,'DPOGroup')"
                         [(selectedIDs)]="directPurchaseObj.groupIDs"
                         name="lkpGroup">
               </h-lookup>
@@ -621,6 +639,7 @@
             <h-label> {{ 'PTM_ALLOW_INCREASE_APPORVED_QUANTITY_PURCHASE_ORDER' | translate}}</h-label>
             <h-switch name="swtAllowofIncrease"
                       [(checked)]="directPurchaseObj.allowofIncrease"
+                      (onChange)="controllerChanged($event,'PT061','swt')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
@@ -628,6 +647,7 @@
             <h-label> {{ 'PTM_AUTO_NUMBERING_PURCHASE_ORDER' | translate}}</h-label>
             <h-switch name="swtAutoPONo"
                       [(checked)]="directPurchaseObj.autoPONo"
+                      (onChange)="controllerChanged($event,'PT062','swt')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
@@ -637,12 +657,14 @@
             </h-label>
             <h-textBox name="txtcurrYear"
                        [(value)]="directPurchaseObj.lastPONo"
+                       (onChange)="controllerChanged($event,'PT063','txt')"
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
           <div class="col-lg-4">
             <h-label> {{ 'PTM_AUTOMATIC_SEQUENCING_DIRECT_PURCHASE_RECORD' | translate}}</h-label>
             <h-switch name="swtAuotDPRecord"
                       [(checked)]="directPurchaseObj.auotDPRecordNo"
+                      (onChange)="controllerChanged($event,'PT064','swt')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
@@ -652,15 +674,84 @@
             </h-label>
             <h-textBox name="txtLastDirectPORecNo"
                        [(value)]="directPurchaseObj.lastDPRecordNo"
+                       (onChange)="controllerChanged($event,'PT065','txt')"
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
+          <!--DB-->
           <div class="col-lg-4">
             <h-label> {{ 'PTM_USE_STORE_NO' | translate}}</h-label>
             <h-switch name="swtuseStoreNo"
                       [(checked)]="directPurchaseObj.useStoreNo"
+                      (onChange)="controllerChanged($event,'PT065','swt')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
+        </div>
+        <!--DB-->
+        <div class="row">
+          <!--start إعدادات ترقيم معاملة الشراء-->
+          <h-panel title="{{ 'PTM_PURCHASE_TRANS_NO_SETTINGS'| translate}}" [showRefresh]="false" [showCollapse]="false">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="col-lg-12 m--margin-top-30">
+                  <h6 class="m-portlet__head-text font-weight-bold">{{ 'PTM_PURCHASE_TRANS_NO_FORMAT' | translate}}</h6>
+                  <h-dataTable [(data)]="directPurchaseObj.numberingObj.numberingData"
+                               [columns]="numberingColums"
+                               [editable]="false"
+                               [showRefresh]="false"
+                               [showSearch]="false"
+                               [showLengthMenu]="false"
+                               [showRowNumber]="false"
+                               [showSettings]="false"
+                               name="tbltransNumbering">
+                  </h-dataTable>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h-label> {{ 'PTM_SEPARATOR' | translate}}</h-label>
+                  <h-radioButtonList name="autTranssperator"
+                                     [data]="[{ id: '/', nameEn: '/', nameAr: '/' },
+                                    { id: '-', nameEn: '-', nameAr: '-' },
+                                    { id: '*', nameEn: 'None',    nameAr: 'بدون' }]"
+                                     dataTextFieldAr="nameAr"
+                                     dataTextFieldEn="nameEn"
+                                     repeatDirection="h"
+                                     dataValueField="id"
+                                     (onChange)="seperatorChanged($event,'purchaseTrans')"
+                                     [(selectedValue)]="directPurchaseObj.numberingObj.seperator">
+                  </h-radioButtonList>
+                </div>
+                <div class="col-lg-12">
+                  <h-label> {{ 'PTM_FIXED_PART' | translate}}</h-label>
+                  <h-checkBoxList name="ddlTransFixedPart"
+                                  [data]="[{ id: 'T', nameEn: '/', nameAr: 'رقم/نص' },
+                                { id: 'L', nameEn: 'None',    nameAr: 'الموقع' },
+                              { id: 'F', nameEn: '-', nameAr: 'السنة المالية' },]"
+                                  dataTextFieldAr="nameAr"
+                                  dataTextFieldEn="nameEn"
+                                  dataValueField="id"
+                                  [(checkedFlags)]="directPurchaseObj.numberingObj.fixedPart"
+                                  (onChange)="fixedPartChanged($event,'purchaseTrans')"
+                                  repeatDirection="h"
+                                  [required]="true">
+                  </h-checkBoxList>
+                </div>
+                <div class="col-lg-6">
+
+                  <h-textBox name="txtformatNO"
+                             [disabled]="directPurchaseObj.numberingObj.disableText || pageMode!=2" [required]="!directPurchaseObj.numberingObj.disableText"
+                             [(value)]="directPurchaseObj.numberingObj.text" (onBlur)="onBlur($event,'purchaseTrans')">
+                  </h-textBox>
+                </div>
+              </div>
+            </div>
+
+
+          </h-panel>
+          <!--end إعدادات ترقيم معاملة الشراء-->
+
         </div>
       </h-tabElement>
       <h-tabElement label="{{ 'PTM_TENDERS_SETTINGS'| translate}}">
@@ -669,7 +760,9 @@
             <h-label> {{ 'PTM_CONTRACTS_TENDERS_DESTINATION' | translate}}</h-label>
             <h-lookup name="lkpcontractTenderDest"
                       lookupType="Department"
-                      [(selectedIDs)]="tendersObj.departmentIDs"></h-lookup>
+                      (onChange)="onSelectLookup($event,'tenderDept')"
+                      (onClear)="onClearLookup($event,'tenderDept')"
+                      [(selectedIDs)]="tendersObjDepartmentIDs"></h-lookup>
           </div>
         </div>
         <div class="row">
@@ -677,6 +770,7 @@
             <h-label> {{ 'PTM_PRIMARY_GUARANTEE_RATE' | translate}}</h-label>
             <h-spinner name="spnPrimaryGarenteeRate"
                        [(value)]="tendersObj.primaryGuarenteeRate"
+                       (onChange)="controllerChanged($event,'PT067','spn')"
                        [required]="true"></h-spinner>
           </div>
           <div class="col-lg-4">
@@ -687,6 +781,7 @@
                             dataTextFieldAr="nameAr"
                             dataTextFieldEn="nameEn"
                             dataValueField="id"
+                            (onChange)="controllerChanged($event,'PT068','ddl')"
                             [(selectedValue)]="tendersObj.dealingMethodWithPrimaryGuarentee">
             </h-dropDownList>
           </div>
@@ -696,6 +791,7 @@
             <h-label> {{ 'PTM_FINAL_GUARATEE_RATE' | translate}}</h-label>
             <h-spinner name="spnPrimaryGuaranteeMethod"
                        [(value)]="tendersObj.finalGuaranteeRate"
+                       (onChange)="controllerChanged($event,'PT069','spn')"
                        [required]="true"></h-spinner>
           </div>
           <div class="col-lg-4">
@@ -706,7 +802,7 @@
                             dataTextFieldAr="nameAr"
                             dataTextFieldEn="nameEn"
                             dataValueField="id"
-                            [showDefaultItem]="true"
+                            (onChange)="controllerChanged($event,'PT070','ddl')"
                             [(selectedValue)]="tendersObj.dealingMethodWithFinalGuarentee"
                             [required]="true">
             </h-dropDownList>
@@ -715,10 +811,11 @@
         <div class="row">
           <div class="col-lg-4">
             <h-label> {{ 'PTM_AUTO_NUMBERING_TENDERS_LETTER' | translate}}</h-label>
-            <h-switch name="swtAutoTenderNo"
+            <h-switch name="swtAutoLetterTenderNo"
                       onText="SHD_YES"
                       offText="SHD_NO"
-                      [(checked)]="tendersObj.autoTenderNo"
+                      (onChange)="controllerChanged($event,'PT071','swt')"
+                      [(checked)]="tendersObj.autoTenderLetterNo"
                       [disabled]="pageMode==0 || !isFAMActive"></h-switch>
           </div>
           <div class="col-lg-4">
@@ -726,7 +823,8 @@
               {{ 'PTM_LAST_TENDERS_LETTER_NO'| translate}}
             </h-label>
             <h-textBox name="txtLastTenderNo"
-                       [(value)]="tendersObj.lastTenderNo"
+                       [(value)]="tendersObj.lastTenderLetterNo"
+                       (onChange)="controllerChanged($event,'PT072','txt')"
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
         </div>
@@ -735,6 +833,7 @@
             <h-label> {{ 'PTM_AUTOMATIC_SEQUENCE_STOP_RECEIVING_OFFERS' | translate}}</h-label>
             <h-switch name="swtAutoStopReceiveOfferNo"
                       [(checked)]="tendersObj.autoStopReceiveOfferNo"
+                      (onChange)="controllerChanged($event,'PT073')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
@@ -744,14 +843,16 @@
             </h-label>
             <h-textBox name="txtLastStopReceiveOfferNo"
                        [(value)]="tendersObj.lastStopReceiveOfferNo"
+                       (onChange)="controllerChanged($event,'PT074','txt')"
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
         </div>
-        <div class="row">
+        <div class="row" [hidden]="!isGovernment">
           <div class="col-lg-4">
             <h-label> {{ 'PTM_AUTO_NUMBERING_DECIDING_COMMITTEE_DOC' | translate}}</h-label>
             <h-switch name="swtAutoDecideCommitteeDocNo"
                       [(checked)]="tendersObj.autoDecideCommitteeDocNo"
+                      (onChange)="controllerChanged($event,'PT075','swt')"
                       onText="SHD_YES"
                       offText="SHD_NO"></h-switch>
           </div>
@@ -761,8 +862,129 @@
             </h-label>
             <h-textBox name="txtLastDecideCommitteeDocNo"
                        [(value)]="tendersObj.lastDecideCommitteeDocNo"
+                       (onChange)="controllerChanged($event,'PT076','txt')"
                        [disabled]="pageMode!=2"></h-textBox>
           </div>
+        </div>
+        <!--DB-->
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'PTM_TENDER_CANCELLATION_POSSIBLITY' | translate}}</h-label>
+            <h-switch name="swtcancelTender"
+                      [(checked)]="tendersObj.canCancelTender"
+                      onText="SHD_YES"
+                      offText="SHD_NO"></h-switch>
+          </div>
+          <div class="col-lg-4">
+            <h-label> {{ 'PTM_TENDER_DEALING_CANCELLATION' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'1' , nameAr:'حذف',nameEn:'Delete'},
+                         { id:'0' , nameAr:'بدون حذف',nameEn:'without Deleting'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [disabled]="!tendersObj.canCancelTender"
+                               [(selectedValue)]="tendersObj.dealingWithCancel"
+                               [required]="true"></h-radioButtonList>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'PTM_DETERMINE_TENDER_RECORD_NO_ETIMAD_PLATFORM' | translate}}</h-label>
+            <h-radioButtonList [data]="[
+                         { id:'M' , nameAr:'إجباري',nameEn:'Mandotary'},
+                         { id:'O' , nameAr:'اختياري',nameEn:'Optional'},
+                         { id:'W' , nameAr:'بدون',nameEn:'Without'}]"
+                               dataTextFieldAr="nameAr"
+                               dataTextFieldEn="nameEn"
+                               dataValueField="id"
+                               repeatDirection="h"
+                               [(selectedValue)]="tendersObj.determineTenderRecordNoInEtimad"
+                               [required]="true"></h-radioButtonList>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h-label> {{ 'PTM_AUTO_NUMBERING_TENDER' | translate}}</h-label>
+            <h-switch name="swtAutoTenderNo"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="tendersObj.autoTenderNo"
+                      [disabled]="pageMode==0 || !isFAMActive"></h-switch>
+          </div>
+          <div class="col-lg-4">
+            <h-label>
+              {{ 'PTM_LAST_NUMBER_TENDER'| translate}}
+            </h-label>
+            <h-textBox name="txtLastTenderNo"
+                       [(value)]="tendersObj.lastTenderNo"
+                       [disabled]="pageMode!=2"></h-textBox>
+          </div>
+        </div>
+        <div class="row">
+          <h-panel title="{{ 'PTM_TENDER_NUMBER_SETTINGS'| translate}}" [showRefresh]="false" [showCollapse]="false">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="col-lg-12 m--margin-top-30">
+                  <h6 class="m-portlet__head-text font-weight-bold">{{ 'PTM_TENDER_NUMBER_FORMAT' | translate}}</h6>
+                  <h-dataTable [(data)]="tendersObj.numberingObj.numberingData"
+                               [columns]="numberingColums"
+                               [editable]="false"
+                               [showRefresh]="false"
+                               [showSearch]="false"
+                               [showLengthMenu]="false"
+                               [showRowNumber]="false"
+                               [showSettings]="false"
+                               name="tblTenderNumbering">
+                  </h-dataTable>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h-label> {{ 'PTM_SEPARATOR' | translate}}</h-label>
+                  <h-radioButtonList name="autTranssperator"
+                                     [data]="[{ id: '/', nameEn: '/', nameAr: '/' },
+                                    { id: '-', nameEn: '-', nameAr: '-' },
+                                    { id: '*', nameEn: 'None',    nameAr: 'بدون' }]"
+                                     dataTextFieldAr="nameAr"
+                                     dataTextFieldEn="nameEn"
+                                     repeatDirection="h"
+                                     dataValueField="id"
+                                     (onChange)="seperatorChanged($event,'tenders')"
+                                     [(selectedValue)]="tendersObj.numberingObj.seperator">
+                  </h-radioButtonList>
+                </div>
+                <div class="col-lg-12">
+                  <h-label> {{ 'PTM_FIXED_PART' | translate}}</h-label>
+                  <h-checkBoxList name="ddlTransFixedPart"
+                                  [data]="[{ id: 'T', nameEn: '/', nameAr: 'رقم/نص' },
+                                { id: 'L', nameEn: 'None',    nameAr: 'الموقع' },
+                              { id: 'F', nameEn: '-', nameAr: 'السنة المالية' },]"
+                                  dataTextFieldAr="nameAr"
+                                  dataTextFieldEn="nameEn"
+                                  dataValueField="id"
+                                  [(checkedFlags)]="tendersObj.numberingObj.fixedPart"
+                                  (onChange)="fixedPartChanged($event,'tenders')"
+                                  repeatDirection="h"
+                                  [required]="true">
+                  </h-checkBoxList>
+                </div>
+                <div class="col-lg-6">
+
+                  <h-textBox name="txtformatNO"
+                             [disabled]="tendersObj.numberingObj.disableText || pageMode!=2" [required]="!tendersObj.numberingObj.disableText"
+                             [(value)]="tendersObj.numberingObj.text" (onBlur)="onBlur($event,'tenders')">
+                  </h-textBox>
+                </div>
+              </div>
+            </div>
+
+
+          </h-panel>
+
         </div>
       </h-tabElement>
     </h-tabs>
