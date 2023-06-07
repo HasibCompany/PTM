@@ -31,6 +31,20 @@ namespace Hasib.PTM.Business
 
                 return await POPermitModel.InsertPOPermit(screenCode, permitFor, userGroupID, administrativePostID, professionID, userID, fromAmount, toAmount, fromDate, toDate, isActive, createdSID);
             }
+            catch (Exception e)
+            {
+                //used this way cause the constraint belongs to multiple columns
+                if (e.Message.Contains("CheckDuplicate"))
+                {
+                    Output output = new Output();
+                    output.Message = "PTM_DUPLICATE_FIELD_WITH_VALUE";
+                    return output;
+                }
+                else
+                {
+                    throw;
+                }
+            }
             finally
             {
                 db.Close();
