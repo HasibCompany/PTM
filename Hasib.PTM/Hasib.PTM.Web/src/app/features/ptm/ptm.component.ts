@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0fd5e66fc34501209b8e5c1c82e4c52126b1d13e1322a136e5095279bcb6505e
-size 634
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Global } from '@hasib/core/services';
+
+@Component({
+  selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+  templateUrl: "./ptm.component.html"
+})
+export class PtmComponent implements OnInit {
+
+  constructor(private global: Global, private router: Router) {
+
+  }
+
+  ngOnInit() {
+    if (this.router.url == '/ptm') {
+      let url = '/ptm/dashBoard';
+      let operation = this.global.findOperation(this.global.navMenuItems, url);
+      if (operation)
+        this.router.navigate([url]);
+    }
+  }
+}
