@@ -35,7 +35,15 @@ namespace Hasib.PTM.Business
         {
             try
             {
-                return await SettingsModel.UpdateSettingsBulk(settings);
+                Output output = new Output();
+
+                var result = await SettingsModel.UpdateSettingsBulk(settings);
+                if (result.Count > 0)
+                {
+                    output.Valid = true;
+                    output.AffectedRows= result.Count;
+                }
+                return output;
             }
             finally
             {

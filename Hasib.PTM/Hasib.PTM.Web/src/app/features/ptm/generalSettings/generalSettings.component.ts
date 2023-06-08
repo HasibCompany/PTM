@@ -112,6 +112,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.organizationID = this.globalService.getCurrentLegalEntityInfo().orgUnitID;
         this.loadSettings();
         this.loadLinkedSystems();
+        this.pageMode = PageMode.inquiryMode;
+
       }
       else {
         this.appAlert.showError('SHD_JOURNAL_DEFAULT_ORG_VALIDATION');
@@ -125,6 +127,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.branchID = this.globalService.getCurrentBranchInfo().branchID;
         this.loadSettings();
         this.loadLinkedSystems();
+        this.pageMode = PageMode.inquiryMode;
+
       }
       else {
         this.appAlert.showError('SHD_JOURNAL_BRANCH_ORG_VALIDATION');
@@ -152,10 +156,15 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     }
 
     this.appToolBar.onSave = () => {
-      if (this.validateLastNumberToBeGreater()) {
-        if (this.formEl.validate())
-          this.saveSettings();
+      if (this.linkObj.linkedToFGL && (!this.fiscalYearID || this.fiscalYearID == null)) {
+        this.appAlert.showError('PTM_FISCAL_YEAR_REQUIRED');
+        return;
       }
+      else
+        if (this.validateLastNumberToBeGreater()) {
+          if (this.formEl.validate())
+            this.saveSettings();
+        }
     }
 
     this.appToolBar.onCancel = () => {
@@ -183,7 +192,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.linkObj.purchaseYearEndDate = res.filter(item => item.settingCode == "PT003")[0].fieldValue;
         //إعدادات الربط مع الأنظمة
         this.linkObj.linkedToFGL = res.filter(item => item.settingCode == "PT004")[0].fieldValue;
-        this.fiscalYearName = res.filter(item => item.settingCode == "PT005")[0].fieldValue;
+        // this.fiscalYearName = res.filter(item => item.settingCode == "PT005")[0].fieldValue;temp
         this.linkObj.linkedToWIM = res.filter(item => item.settingCode == "PT006")[0].fieldValue;
         this.linkObj.pecifyStoreInPurchasing = res.filter(item => item.settingCode == "PT007")[0].fieldValue;
         this.linkObj.linkedToHRM = res.filter(item => item.settingCode == "PT008")[0].fieldValue;
@@ -730,6 +739,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.ptmService.UpdateSettingsBulk(paramObj).subscribe(output => {
           if (output.valid) {
             this.appAlert.showSuccess();
+            this.clear();
+
             this.loadSettings();
           }
           else {
@@ -749,6 +760,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.ptmService.UpdateSettings(paramObj).subscribe(output => {
           if (output.valid) {
             this.appAlert.showSuccess();
+            this.clear();
             this.loadSettings();
           }
           else {
@@ -768,7 +780,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
     else if (this.autoNumbering.lastOffersIncpectinsNo < this.autoNumbering.tempLastOffersIncpectinsNo)
       return false;
     else if (this.autoNumbering.lastPurchaseReqNo < this.autoNumbering.tempLastPurchaseReqNo)
-      return;
+      return false;
     else if (this.autoNumbering.lastPurchaseTransNo < this.autoNumbering.tempLastPurchaseTransNo)
       return false;
     else if (this.autoNumbering.lastQuotationsReqNo < this.autoNumbering.tempLastQuotationsReqNo)
@@ -781,6 +793,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
 
   //to do create function
   clear() {
+    this.pageMode = PageMode.inquiryMode
+    this.appToolBar.loaded(true);
     this.linkObj = this.getEmptylinkObj();
     this.numberingObj = this.getEmptyNumberingObj();
     this.autoNumbering = this.getEmptyAutoNumberingObj();
