@@ -217,7 +217,7 @@ export class PurchasingRepresentativesDefinitionComponent extends Base implement
           data[i][columnName] = data[i][columnName][0];
       }
     }
-    return data;
+    return data; 
   }
 
   handleErrorMessages(error) {
