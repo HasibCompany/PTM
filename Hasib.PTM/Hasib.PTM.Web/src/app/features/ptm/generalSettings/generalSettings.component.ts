@@ -14,9 +14,6 @@ import { SharedService } from '../../../shared';
   selector: 'generalSettings',
   templateUrl: './generalSettings.component.html',
   styleUrls: ['./generalSettings.component.scss']
-
-
-
 })
 export class GeneralSettingsComponent extends Base implements OnInit {
 
