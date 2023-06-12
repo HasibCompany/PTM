@@ -1,0 +1,317 @@
+<div class="m-content h-dataPage">
+  
+  <div class="col-12">
+    <h-dataTable [(data)]="purchasingCyclesData" #purchasingCyclesDT
+                 [columns]="columns"
+                 [editable]="true"
+                 [showAdd]="true"
+                 [showCompositeHeader]="true"
+                 name="tblgeneralCodes">
+    </h-dataTable>
+  </div>
+</div>
+
+
+
+<h-dialog  [(hidden)]="purchaseCycle" width="70">
+  <header> {{'PTM_PURCHASING_CYCLES_SETTINGS'|translate}}</header>
+  <div class="col-12">
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6> {{ 'PTM_PURCHASE_ORDERS' | translate  }} </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
+                         { id:'O' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
+                         { id:'W' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_PURCHASE_TRANSACTIONS' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'تسجيل معاملة شراء',nameEn:'Purchase Record'},
+                         { id:'O' , nameAr:'تحديد اللجان المسؤولة عن معاملة الشراء',nameEn:'Determine Committees Responsible of Purchase Record'},
+                         { id:'W' , nameAr:'تحديد الجهات المستفيدة من معاملة الشراء',nameEn:'Determine Beneficiaries of Purchase Record'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_REQUEST_QUOTES' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
+                         { id:'O' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_ENTER_PRICE_QUOTES' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'إدخال عروض الأسعار',nameEn:'Enter Price Quotes'},
+                         { id:'O' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
+                         { id:'W' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
+                        { id:'M' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
+                         { id:'O' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
+                         { id:'W' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
+                          { id:'O' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
+                         { id:'W' , nameAr:'الحد الأدني للعروض',nameEn:'Minimum Number of Quotations'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_FINANCIAL_TRANSACTIONS' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
+                         { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
+                        { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
+                        { id:'O' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
+                        { id:'O' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
+                        { id:'O' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'اتمام دورة الشراء بعد اصدار التعميد' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
+                         { id:'O' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
+                         { id:'W' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
+                        { id:'M' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
+                         { id:'O' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
+                         { id:'W' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
+                          { id:'O' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+  </div>
+</h-dialog>
+
+
+<h-dialog [(hidden)]="tenderCycle" width="70">
+  <header> {{'PTM_TENDER_CYCLES_SETTINGS'|translate}}</header>
+  <div class="col-12">
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6> {{ 'PTM_PURCHASE_ORDERS' | translate  }} </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
+                         { id:'O' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
+                         { id:'W' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_TENDERS_RECORD' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:' تسجيل منافسة',nameEn:'Entering Tender'},
+                         { id:'O' , nameAr:'تحديد اللجان المسؤولة عن المنافسة',nameEn:'Tender Record'},
+                         { id:'W' , nameAr:'تحديد الجهات المستفيدة من المنافسة',nameEn:'Determine Committees Responsible of Tender'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_REQUEST_QUOTES' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
+                         { id:'O' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_ENTER_PRICE_QUOTES' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'إدخال عروض الأسعار',nameEn:'Enter Price Quotes'},
+                         { id:'O' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
+                         { id:'W' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
+                        { id:'M' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
+                         { id:'O' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
+                         { id:'W' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
+                          { id:'O' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
+                         { id:'W' , nameAr:'الحد الأدني للعروض',nameEn:'Minimum Number of Quotations'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-lg-6">
+        <h6>
+          {{'PTM_FINANCIAL_TRANSACTIONS' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
+                         { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
+                        { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
+                        { id:'O' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
+                        { id:'O' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
+                        { id:'O' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+      <div class="col-lg-6">
+        <h6>
+          {{'اتمام دورة الشراء بعد اصدار التعميد' | translate }}
+        </h6>
+        <h-checkBoxList [data]="[
+                         { id:'M' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
+                         { id:'O' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
+                         { id:'W' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
+                        { id:'M' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
+                         { id:'O' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
+                         { id:'W' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
+                          { id:'O' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},]"
+                        dataTextFieldAr="nameAr"
+                        dataTextFieldEn="nameEn"
+                        dataValueField="id"
+                        repeatDirection="v"
+                        [required]="true"></h-checkBoxList>
+      </div>
+
+    </div>
+
+  </div>
+</h-dialog>
+
+<h-dialog [(hidden)]="allowedUserDlg">
+  <header> {{ 'PTM_ALLOWED_USERS_HANDLE_PURCHASE_CYCLE' | translate }}</header>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <h-labelr> {{ 'PTM_PERMISSIONS_FOR' | translate }}</h-labelr>
+
+      <h-radioButtonList [data]="[
+                         { id:'1' , nameAr:' مجموعة مستخدمين',nameEn:'User group'},
+                         { id:'0' , nameAr:' مستخدمين محددين',nameEn:'Specific users'}]"
+                         dataTextFieldAr="nameAr"
+                         dataTextFieldEn="nameEn"
+                         dataValueField="id"
+                         repeatDirection="h"
+                         [required]="true"></h-radioButtonList>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <h-label>{{ 'PTM_AMOUNT_FROM' | translate }}</h-label>
+      <h-spinner></h-spinner>
+    </div>
+    <div class="col-lg-4">
+      <h-label>{{ 'PTM_AMOUNT_TO' | translate }}</h-label>
+      <h-spinner></h-spinner>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <h-label>{{ 'PTM_VALIDITY_PERIOD_FROM' | translate }}</h-label>
+      <h-spinner></h-spinner>
+    </div>
+    <div class="col-lg-4">
+      <h-label>{{ 'PTM_VALIDITY_PERIOD_TO' | translate }}</h-label>
+      <h-spinner></h-spinner>
+    </div>
+  </div>
+
+
+  <div class="col-12">
+    <h-dataTable [(data)]="usersData" #usersDT
+                 [columns]="usersColumns"
+                 [editable]="true"
+                 [showAdd]="true"
+                 [showCompositeHeader]="true"
+                 name="tblgeneralCodes">
+    </h-dataTable>
+  </div>
+</h-dialog>
+
+
+<h-dialog [(hidden)]="purchaseRepresentativeDlg">
+  <header> {{ 'PTM_PURCHASING_REPRESENTATAIVE_ALLOWED_HANDLE_PURCHASING_CYCLE' | translate }}</header>
+  <div class="col-12">
+    <h-dataTable [(data)]="purchaseData" #purchaseDT
+                 [columns]="purchaseColumns"
+                 [editable]="true"
+                 [showAdd]="true"
+                 [showCompositeHeader]="true"
+                 name="tblgeneralCodes">
+    </h-dataTable>
+  </div>
+</h-dialog>

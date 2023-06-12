@@ -24,6 +24,7 @@ import { ServicesDefinitionComponent } from "@hasib/features/ptm/servicesDefinit
 import { GeneralSystemCodesComponent } from './generalSystemCodes/generalSystemCodes.component';
 import { GeneralSettingsComponent } from './generalSettings/generalSettings.component';
 import { PurchaseOrderPermitComponent } from './purchaseOrderPermit/purchaseOrderPermit.component';
+import { PurchasingCyclesSettingsComponent } from './purchasingCyclesSettings/purchasingCyclesSettings.component';
 
 
 //#region PTM Version
@@ -82,6 +83,11 @@ const routes: Routes = [
         component: PurchaseOrderPermitComponent,
         canDeactivate: [CanDeactivateGuard]
       },
+      {
+        path: 'purchasingCyclesSettings',
+        component: PurchasingCyclesSettingsComponent,
+        canDeactivate: [CanDeactivateGuard]
+      },
     ]
 
   }
@@ -96,7 +102,8 @@ const componentsArray = [
   ServicesDefinitionComponent,
   GeneralSystemCodesComponent,
   GeneralSettingsComponent,
-  PurchaseOrderPermitComponent
+  PurchaseOrderPermitComponent,
+  PurchasingCyclesSettingsComponent
 ];
 @NgModule({
   imports: [
