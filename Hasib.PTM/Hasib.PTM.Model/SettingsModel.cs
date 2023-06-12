@@ -32,6 +32,8 @@ namespace Hasib.PTM.Model
         //todo: add a property called fieldValue type string and nullable
         public string FieldValue { get; set; }
 
+        public int? affectedRows { get; set; }
+
     }
 
     public class SettingsModel : BaseModel
@@ -90,34 +92,11 @@ namespace Hasib.PTM.Model
             return await db.ExecuteCUD("pPtmUpdateSettings", new DbParameter[] { db.GetParameter("organizationID", organizationID), db.GetParameter("settingCode", settingCode), db.GetParameter("fieldValue", fieldValue), db.GetParameter("modifiedSID", modifiedSID), db.GetParameter("rowStamp", rowStamp) });
         }
         //todo:create method called UpdateSettingsBulk that takes an object of type Settings and return an object of type Settings
-        public async Task<List<Settings>> UpdateSettingsBulk(Settings settings)
+        public async Task<Output> UpdateSettingsBulk(Settings settings)
         {
-
-            //todo: return await db.ExecuteCUD("pPtmUpdateSettingsBulk", new DbParameter[] { db.GetParameter("organizationID", settings.OrganizationID), db.GetParameter("fieldValue", settings.SettingValue), db.GetParameter("rowStamp", settings.RowStamp) });
-            var rd = await db.GetDataReader("pPtmUpdateSettingsBulk", new DbParameter[] { db.GetParameter("organizationID", settings.OrganizationID), db.GetParameter("jsonData", settings.JsonData), db.GetParameter("modifiedSID", settings.ModifiedSID) });
-            var res = new List<Settings>();
-
-            int c1 = rd.GetOrdinal("settingCode");
-
-            int c4 = rd.GetOrdinal("fieldValue");
-
-            int c12 = rd.GetOrdinal("rowStamp");
-            while (rd.Read())
-            {
-                var item = new Settings();
-                if (!rd.IsDBNull(c1)) item.SettingCode = rd.GetString(c1);
-
-                if (!rd.IsDBNull(c4)) item.FieldValue = rd.GetString(c4);
-
-                if (!rd.IsDBNull(c12)) item.RowStamp = rd.GetValue(c12) as byte[];
-                res.Add(item);
-
-
-            }
-            //todo close date reader and return the list of Settings
-            rd.Close();
-            return res;
-        }
+                        //todo: return await db.ExecuteCUD("pPtmUpdateSettingsBulk", new DbParameter[] { db.GetParameter("organizationID", settings.OrganizationID), db.GetParameter("fieldValue", settings.SettingValue), db.GetParameter("rowStamp", settings.RowStamp) });
+            return await db.ExecuteCUD("pPtmUpdateSettingsBulk", new DbParameter[] { db.GetParameter("organizationID", settings.OrganizationID), db.GetParameter("jsonData", settings.JsonData), db.GetParameter("modifiedSID", settings.ModifiedSID) });
+                 }
 
 
     }
