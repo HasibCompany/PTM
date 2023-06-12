@@ -35,15 +35,9 @@ namespace Hasib.PTM.Business
         {
             try
             {
-                Output output = new Output();
 
-                var result = await SettingsModel.UpdateSettingsBulk(settings);
-                if (result.Count > 0)
-                {
-                    output.Valid = true;
-                    output.AffectedRows= result.Count;
-                }
-                return output;
+                return await SettingsModel.UpdateSettingsBulk(settings);
+
             }
             finally
             {
@@ -78,7 +72,7 @@ namespace Hasib.PTM.Business
                 IsInstalled = appData[0].IsInstalled;
                 IsActive = appData[0].IsActive;
             }
-             return (IsInstalled && IsActive);
+            return (IsInstalled && IsActive);
         }
 
     }
