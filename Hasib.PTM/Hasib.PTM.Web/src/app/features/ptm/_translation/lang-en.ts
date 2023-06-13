@@ -231,7 +231,12 @@ export const LANG_EN_TRANS =
   "PTM_FINANCIAL_TRANSACTIONS": "Financial Transactions",
   "PTM_TENDER_CYCLES_SETTINGS": "Tender Cycles Settings",
   "PTM_TENDERS_RECORD": "Tenders Record",
-  "PTM_VALIDITY_PERIOD": "Validity Period", 
-  "PTM_DETERMINE_ESTIMATED_COST": "Determine Estimated Cost", 
+  "PTM_VALIDITY_PERIOD": "Validity Period",
+  "PTM_DETERMINE_ESTIMATED_COST": "Determine Estimated Cost",
+  "PTM_DEFAULT_SERVICE": "Default Service",
+  "PTM_ACCOUNT_NO_ASSOCIATED_FINANCIAL_SYSTEM": "Account Number Associated with the Financial System",
+  "PTM_SERVICE_PRICE": "Service Price",
+  "PTM_LOWEST_PRICE_SERVICE": "Lowest Price for the Service",
+  "PTM_SUSPENDED": "Suspended", 
 
 }

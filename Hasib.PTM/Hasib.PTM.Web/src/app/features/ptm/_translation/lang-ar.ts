@@ -156,8 +156,8 @@ export const LANG_AR_TRANS =
   "PTM_LAST_TENDERS_LETTER_NO": "آخر رقم خطاب ترسية",
   "PTM_AUTOMATIC_SEQUENCE_STOP_RECEIVING_OFFERS": "تسلسل تلقائي لمحاضر ايقاف استلام العروض",
   "PTM_LAST_STOP_RECEIVING_OFFER_NO": "آخر رقم محضر ايقاف استلام العروض",
-  "PTM_AUTO_NUMBERING_DECIDING_COMMITTEE_DOC": "تسلسل تلقائي لمحضر لجنة التأهيل",
-  "PTM_LAST_DECIDING_COMMITTEE_DOC_NO": "آخر رقم محضر لجنة التأهيل",
+  "PTM_AUTO_NUMBERING_DECIDING_COMMITTEE_DOC": "تسلسل تلقائي لمحضر لجنة البت",
+  "PTM_LAST_DECIDING_COMMITTEE_DOC_NO": "آخر رقم محضر لجنة بت",
   "PTM_VALIDITY_NAME": "اسم الصلاحية",
   "PTM_VALIDITY_TYPE": "نوع الصلاحية",
   "PTM_TRANSACTION_NAME": "اسم الحركة",
@@ -232,6 +232,11 @@ export const LANG_AR_TRANS =
   "PTM_TENDER_CYCLES_SETTINGS": "اعدادات الدورة المستندية للمنافسة",
   "PTM_TENDERS_RECORD": "سجل المنافسات",
   "PTM_VALIDITY_PERIOD": "فترة الصلاحية",
-  "PTM_DETERMINE_ESTIMATED_COST": "تحديد التكلفة التقديرية", 
+  "PTM_DETERMINE_ESTIMATED_COST": "تحديد التكلفة التقديرية",
+  "PTM_DEFAULT_SERVICE": "خدمة افتراضية",
+  "PTM_ACCOUNT_NO_ASSOCIATED_FINANCIAL_SYSTEM": "رقم الحساب المرتبط بالنظام المالي",
+  "PTM_SERVICE_PRICE": "سعر الخدمة",
+  "PTM_LOWEST_PRICE_SERVICE": "أقل سعر للخدمة",
+  "PTM_SUSPENDED": "موقوف التعامل معها", 
 
 }
