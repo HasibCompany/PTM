@@ -24,22 +24,25 @@ namespace Hasib.PTM.Business
                 db.Close();
             }
         }
-        public async Task<Output> InsertServices(int? organizationID, int? parentID, string descriptionAR, string descriptionEN, bool? hasChild, int? createdSID)
+        public async Task<Output> InsertServices(Services obj)
         {
             try
             {
-                return await ServicesModel.InsertServices(organizationID, parentID, descriptionAR, descriptionEN, hasChild, createdSID);
+                return await ServicesModel.InsertServices(obj.OrganizationID, obj.ParentID, obj.DescriptionAR, obj.DescriptionEN,
+                    obj.HasChild, obj.IsDefault, obj.AccountID, (decimal)obj.Price, (decimal)obj.MinPrice, obj.IsSuspended, obj.CreatedSID);
             }
             finally
             {
                 db.Close();
             }
         }
-        public async Task<Output> UpdateServices(int? serviceID, short? levelSerial, string descriptionAR, string descriptionEN, int? parentID, bool? hasChild, short? levelOrder, int? modifiedSID, byte[] rowStamp)
+        public async Task<Output> UpdateServices(Services obj)
         {
             try
             {
-                return await ServicesModel.UpdateServices(serviceID, levelSerial, descriptionAR, descriptionEN, parentID, hasChild, levelOrder, modifiedSID, rowStamp);
+                return await ServicesModel.UpdateServices(obj.ServiceID, obj.OrganizationID, obj.LevelSerial, obj.DescriptionAR,
+                    obj.DescriptionEN, obj.ParentID, obj.HasChild, obj.LevelOrder, obj.IsDefault, obj.AccountID, (decimal)obj.Price,
+                    (decimal)obj.MinPrice, obj.IsSuspended, obj.ModifiedSID, obj.RowStamp);
             }
             finally
             {

@@ -29,13 +29,15 @@ namespace Hasib.PTM.API.Controllers
         [HttpPost("InsertServices")]
         public async Task<ActionResult<Output>> InsertServices([FromBody] Services obj)
         {
-            return await Services.InsertServices(obj.OrganizationID, obj.ParentID, obj.DescriptionAR, obj.DescriptionEN, obj.HasChild, SessionId);
+            obj.CreatedSID = SessionId;
+            return await Services.InsertServices(obj);
         }
         [TypeFilter(typeof(AuthourizationActionFilter), Arguments = new object[] { ActionFlagEnum.CanUpdate })]
         [HttpPut("UpdateServices")]
         public async Task<ActionResult<Output>> UpdateServices([FromBody] Services obj)
         {
-            return await Services.UpdateServices(obj.ServiceID, obj.LevelSerial, obj.DescriptionAR, obj.DescriptionEN, obj.ParentID, obj.HasChild, obj.LevelOrder, SessionId, obj.RowStamp);
+            obj.ModifiedSID = SessionId;
+            return await Services.UpdateServices(obj);
         }
         [TypeFilter(typeof(AuthourizationActionFilter), Arguments = new object[] { ActionFlagEnum.CanDelete })]
         [HttpPost("DeleteServices")]
