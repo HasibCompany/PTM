@@ -36,7 +36,7 @@ namespace Hasib.PTM.API.Controllers
         public async Task<ActionResult<Output>> UpdateCodes([FromBody] Codes obj)
         {
             obj.ModifiedSID = SessionId;
-            return await Codes.UpdateCodes(obj.CodeType, obj.CodeID, obj.DescriptionAR, obj.DescriptionEN, obj.IsActive, obj.IsDefault, obj.TypeFlag, obj.SortOrder, obj.ModifiedSID, obj.RowStamp);
+            return await Codes.UpdateCodes(obj, CurrentUserID);
         }
 
         [TypeFilter(typeof(AuthourizationActionFilter), Arguments = new object[] { ActionFlagEnum.CanAdd })]
@@ -44,8 +44,7 @@ namespace Hasib.PTM.API.Controllers
         public async Task<ActionResult<Output>> InsertCodes([FromBody] Codes obj)
         {
             obj.CreatedSID = SessionId;
-            return await Codes.InsertCodes(obj.CodeType, obj.Code, obj.DescriptionAR, obj.DescriptionEN, obj.IsActive, obj.IsDefault, obj.TypeFlag, obj.SortOrder, obj.CreatedSID);
+            return await Codes.InsertCodes(obj, CurrentUserID);
         }
-
     }
 }

@@ -27,8 +27,15 @@
                  (onEditClick)="onEditClick($event)"
                  (onAddClick)="onAddClick()"
                  (onCancelEditRow)="onCancelEditRow($event)"
+                 showCompositeHeader="true"
                  name="tblgeneralCodes">
     </h-dataTable>
   </div>
   <!--<h-reportDialog #report [(hidden)]="hideReport" title="{{ 'WIM_GENERAL_CODES' | translate}}" [reportUrl]="reportUrl"></h-reportDialog>-->
 </div>
+
+
+<h-attachments #attachments
+               [(isReadOnlyMode)]="codesDT.currentMode == 'read' ? true : false"
+               [(hidden)]="hideAttachment"
+               [loadParams]="{ headerID : codeID ? codeID: '', businessType:businessType }"></h-attachments>

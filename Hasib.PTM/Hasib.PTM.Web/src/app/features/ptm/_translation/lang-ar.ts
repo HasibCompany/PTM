@@ -238,5 +238,10 @@ export const LANG_AR_TRANS =
   "PTM_SERVICE_PRICE": "سعر الخدمة",
   "PTM_LOWEST_PRICE_SERVICE": "أقل سعر للخدمة",
   "PTM_SUSPENDED": "موقوف التعامل معها", 
-
+  "PTM_APPENDIX": "ملحق",
+  "PTM_LINK": "رابط",
+  "PTM_ATTACHED": "مرفق",
+  "PTM_DURATION_OF_THE_AGREEMENT": "مدة الاتفاقية",
+  "PTM_DURATION": "المدة",
+  "PTM_DURATION_TYPE": "نوع المدة",
 }

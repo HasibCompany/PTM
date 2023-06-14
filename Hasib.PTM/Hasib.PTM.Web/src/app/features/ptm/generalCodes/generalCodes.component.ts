@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent as Base } from "@hasib/core/base";
 import { PageType, PageMode } from '@hasib/core/utils';
-import { DataTableUI, ReportUI, DataTableColumn } from '@hasib/ui';
+import { DataTableUI, ReportUI, DataTableColumn, CommandIcon } from '@hasib/ui';
 import { PtmService } from '../ptm.service';
 import { Global } from "../../../core/services";
+import { AttachmentComponent } from '../../../ui-custom';
+import { attachmentBusinessType } from '../../../shared/enums/attachmentBusinessType';
+
 @Component({
   selector: 'generalCodes',
   templateUrl: './GeneralCodes.component.html',
@@ -12,10 +15,15 @@ import { Global } from "../../../core/services";
 export class GeneralCodesComponent extends Base implements OnInit {
   @ViewChild('codesDT', { static: true }) codesDT: DataTableUI;
   @ViewChild('report', { static: true }) report: ReportUI;
+  @ViewChild('attachments', { static: true }) attachments: AttachmentComponent;
+
+  businessType: number = attachmentBusinessType.PtmCodes;
   hideReport: boolean = true;
   reportUrl;
   t = Base.t;
   pageMode = PageMode.inquiryMode;
+  hideAttachment: boolean = true;
+  codeID = 0;
   codesData: any = [];
   newObj: any = [];
   eventData: any = {};
@@ -23,6 +31,10 @@ export class GeneralCodesComponent extends Base implements OnInit {
   addDisable: any = {};
   codeType: string = ''
   attachmentTypeData = [{ typeFlag: true, nameAr: 'أساسي', nameEn: 'Basic' }, { typeFlag: false, nameAr: 'اختياري', nameEn: 'Optional' },];
+  durationTypeData = [
+    { code: 'D', nameAr: 'يوم', nameEn: 'Day' },
+    { code: 'M', nameAr: 'شهر', nameEn: 'Month' },
+    { code: 'Y', nameAr: 'سنة', nameEn: 'Year' }];
   columns: DataTableColumn[] = [
     { field: 'code', header: 'SHD_CODE', controlType: 'spinner', dataType: 'integer', unique: true, spinnerMin: 500, required: true },
     { field: 'descriptionAR', header: 'SHD_DESC_AR', controlType: 'textBox', dataType: 'arabicText', required: true, unique: true },
@@ -74,7 +86,33 @@ export class GeneralCodesComponent extends Base implements OnInit {
         }
         else
           return '';
-      }, visible: false
+      }, visible: false, VisibleMode: 'alwaysHidden'
+    },
+    {
+      field: 'appendixLink', header: 'PTM_LINK', controlType: 'textBox', dataType: 'url', visible: false, VisibleMode: 'alwaysHidden',
+      colSpan: 2, isColSpan: true, isColSpanStart: true, compositeHeader: 'PTM_APPENDIX',
+    },
+    {
+      header: 'PTM_ATTACHED', controlType: 'button', viewAs: 'command', visible: false, VisibleMode: 'alwaysHidden', isColSpan: true, commandIcon: CommandIcon.view, onClick: (event) => this.openAttachmentDlg(event?.row?.codeID),
+    },
+    {
+      field: 'duration', header: 'PTM_DURATION', controlType: 'spinner', dataType: 'integer', spinnerMin: 0, visible: false, VisibleMode: 'alwaysHidden', required: true,
+      colSpan: 2, isColSpan: true, isColSpanStart: true, compositeHeader: 'PTM_DURATION_OF_THE_AGREEMENT'
+    },
+    {
+      field: 'durationType', header: 'PTM_DURATION_TYPE', controlType: 'dropDownList', isColSpan: true, visible: false, VisibleMode: 'alwaysHidden',
+      controlDataSource: this.durationTypeData, dataValueField: 'code', dataTextFieldEn: 'nameEn', dataTextFieldAr: 'nameAr', dataType: 'integer', required: true
+      , renderText: (event) => {
+        const obj = this.durationTypeData.filter(item => { return item.code == event.row.durationType })[0];
+        if (obj) {
+          if (this.t.isAr)
+            return obj.nameAr;
+          else
+            return obj.nameEn;
+        }
+        else
+          return '';
+      }
     },
     { field: 'sortOrder', header: 'PTM_ORDER', controlType: 'spinner', dataType: 'integer', required: true, unique: true, spinnerMin: 1 },
   ];
@@ -101,16 +139,25 @@ export class GeneralCodesComponent extends Base implements OnInit {
   codeTypeChanged(event) {
     this.appAlert.hide();
     if (event.value && event.value != null) {
-      if (event.value == 'PTC12') {
-        this.codesDT.columns[6].visible = true;
-        this.codesDT.columns[6].VisibleMode = 'alwaysVisible';
-        this.codesDT.columnsChanged();
-      }
-      else {
-        this.codesDT.columns[6].visible = false;
-        this.codesDT.columns[6].VisibleMode = 'alwaysHidden';
-        this.codesDT.columnsChanged();
-      }
+      this.codeType = event.value;
+      this.codesDT.columns[6].required = event.value == 'PTC12' ? true : false;
+      this.codesDT.columns[6].visible = event.value == 'PTC12' ? true : false;
+      this.codesDT.columns[6].VisibleMode = event.value == 'PTC12' ? 'alwaysVisible' : 'alwaysHidden';
+      this.codesDT.columns[7].required = event.value == 'PTC19' ? true : false;
+      this.codesDT.columns[7].visible = event.value == 'PTC19' ? true : false;
+      this.codesDT.columns[7].VisibleMode = event.value == 'PTC19' ? 'alwaysVisible' : 'alwaysHidden';
+      this.codesDT.columns[8].required = event.value == 'PTC19' ? true : false;
+      this.codesDT.columns[8].visible = event.value == 'PTC19' ? true : false;
+      this.codesDT.columns[8].VisibleMode = event.value == 'PTC19' ? 'alwaysVisible' : 'alwaysHidden';
+      this.codesDT.columns[9].required = event.value == 'PTC20' ? true : false;
+      this.codesDT.columns[9].visible = event.value == 'PTC20' ? true : false;
+      this.codesDT.columns[9].VisibleMode = event.value == 'PTC20' ? 'alwaysVisible' : 'alwaysHidden';
+      this.codesDT.columns[10].required = event.value == 'PTC20' ? true : false;
+      this.codesDT.columns[10].visible = event.value == 'PTC20' ? true : false;
+      this.codesDT.columns[10].VisibleMode = event.value == 'PTC20' ? 'alwaysVisible' : 'alwaysHidden';
+
+      this.codesDT.columnsChanged();
+
       this.loadData();
     } else {
       this.reset();
@@ -123,16 +170,14 @@ export class GeneralCodesComponent extends Base implements OnInit {
       this.appAlert.showError('PTM_THERE_MUST_LEAST_ONE_ACTIVE_DEFAULT_VALUE_CODE_TYPE');
       return;
     }
-    let paramObj =
+    let paramObj = event.rowNewData;
+    paramObj =
     {
+      ...paramObj,
       codeType: this.codeType,
-      code: event.rowNewData.code,
-      descriptionAR: event.rowNewData.descriptionAR,
-      descriptionEN: event.rowNewData.descriptionEN,
-      isActive: event.rowNewData.isActive,
-      isDefault: event.rowNewData.isDefault,
       typeFlag: this.codeType == 'PTC12' ? event.rowNewData.typeFlag : '',
-      sortOrder: event.rowNewData.sortOrder,
+      insertedAttachments: this.attachments ? this.attachments.getInsertedAttachments() : [],
+      deletedAttachments: this.attachments ? this.attachments.getDeletedAttachments() : []
     };
     this.ptmService.insertCodes(paramObj).subscribe((output: any) => {
       if (output.valid && output.insertedID != null) {
@@ -158,18 +203,14 @@ export class GeneralCodesComponent extends Base implements OnInit {
       this.appAlert.showError('PTM_THERE_MUST_LEAST_ONE_ACTIVE_DEFAULT_VALUE_CODE_TYPE');
       return;
     }
-    let paramObj =
+    let paramObj = event.rowNewData;
+    paramObj =
     {
+      ...paramObj,
       codeType: this.codeType,
-      codeID: event.rowNewData.codeID,
-      code: event.rowNewData.code,
-      descriptionAR: event.rowNewData.descriptionAR,
-      descriptionEN: event.rowNewData.descriptionEN,
-      isActive: event.rowNewData.isActive,
-      isDefault: event.rowNewData.isDefault,
-      sortOrder: event.rowNewData.sortOrder,
       typeFlag: this.codeType == 'PTC12' ? event.rowNewData.typeFlag : '',
-      rowStamp: event.rowNewData.rowStamp
+      insertedAttachments: this.attachments ? this.attachments.getInsertedAttachments() : [],
+      deletedAttachments: this.attachments ? this.attachments.getDeletedAttachments() : []
     };
     this.ptmService.updateCodes(paramObj).subscribe((output: any) => {
       if (output.valid && output.affectedRows) {
@@ -272,6 +313,12 @@ export class GeneralCodesComponent extends Base implements OnInit {
   onCancelEditRow(event) {
     event;
     this.appAlert.hide();
+  }
+  openAttachmentDlg(codeID) {
+    this.hideAttachment = false;
+    this.codeID = codeID ? codeID : this.codesDT.currentMode == 'edit' ? this.codesDT.editDataRow.codeID : '';
+    this.attachments.isReadOnlyMode = this.codesDT.currentMode == 'read' ? true : false;
+    //this.attach
   }
   // #endregion
 }

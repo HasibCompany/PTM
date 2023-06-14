@@ -238,5 +238,10 @@ export const LANG_EN_TRANS =
   "PTM_SERVICE_PRICE": "Service Price",
   "PTM_LOWEST_PRICE_SERVICE": "Lowest Price for the Service",
   "PTM_SUSPENDED": "Suspended", 
-
+  "PTM_APPENDIX": "Appendix",
+  "PTM_LINK": "Link",
+  "PTM_ATTACHED": "attached",
+  "PTM_DURATION_OF_THE_AGREEMENT": "Duration of the agreement",
+  "PTM_DURATION": "Duration",
+  "PTM_DURATION_TYPE": "Duration type",
 }
