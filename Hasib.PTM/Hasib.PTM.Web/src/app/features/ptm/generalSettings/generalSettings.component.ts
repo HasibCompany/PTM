@@ -288,7 +288,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         //إعدادات رموز الخدمات
         this.serviceCodesSetsObj.countServiceLevels = res.filter(item => item.settingCode == "PT035")[0].fieldValue;//عدد مستويات الخدمة
         this.serviceCodesSetsObj.autoServiceNo = res.filter(item => item.settingCode == "PT036")[0].fieldValue;//ترقيم الخدمات تلقائي
-        this.serviceCodesSetsObj.serviceNoSeperator = res.filter(item => item.settingCode == "PT037")[0].fieldValue;//شكل الفاصل في رقم الخدمة
+        this.serviceCodesSetsObj.serviceNoSeperator = res.filter(item => item.settingCode == "PT037")[0].fieldValue == null ? '*' : this.serviceCodesSetsObj.serviceNoSeperator = res.filter(item => item.settingCode == "PT037")[0].fieldValue;//شكل الفاصل في رقم الخدمة
 
         //إعدادات الشراء المباشر
         this.directPurchaseObj.autoWarning = res.filter(item => item.settingCode == "PT038")[0].fieldValue;//تحذير تلقائي على التعاميد التي تأخر تسليمها من المستودعات
@@ -321,7 +321,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.directPurchaseObj.purchaseRecNoSameToPurchaseReq = res.filter(item => item.settingCode == "PT054")[0].fieldValue == "1" ? true : false;//جعل رقم معاملة الشراء نفس رقم طلب الشراء
         this.directPurchaseObj.purchaseRecCancellationMethod = res.filter(item => item.settingCode == "PT055")[0].fieldValue;//طريقة التعامل مع إلغاء معاملة الشراء
         //إعدادات رقم معاملة الشراء
-        this.directPurchaseObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT058")[0].fieldValue;//الفاصل
+        this.directPurchaseObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT058")[0].fieldValue == null ? '*' : this.directPurchaseObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT058")[0].fieldValue;//الفاصل
         //
         let r = res.filter(item => item.settingCode == "PT059")[0].fieldValue == '1' ? '1' : '0';;//الجزء الثابت النص
 
@@ -371,7 +371,7 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         this.tendersObj.lastTenderNo = res.filter(item => item.settingCode == "PT078")[0].fieldValue;//آخر رقم منافسة
         this.tendersObj.tempLastTenderNo = res.filter(item => item.settingCode == "PT078")[0].fieldValue;//آخر رقم منافسة
         //إعدادات رقم المنافسة
-        this.tendersObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT080")[0].fieldValue;//الفاصل
+        this.tendersObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT080")[0].fieldValue == null ? '*' : this.tendersObj.numberingObj.seperator = res.filter(item => item.settingCode == "PT080")[0].fieldValue;//الفاصل
 
         let t = res.filter(item => item.settingCode == "PT081")[0].fieldValue == '1' ? '1' : '0';;//الجزء الثابت النص
         this.tendersObj.numberingObj.text = res.filter(item => item.settingCode == "PT082")[0].fieldValue == null ? '' : res.filter(item => item.settingCode == "PT082")[0].fieldValue;
@@ -487,6 +487,8 @@ export class GeneralSettingsComponent extends Base implements OnInit {
         });
     }
     let rowStamp = this.settingsData?.filter(x => x.settingCode == code)[0]?.rowStamp;
+    if ((code == 'PT037'||code == 'PT058'||code == 'PT080') && val == '*')
+      val = null;
     this.changedData.push({ settingCode: code, fieldValue: val, rowStamp: rowStamp });
 
 
