@@ -237,6 +237,9 @@ export const LANG_AR_TRANS =
   "PTM_ACCOUNT_NO_ASSOCIATED_FINANCIAL_SYSTEM": "رقم الحساب المرتبط بالنظام المالي",
   "PTM_SERVICE_PRICE": "سعر الخدمة",
   "PTM_LOWEST_PRICE_SERVICE": "أقل سعر للخدمة",
-  "PTM_SUSPENDED": "موقوف التعامل معها", 
+  "PTM_SUSPENDED": "موقوف التعامل معها",
+  "PTM_ONLY_ONE_SERVICE_IS_ALLOWED": "يسمح بوجود خدمة افتراضية واحدة ضمن رموز الخدمات المعرفة",
+  "PTM_IS_NOT_ALLOWED_EXCEED_NUMBER_OF_SERVICE_LEVELS_IN_SETTINGS": "لا يسمح بتجاوز عدد مستويات تعريف الخدمة المحدد في الاعدادات العامة لنظام المشتريات", 
+
 
 }

@@ -238,5 +238,7 @@ export const LANG_EN_TRANS =
   "PTM_SERVICE_PRICE": "Service Price",
   "PTM_LOWEST_PRICE_SERVICE": "Lowest Price for the Service",
   "PTM_SUSPENDED": "Suspended", 
+  "PTM_ONLY_ONE_SERVICE_IS_ALLOWED": "Only one default service is allowed within defined service codes",
+  "PTM_IS_NOT_ALLOWED_EXCEED_NUMBER_OF_SERVICE_LEVELS_IN_SETTINGS": "It is not allowed to exceed the number of service levels specified in the general settings", 
 
 }
