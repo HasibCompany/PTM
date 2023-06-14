@@ -20,24 +20,9 @@
         <div class="row">
           <div class="col-lg-5">
             <h-label>
-              {{'PTM_LEVEL' | translate}}
-            </h-label>
-            <h-spinner [(value)]="serviceNode.treeLevel" [disabled]="true"></h-spinner>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-5">
-            <h-label>
-              {{'PTM_SERIAL_LEVEL_SERVICE' | translate}}
-            </h-label>
-            <h-spinner [(value)]="serviceNode.levelSerial" [disabled]="true"></h-spinner>
-          </div>
-          <div class="col-lg-5">
-            <h-label>
               {{'PTM_SERVICE_NUMBER' | translate }}
             </h-label>
-            <h-textBox [(value)]="serviceNode.serviceNumber" [disabled]="true"></h-textBox>
+            <h-textBox [(value)]="serviceNode.serviceNumber" [disabled]="pageMode==0 || pageMode==2|| (pageMode==1 && autoServiceNo==true)" [required]="autoServiceNo == false"></h-textBox>
           </div>
         </div>
 
@@ -67,32 +52,32 @@
             <h-label>
               {{'PTM_IT_HAS_SUBCATEGORIES' | translate }}
             </h-label>
-            <h-radioButtonList [data]="[{id: 1, nameEn:'Yes', nameAr:'نعم'},
-                                      {id: 0, nameEn:'No', nameAr:'لا'}]"
-                               repeatDirection="h"
-                               dataTextFieldAr="nameAr"
-                               dataTextFieldEn="nameEn"
-                               dataValueField="id"
-                               [(selectedValue)]="serviceNode.hasChild"
-                               [disabled]="pageMode==0"
-                               [required]="true">
-            </h-radioButtonList>
+            <h-switch name="swtHasChild"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="serviceNode.hasChild"
+                      [disabled]="pageMode==0"></h-switch>
           </div>
         </div>
 
 
         <div class="row">
-          <div class="col-lg-5">
-            <h-label>
-              {{'PTM_DEFAULT_SERVICE' | translate}}
-            </h-label><br/>
-            <h-checkBox></h-checkBox>
-          </div>
-          <div class="col-lg-5">
+          <div class="col-lg-5" *ngIf="isLinkedFGL">
             <h-label>
               {{'PTM_ACCOUNT_NO_ASSOCIATED_FINANCIAL_SYSTEM' | translate}}
             </h-label>
-            <h-lookup></h-lookup>
+            <h-lookup lookupType="Accounts"
+                      [showSearchButton]="false"
+                      [showDTSearch]="true"
+                      [showCode]="true"
+                      [searchParams]="{'organizationID':global.getCurrentLegalEntityInfo().orgUnitID, 'isUnified':true, 'isGroup':false}"
+                      [selectionMode]="'single'"
+                      [(selectedIDs)]="accountIDs"
+                      (onClear)="onClearAccount()"
+                      (onChange)="onSelectAccount($event)"
+                      [disabled]="pageMode==0"
+                      name="lkpAccounts">
+            </h-lookup>
           </div>
         </div>
 
@@ -101,22 +86,32 @@
             <h-label>
               {{'PTM_SERVICE_PRICE' | translate}}
             </h-label>
-            <h-spinner></h-spinner>
+            <h-spinner [(value)]="serviceNode.price" type="real" min="0" [disabled]="pageMode==0"></h-spinner>
           </div>
           <div class="col-lg-5">
             <h-label>
               {{'PTM_LOWEST_PRICE_SERVICE' | translate}}
             </h-label>
-            <h-spinner></h-spinner>
+            <h-spinner [(value)]="serviceNode.minPrice" type="real" min="0" [disabled]="pageMode==0"></h-spinner>
           </div>
         </div>
 
         <div class="row">
           <div class="col-lg-5">
             <h-label>
+              {{'PTM_DEFAULT_SERVICE' | translate}}
+            </h-label><br />
+            <h-checkBox name="isDefault" [(checked)]="serviceNode.isDefault"></h-checkBox>
+          </div>
+          <div class="col-lg-5">
+            <h-label>
               {{'PTM_SUSPENDED' | translate}}
             </h-label>
-            <h-switch></h-switch>
+            <h-switch name="swtSuspended"
+                      onText="SHD_YES"
+                      offText="SHD_NO"
+                      [(checked)]="serviceNode.isSuspended"
+                      [disabled]="pageMode==0"></h-switch>
           </div>
         </div>
 

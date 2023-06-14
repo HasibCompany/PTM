@@ -108,11 +108,13 @@ namespace Hasib.PTM.Model
             rd.Close();
             return res;
         }
-        public async Task<Output> InsertServices(int? organizationID, int? parentID, string descriptionAR, string descriptionEN, bool? hasChild, bool? isDefault, int? accountID, decimal price, decimal minPrice, bool? isSuspended, int? createdSID)
+        public async Task<Output> InsertServices(int? organizationID, string serviceNumber, int? parentID, string descriptionAR, string descriptionEN, bool? hasChild, bool? isDefault, int? accountID, decimal? price, decimal? minPrice, bool? isSuspended, int? createdSID)
         {
-            return await db.ExecuteCUD("pPtmInsertServices", new DbParameter[] { db.GetParameter("organizationID", organizationID), db.GetParameter("parentID", parentID), db.GetParameter("descriptionAR", descriptionAR), db.GetParameter("descriptionEN", descriptionEN), db.GetParameter("hasChild", hasChild), db.GetParameter("isDefault", isDefault), db.GetParameter("accountID", accountID), db.GetParameter("price", price), db.GetParameter("minPrice", minPrice), db.GetParameter("isSuspended", isSuspended), db.GetParameter("createdSID", createdSID) });
+            return await db.ExecuteCUD("pPtmInsertServices", new DbParameter[] {
+                db.GetParameter("organizationID", organizationID),db.GetParameter("serviceNumber", serviceNumber),
+                db.GetParameter("parentID", parentID), db.GetParameter("descriptionAR", descriptionAR), db.GetParameter("descriptionEN", descriptionEN), db.GetParameter("hasChild", hasChild), db.GetParameter("isDefault", isDefault), db.GetParameter("accountID", accountID), db.GetParameter("price", price), db.GetParameter("minPrice", minPrice), db.GetParameter("isSuspended", isSuspended), db.GetParameter("createdSID", createdSID) });
         }
-        public async Task<Output> UpdateServices(int? serviceID, int? organizationID, short levelSerial, string descriptionAR, string descriptionEN, int? parentID, bool? hasChild, short levelOrder, bool? isDefault, int? accountID, decimal price, decimal minPrice, bool? isSuspended, int? modifiedSID, byte[] rowStamp)
+        public async Task<Output> UpdateServices(int? serviceID, int? organizationID, short levelSerial, string descriptionAR, string descriptionEN, int? parentID, bool? hasChild, short levelOrder, bool? isDefault, int? accountID, decimal? price, decimal? minPrice, bool? isSuspended, int? modifiedSID, byte[] rowStamp)
         {
             return await db.ExecuteCUD("pPtmUpdateServices", new DbParameter[] { db.GetParameter("serviceID", serviceID), db.GetParameter("organizationID", organizationID), db.GetParameter("levelSerial", levelSerial), db.GetParameter("descriptionAR", descriptionAR), db.GetParameter("descriptionEN", descriptionEN), db.GetParameter("parentID", parentID), db.GetParameter("hasChild", hasChild), db.GetParameter("levelOrder", levelOrder), db.GetParameter("isDefault", isDefault), db.GetParameter("accountID", accountID), db.GetParameter("price", price), db.GetParameter("minPrice", minPrice), db.GetParameter("isSuspended", isSuspended), db.GetParameter("modifiedSID", modifiedSID), db.GetParameter("rowStamp", rowStamp) });
         }
