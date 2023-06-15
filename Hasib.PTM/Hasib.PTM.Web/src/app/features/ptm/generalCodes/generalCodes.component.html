@@ -36,6 +36,5 @@
 
 
 <h-attachments #attachments
-               [(isReadOnlyMode)]="codesDT.currentMode == 'read' ? true : false"
                [(hidden)]="hideAttachment"
                [loadParams]="{ headerID : codeID ? codeID: '', businessType:businessType }"></h-attachments>
