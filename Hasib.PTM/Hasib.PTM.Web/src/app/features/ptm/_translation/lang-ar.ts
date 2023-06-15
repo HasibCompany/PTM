@@ -1,7 +1,6 @@
 export const LANG_AR_NAME = 'ar';
 export const LANG_AR_TRANS =
 {
-  "PTM_MAIN_CODE": "نوع الرمز",
   "PTM_CODE": "الرمز",
   "PTM_IS_ACTIVE": "فعال",
   "PTM_UNIFIED_CODE": "الرمز الموحد",
@@ -239,7 +238,12 @@ export const LANG_AR_TRANS =
   "PTM_LOWEST_PRICE_SERVICE": "أقل سعر للخدمة",
   "PTM_SUSPENDED": "موقوف التعامل معها",
   "PTM_ONLY_ONE_SERVICE_IS_ALLOWED": "يسمح بوجود خدمة افتراضية واحدة ضمن رموز الخدمات المعرفة",
-  "PTM_IS_NOT_ALLOWED_EXCEED_NUMBER_OF_SERVICE_LEVELS_IN_SETTINGS": "لا يسمح بتجاوز عدد مستويات تعريف الخدمة المحدد في الاعدادات العامة لنظام المشتريات", 
-
+  "PTM_IS_NOT_ALLOWED_EXCEED_NUMBER_OF_SERVICE_LEVELS_IN_SETTINGS": "لا يسمح بتجاوز عدد مستويات تعريف الخدمة المحدد في الاعدادات العامة لنظام المشتريات",
+  "PTM_DURATION_TYPE": "نوع المدة",
+  "PTM_DURATION": "المدة",
+  "PTM_DURATION_OF_THE_AGREEMENT": "مدة الاتفاقية",
+  "PTM_ATTACHED": "مرفق",
+  "PTM_LINK": "رابط",
+  "PTM_APPENDIX": "ملحق", 
 
 }
