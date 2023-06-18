@@ -78,6 +78,7 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.serviceNode.hasChild = true;
         this.serviceNode.accountID = null;
         this.serviceNode.accountName = "";
+        this.accountIDs = [];
         this.serviceNode.price = null;
         this.serviceNode.minPrice = null;
         this.serviceNode.isDefault = false;
@@ -88,8 +89,17 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.serviceNode.parentID = null;
         this.serviceNode.descriptionAR = "";
         this.serviceNode.descriptionEN = "";
+        this.serviceNode.serviceNumber = "";
         this.serviceNode.parentDescriptionAR = "";
         this.serviceNode.parentDescriptionEN = "";
+        this.serviceNode.hasChild = true;
+        this.serviceNode.accountID = null;
+        this.serviceNode.accountName = "";
+        this.accountIDs = [];
+        this.serviceNode.price = null;
+        this.serviceNode.minPrice = null;
+        this.serviceNode.isDefault = false;
+        this.serviceNode.isSuspended = false;
       }
     }
 
@@ -144,16 +154,15 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
 
     this.appToolBar.onCancel = () => {
       if (this.pageMode == PageMode.insertMode) {
-        this.pageMode = PageMode.inquiryMode;
-        this.appToolBar.loaded(false);
-      }
-      else {
-        this.pageMode = PageMode.inquiryMode;
-        this.appToolBar.loaded(true);
         this.serviceNode = Object.assign({}, {});
         this.serviceNode = this.parentServiceNode;
         this.parentServiceNode = {};
       }
+      this.pageMode = PageMode.inquiryMode;
+      this.appToolBar.loaded(true);
+      this.appToolBar.disableNew = false;
+      this.appToolBar.disableDelete = false;
+      this.appToolBar.disableEdit = false;
     }
 
     this._es.onLegalEntityChanged.pipe(takeUntil(this.componentDestroyed)).subscribe(() => {
@@ -219,7 +228,10 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.treeRef.addNode(this.serviceNode);
         this.selectedNode = { id: this.serviceNode.serviceID };
         this.selectedNodeID = this.serviceNode.serviceID;
+        this.currentServiceLevel = this.serviceNode.treeLevel + 1;
         this.appToolBar.disableNew = false;
+        this.appToolBar.disableDelete = false;
+        this.appToolBar.disableEdit = false;
       }
       else {
         this.appAlert.showError(output.message);
@@ -240,6 +252,9 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.treeRef.updateNode(this.serviceNode);
         this.selectedNode = { id: this.serviceNode.serviceID };
         this.selectedNodeID = this.serviceNode.serviceID;
+        this.appToolBar.disableNew = false;
+        this.appToolBar.disableDelete = false;
+        this.appToolBar.disableEdit = false;
       }
       else {
         this.appAlert.showError(output.message);
@@ -301,11 +316,6 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
       this.appToolBar.disableDelete = false;
       this.appToolBar.disableEdit = false;
       this.currentServiceLevel = event.node.data.treeLevel;
-
-      if (this.currentServiceLevel == this.maxServiceLevels)
-        this.appToolBar.disableNew = true;
-      else
-        this.appToolBar.disableNew = false;
     }
   }
 

@@ -76,6 +76,7 @@
                       (onClear)="onClearAccount()"
                       (onChange)="onSelectAccount($event)"
                       [disabled]="pageMode==0"
+                      [required]="isLinkedFGL"
                       name="lkpAccounts">
             </h-lookup>
           </div>
@@ -101,7 +102,7 @@
             <h-label>
               {{'PTM_DEFAULT_SERVICE' | translate}}
             </h-label><br />
-            <h-checkBox name="isDefault" [(checked)]="serviceNode.isDefault"></h-checkBox>
+            <h-checkBox name="isDefault" [(checked)]="serviceNode.isDefault" [disabled]="pageMode==0"></h-checkBox>
           </div>
           <div class="col-lg-5">
             <h-label>
