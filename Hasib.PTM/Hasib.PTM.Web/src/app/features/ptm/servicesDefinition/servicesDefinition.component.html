@@ -56,7 +56,7 @@
                       onText="SHD_YES"
                       offText="SHD_NO"
                       [(checked)]="serviceNode.hasChild"
-                      [disabled]="pageMode==0"></h-switch>
+                      [disabled]="pageMode==0 || maxServiceLevels == serviceNode.treeLevel"></h-switch>
           </div>
         </div>
 

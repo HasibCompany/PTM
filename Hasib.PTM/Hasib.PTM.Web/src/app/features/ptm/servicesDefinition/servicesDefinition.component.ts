@@ -75,7 +75,8 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.serviceNode.serviceNumber = "";
         this.serviceNode.parentDescriptionAR = this.parentServiceNode.descriptionAR;
         this.serviceNode.parentDescriptionEN = this.parentServiceNode.descriptionEN;
-        this.serviceNode.hasChild = true;
+        this.serviceNode.treeLevel = this.parentServiceNode.treeLevel + 1;
+        this.serviceNode.hasChild = this.maxServiceLevels == this.serviceNode.treeLevel ? false : true;
         this.serviceNode.accountID = null;
         this.serviceNode.accountName = "";
         this.accountIDs = [];
@@ -92,7 +93,8 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.serviceNode.serviceNumber = "";
         this.serviceNode.parentDescriptionAR = "";
         this.serviceNode.parentDescriptionEN = "";
-        this.serviceNode.hasChild = true;
+        this.serviceNode.treeLevel = 1;
+        this.serviceNode.hasChild = this.maxServiceLevels == this.serviceNode.treeLevel ? false : true;
         this.serviceNode.accountID = null;
         this.serviceNode.accountName = "";
         this.accountIDs = [];
@@ -228,7 +230,7 @@ export class ServicesDefinitionComponent extends Base implements OnInit {
         this.treeRef.addNode(this.serviceNode);
         this.selectedNode = { id: this.serviceNode.serviceID };
         this.selectedNodeID = this.serviceNode.serviceID;
-        this.currentServiceLevel = this.serviceNode.treeLevel + 1;
+        this.currentServiceLevel = this.serviceNode.treeLevel;
         this.appToolBar.disableNew = false;
         this.appToolBar.disableDelete = false;
         this.appToolBar.disableEdit = false;
