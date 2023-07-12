@@ -244,6 +244,13 @@ export const LANG_AR_TRANS =
   "PTM_DURATION_OF_THE_AGREEMENT": "مدة الاتفاقية",
   "PTM_ATTACHED": "مرفق",
   "PTM_LINK": "رابط",
-  "PTM_APPENDIX": "ملحق", 
+  "PTM_APPENDIX": "ملحق",
+  "PTM_SELECT_USERS": "تحديد المستخدمين",
+  "PTM_SELECT_REPRESENTATIVES": "تحديد المندوبين",
+  "PTM_VENDOR": "المورد",
+  "PTM_FINANCIAL_SETTINGS": "الإعدادات مالية",
+  "PTM_AMOUNT_FROM": "المبلغ من",
+  "PTM_AMOUNT_TO": "المبلغ إلى",
+  "PTM_MAIN_CODE": "نوع الرمز", 
 
 }

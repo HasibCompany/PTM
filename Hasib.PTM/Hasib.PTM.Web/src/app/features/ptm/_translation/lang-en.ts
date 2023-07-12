@@ -245,6 +245,12 @@ export const LANG_EN_TRANS =
   "PTM_DURATION_OF_THE_AGREEMENT": "Duration of the Agreement",
   "PTM_ATTACHED": "Attached",
   "PTM_LINK": "Link",
-  "PTM_APPENDIX": "Appendix", 
+  "PTM_APPENDIX": "Appendix",
+  "PTM_SELECT_USERS": "Select Users",
+  "PTM_SELECT_REPRESENTATIVES": "Select Representatives",
+  "PTM_VENDOR": "Vendor",
+  "PTM_FINANCIAL_SETTINGS": "Financial Settings",
+  "PTM_AMOUNT_FROM": "Amount From",
+  "PTM_AMOUNT_TO": "Amount To",
 
 }

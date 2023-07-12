@@ -40,7 +40,7 @@ export class GeneralCodesComponent extends Base implements OnInit {
     { field: 'descriptionAR', header: 'SHD_DESC_AR', controlType: 'textBox', dataType: 'arabicText', required: true, unique: true },
     { field: 'descriptionEN', header: 'SHD_DESC_EN', controlType: 'textBox', dataType: 'englishText', required: true, unique: true },
     {
-      field: 'isActive', header: 'SHD_IS_ACTIVE', controlType: 'switch',
+      field: 'isActive', header: 'SHD_IS_ACTIVE', controlType: 'switch', offText: 'SHD_NO', onText: 'SHD_YES',
       renderText: (event) => {
         if (event.data === false)
           return this.t.instant('SHD_NO');
@@ -51,7 +51,7 @@ export class GeneralCodesComponent extends Base implements OnInit {
       }
     },
     {
-      field: 'isDefault', header: 'SHD_DEFAULT', controlType: 'switch',
+      field: 'isDefault', header: 'SHD_DEFAULT', controlType: 'switch', offText: 'SHD_NO', onText: 'SHD_YES',
       renderText: (event) => {
         if (event.data === false)
           return this.t.instant('SHD_NO');
@@ -62,7 +62,7 @@ export class GeneralCodesComponent extends Base implements OnInit {
       }
     },
     {
-      field: 'isReserved', header: 'SHD_IS_RESERVED', controlType: 'switch',
+      field: 'isReserved', header: 'SHD_IS_RESERVED', controlType: 'switch', offText: 'SHD_NO', onText: 'SHD_YES',
       renderText: (event) => {
         if (event.data === true)
           return 'SHD_YES';

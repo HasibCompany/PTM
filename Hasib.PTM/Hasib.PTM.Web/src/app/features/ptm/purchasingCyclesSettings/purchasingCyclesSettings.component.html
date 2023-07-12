@@ -1,10 +1,12 @@
 <div class="m-content h-dataPage">
-  
+
   <div class="col-12">
     <h-dataTable [(data)]="purchasingCyclesData" #purchasingCyclesDT
                  [columns]="columns"
                  [editable]="true"
                  [showAdd]="true"
+                 (onSaveAddRow)="onSaveAddRow($event)"
+                 (onSaveEditRow)="onSaveEditRow($event)"
                  [showCompositeHeader]="true"
                  name="tblgeneralCodes">
     </h-dataTable>
@@ -13,7 +15,7 @@
 
 
 
-<h-dialog  [(hidden)]="purchaseCycle" width="70">
+<h-dialog [(hidden)]="purchaseCycle" width="70">
   <header> {{'PTM_PURCHASING_CYCLES_SETTINGS'|translate}}</header>
   <div class="col-12">
     <div class="row">
@@ -21,9 +23,9 @@
       <div class="col-lg-6">
         <h6> {{ 'PTM_PURCHASE_ORDERS' | translate  }} </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
-                         { id:'O' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
-                         { id:'W' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
+                         { id:'CS001' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
+                         { id:'CS002' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
+                         { id:'CS003' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -36,9 +38,9 @@
           {{'PTM_PURCHASE_TRANSACTIONS' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'تسجيل معاملة شراء',nameEn:'Purchase Record'},
-                         { id:'O' , nameAr:'تحديد اللجان المسؤولة عن معاملة الشراء',nameEn:'Determine Committees Responsible of Purchase Record'},
-                         { id:'W' , nameAr:'تحديد الجهات المستفيدة من معاملة الشراء',nameEn:'Determine Beneficiaries of Purchase Record'}]"
+                         { id:'CS004' , nameAr:'تسجيل معاملة شراء',nameEn:'Purchase Record'},
+                         { id:'CS005' , nameAr:'تحديد اللجان المسؤولة عن معاملة الشراء',nameEn:'Determine Committees Responsible of Purchase Record'},
+                         { id:'CS006' , nameAr:'تحديد الجهات المستفيدة من معاملة الشراء',nameEn:'Determine Beneficiaries of Purchase Record'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -56,8 +58,8 @@
           {{'PTM_REQUEST_QUOTES' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
-                         { id:'O' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
+                         { id:'CS007' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
+                         { id:'CS008' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -69,15 +71,16 @@
         <h6>
           {{'PTM_ENTER_PRICE_QUOTES' | translate }}
         </h6>
-        <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'إدخال عروض الأسعار',nameEn:'Enter Price Quotes'},
-                         { id:'O' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
-                         { id:'W' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
-                        { id:'M' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
-                         { id:'O' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
-                         { id:'W' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
-                          { id:'O' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
-                         { id:'W' , nameAr:'الحد الأدني للعروض',nameEn:'Minimum Number of Quotations'}]"
+        <h-checkBoxList [data]="
+                        [
+                         { id:'CS009' , nameAr:'إدخال عروض الأسعار',nameEn:'Enter Price Quotes'},
+                         { id:'CS0010' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
+                         { id:'CS0011' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
+                         { id:'CS0012' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
+                         { id:'CS0013' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
+                         { id:'CS0014' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
+                         { id:'CS0015' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
+                         { id:'CS0016' , nameAr:'الحد الأدنى للعروض',nameEn:'Minimum Number of Quotations'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -94,12 +97,12 @@
           {{'PTM_FINANCIAL_TRANSACTIONS' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
-                         { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
-                        { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
-                        { id:'O' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
-                        { id:'O' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
-                        { id:'O' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
+                        { id:'CS0024' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
+                        { id:'CS0025' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
+                        { id:'CS0026' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
+                        { id:'CS0027' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
+                        { id:'CS0028' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
+                        { id:'CS0029' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -112,13 +115,16 @@
           {{'اتمام دورة الشراء بعد اصدار التعميد' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
-                         { id:'O' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
-                         { id:'W' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
-                        { id:'M' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
-                         { id:'O' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
-                         { id:'W' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
-                          { id:'O' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},]"
+                         { id:'CS0030' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
+                         { id:'CS0031' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
+                         { id:'CS0032' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
+                         { id:'CS0033' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
+                         { id:'CS0034' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
+                         { id:'CS0035' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
+                         { id:'CS0036' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},
+                         { id:'CS0037' , nameAr:'السماح بطلبات التغيير',nameEn:'Allow Change Requests'},
+
+                        ]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -140,9 +146,9 @@
       <div class="col-lg-6">
         <h6> {{ 'PTM_PURCHASE_ORDERS' | translate  }} </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
-                         { id:'O' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
-                         { id:'W' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
+                         { id:'CS001' , nameAr:'طلب شراء',nameEn:'Purchase Request'},
+                         { id:'CS002' , nameAr:'إحالة طلب الشراء الى المستودعات',nameEn:'Refer the Purchase Request to Stores'},
+                         { id:'CS003' , nameAr:'إحالة طلب الشراء للجهات المختصة',nameEn:'Refer the Purchase Request to Competent Authorities'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -155,9 +161,9 @@
           {{'PTM_TENDERS_RECORD' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:' تسجيل منافسة',nameEn:'Entering Tender'},
-                         { id:'O' , nameAr:'تحديد اللجان المسؤولة عن المنافسة',nameEn:'Tender Record'},
-                         { id:'W' , nameAr:'تحديد الجهات المستفيدة من المنافسة',nameEn:'Determine Committees Responsible of Tender'}]"
+                         { id:'CS0038' , nameAr:' تسجيل منافسة',nameEn:'Entering Tender'},
+                         { id:'CS0039' , nameAr:'تحديد اللجان المسؤولة عن المنافسة',nameEn:'Tender Record'},
+                         { id:'CS0040' , nameAr:'تحديد الجهات المستفيدة من المنافسة',nameEn:'Determine Committees Responsible of Tender'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -175,8 +181,8 @@
           {{'PTM_REQUEST_QUOTES' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
-                         { id:'O' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
+                          { id:'CS007' , nameAr:'طلب عروض أسعار',nameEn:'Request for Price Quotes'},
+                         { id:'CS008' , nameAr:'السماح بتغيير مواصفات طلب عروض أسعار',nameEn:'Allow Changing Requests for Quotations'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -189,14 +195,14 @@
           {{'PTM_ENTER_PRICE_QUOTES' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'إدخال عروض الأسعار',nameEn:'Enter Price Quotes'},
-                         { id:'O' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
-                         { id:'W' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
-                        { id:'M' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
-                         { id:'O' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
-                         { id:'W' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
-                          { id:'O' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
-                         { id:'W' , nameAr:'الحد الأدني للعروض',nameEn:'Minimum Number of Quotations'}]"
+                         { id:'CS017' , nameAr:'استلام العروض ',nameEn:'Enter Price Quotes'},
+                         { id:'CS018' , nameAr:'محضر فتح العروض',nameEn:'Opening Quotations'},
+                         { id:'CS019' , nameAr:'إحالة عروض الأسعار',nameEn:'Refer Quotations'},
+                         { id:'CS020' , nameAr:'فحص واختيار العروض',nameEn:'Examine and Select Offers'},
+                         { id:'CS021' , nameAr:'اعداد المحضر الفني',nameEn:'Preparation of Technical Report'},
+                         { id:'CS022' , nameAr:'محضر الشراء المباشر',nameEn:'Direct Purchase Report'},
+                         { id:'CS023' , nameAr:'السماح بتجديد عروض الأسعار',nameEn:'Allow of Renewal Quotations'},
+                         { id:'CS024' , nameAr:'الحد الأدنى للعروض',nameEn:'Minimum Number of Quotations'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -213,12 +219,12 @@
           {{'PTM_FINANCIAL_TRANSACTIONS' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
-                         { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
-                        { id:'O' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
-                        { id:'O' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
-                        { id:'O' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
-                        { id:'O' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
+                        { id:'CS0024' , nameAr:'خطاب الضمان البنكي',nameEn:'Bank Guarantee Letter'},
+                        { id:'CS0025' , nameAr:'طلب حجز مبلغ (ارتباط) للترسية/للتعميد',nameEn:'Request A Reservation Amount for Ordination'},
+                        { id:'CS0026' , nameAr:'طلب حجز مبلغ (ارتباط) لامر التغيير',nameEn:'Request A Reservation Amount for Change Order'},
+                        { id:'CS0027' , nameAr:' اعداد استمارة أمر الصرف قسم (أ)',nameEn:'Prepare Payment Order Section (A)'},
+                        { id:'CS0028' , nameAr:'تسجيل العقود',nameEn:'Purchase Expenses Entry'},
+                        { id:'CS0029' , nameAr:'ادخال مصاريف الشراء',nameEn:'Contract Entry'}]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -231,13 +237,14 @@
           {{'اتمام دورة الشراء بعد اصدار التعميد' | translate }}
         </h6>
         <h-checkBoxList [data]="[
-                         { id:'M' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
-                         { id:'O' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
-                         { id:'W' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
-                        { id:'M' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
-                         { id:'O' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
-                         { id:'W' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
-                          { id:'O' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},]"
+                         { id:'CS0030' , nameAr:'أمر شراء (تعميد)',nameEn:'Purchase Order (PO)'},
+                         { id:'CS0031' , nameAr:'خطاب الترسية (التعميد)',nameEn:'Award Letter (PO)'},
+                         { id:'CS0032' , nameAr:'استلام مؤقت',nameEn:'Temporary Receipt'},
+                         { id:'CS0033' , nameAr:'محضر استلام',nameEn:'Receipt Record'},
+                         { id:'CS0034' , nameAr:'مذكرة استلام',nameEn:'Receipt Document'},
+                         { id:'CS0035' , nameAr:'سند استلام',nameEn:'Stock Receipt Voucher'},
+                         { id:'CS0036' , nameAr:'فاتورة مشتريات',nameEn:'Stock Receipt Voucher'},
+                         { id:'CS0037' , nameAr:'السماح بطلبات التغيير',nameEn:'Allow Change Requests'},]"
                         dataTextFieldAr="nameAr"
                         dataTextFieldEn="nameEn"
                         dataValueField="id"
@@ -255,44 +262,56 @@
 
   <div class="row">
     <div class="col-lg-4">
-      <h-labelr> {{ 'PTM_PERMISSIONS_FOR' | translate }}</h-labelr>
+      <h-label> {{ 'PTM_PERMISSIONS_FOR' | translate }}</h-label>
 
       <h-radioButtonList [data]="[
-                         { id:'1' , nameAr:' مجموعة مستخدمين',nameEn:'User group'},
-                         { id:'0' , nameAr:' مستخدمين محددين',nameEn:'Specific users'}]"
+                         { id:'CPF01' , nameAr:' مجموعة مستخدمين',nameEn:'User group'},
+                         { id:'CPF02' , nameAr:' مستخدمين محددين',nameEn:'Specific users'}]"
                          dataTextFieldAr="nameAr"
                          dataTextFieldEn="nameEn"
                          dataValueField="id"
                          repeatDirection="h"
+                         [(selectedValue)]="allowedUsersObj.permitFor"
                          [required]="true"></h-radioButtonList>
     </div>
   </div>
-
-  <div class="row">
+  <div class="col-lg-4" [hidden]="allowedUsersObj.permitFor !='CPF01'">
+    <div class="">
+      <h-label> {{ 'SHD_GROUP' | translate }}</h-label>
+      <h-lookup lookupType="Group"
+                (onChange)="onSelectLookup($event)"
+                (onClear)="onClearLookup()"
+                [(selectedIDs)]="allowedUsersObj.userGroupIDs"
+                [required]="allowedUsersObj.permitFor =='CPF01'"
+                name="lkpGroup">
+      </h-lookup>
+    </div>
+  </div>
+  <div class="row" [hidden]="allowedUsersObj.permitFor !='CPF01'">
     <div class="col-lg-4">
       <h-label>{{ 'PTM_AMOUNT_FROM' | translate }}</h-label>
-      <h-spinner></h-spinner>
+      <h-spinner [(value)]="allowedUsersObj.fromAmount"></h-spinner>
     </div>
     <div class="col-lg-4">
       <h-label>{{ 'PTM_AMOUNT_TO' | translate }}</h-label>
-      <h-spinner></h-spinner>
+      <h-spinner [(value)]="allowedUsersObj.toAmount"></h-spinner>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" [hidden]="allowedUsersObj.permitFor !='CPF01'">
     <div class="col-lg-4">
       <h-label>{{ 'PTM_VALIDITY_PERIOD_FROM' | translate }}</h-label>
-      <h-spinner></h-spinner>
+      <h-calendar [(value)]="allowedUsersObj.fromDate"></h-calendar>
     </div>
     <div class="col-lg-4">
       <h-label>{{ 'PTM_VALIDITY_PERIOD_TO' | translate }}</h-label>
-      <h-spinner></h-spinner>
+      <h-calendar [(value)]="allowedUsersObj.toDate"></h-calendar>
     </div>
   </div>
 
 
-  <div class="col-12">
-    <h-dataTable [(data)]="usersData" #usersDT
+  <div class="col-12" [hidden]="allowedUsersObj.permitFor !='CPF02'">
+    <h-dataTable [(data)]="allowedUsersObj.allowedUsers" #usersDT
                  [columns]="usersColumns"
                  [editable]="true"
                  [showAdd]="true"
@@ -306,7 +325,7 @@
 <h-dialog [(hidden)]="purchaseRepresentativeDlg">
   <header> {{ 'PTM_PURCHASING_REPRESENTATAIVE_ALLOWED_HANDLE_PURCHASING_CYCLE' | translate }}</header>
   <div class="col-12">
-    <h-dataTable [(data)]="purchaseData" #purchaseDT
+    <h-dataTable [(data)]="allowedRepresentativesData" #purchaseDT
                  [columns]="purchaseColumns"
                  [editable]="true"
                  [showAdd]="true"
